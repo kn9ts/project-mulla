@@ -6,20 +6,44 @@ import (
 	"net/http"
 )
 
-func mai2() {
-
+func main() {
 	// Echo instance
-	e := echo.New()
+	Echo := echo.New()
+	Echo.SetDebug(true)
 
 	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	Echo.Use(middleware.Logger())
+	Echo.Use(middleware.Recover())
 
-	e.Get("/", func(c *echo.Context) error {
-		soap := NewEnvelope()
-		return c.String(http.StatusOK, soap.ProcessCheckoutRequest())
+	createRequest := Echo.Group("/v1/api")
+	createRequest.Get("/checkout", func(context *echo.Context) error {
+		soapEnvelope := NewEnvelope()
+		context.Response().Header().Set(echo.ContentType, echo.ApplicationXML)
+		context.Response().WriteHeader(http.StatusOK)
+		context.Response().Write(soapEnvelope.processCheckoutRequest())
+		return nil
+	})
+
+	createRequest.Get("/transaction/verify", func(context *echo.Context) error {
+		soapEnvelope := NewEnvelope()
+		context.Response().Header().Set(echo.ContentType, echo.ApplicationXML)
+		context.Response().WriteHeader(http.StatusOK)
+		context.Response().Write(soapEnvelope.transactionConfirmRequest(false))
+		return nil
+	})
+
+	createRequest.Get("/transaction/status", func(context *echo.Context) error {
+		soapEnvelope := NewEnvelope()
+		context.Response().Header().Set(echo.ContentType, echo.ApplicationXML)
+		context.Response().WriteHeader(http.StatusOK)
+		context.Response().Write(soapEnvelope.transactionStatusRequest())
+		return nil
+	})
+
+	createRequest.Get("/status", func(context *echo.Context) error {
+		return context.String(200, "Hello world")
 	})
 
 	// Start server
-	e.Run(":1323")
+	Echo.Run(":1300")
 }
