@@ -1,0 +1,22 @@
+{
+  "name": "project-mulla",
+  "version": "0.1.1",
+  "description": "Safaricom Mpesa SOAP API transpiler to REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kn9ts/project-mulla.git"
+  },
+  "author": "Eugene Mutai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kn9ts/project-mulla/issues"
+  },
+  "homepage": "https://github.com/kn9ts/project-mulla#readme",
+  "dependencies": {
+    "loopback-connector-soap": "^2.4.0"
+  }
+}
