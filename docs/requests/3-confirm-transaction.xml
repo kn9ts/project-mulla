@@ -1,0 +1,16 @@
+<soapenv:Header>
+    <tns:CheckOutHeader>
+        <MERCHANT_ID>898945</MERCHANT_ID>
+        <PASSWORD>MmRmNTliMjIzNjJhNmI5ODVhZGU5OTAxYWQ4NDJkZmI2MWE4ODg1ODFhMTQ3ZmZmNTFjMjg4M2UyYWQ5NTU3Yw==</PASSWORD>
+        <TIMESTAMP>20141128174717</TIMESTAMP>
+    </tns:CheckOutHeader>
+</soapenv:Header>
+<soapenv:Body>
+    <tns:transactionConfirmRequest>
+        <!--Optional:-->
+        <TRX_ID>?</TRX_ID>
+        <!--Optional:-->
+        <MERCHANT_TRANSACTION_ID>911-000</MERCHANT_TRANSACTION_ID>
+    </tns:transactionConfirmRequest>
+</soapenv:Body>
+</soapenv:Envelope>

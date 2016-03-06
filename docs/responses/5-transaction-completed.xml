@@ -1,0 +1,16 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="tns:ns">
+    <SOAP-ENV:Body>
+        <ns1:ResultMsg>
+            <MSISDN ns1:type="xsd:string">254720471865</MSISDN>
+            <AMOUNT ns1:type="xsd:string">54.0</AMOUNT>
+            <M-PESA_TRX_DATE ns1:type="xsd:string">2014-12-01 16:24:06</M-PESA_TRX_DATE>
+            <M-PESA_TRX_ID ns1:type="xsd:string">null</M-PESA_TRX_ID>
+            <TRX_STATUS ns1:type="xsd:string">Success</TRX_STATUS>
+            <RETURN_CODE ns1:type="xsd:string">00</RETURN_CODE>
+            <DESCRIPTION ns1:type="xsd:string">Success</DESCRIPTION>
+            <MERCHANT_TRANSACTION_ID ns1:type="xsd:string">911-000</MERCHANT_TRANSACTION_ID>
+            <ENC_PARAMS ns1:type="xsd:string"></ENC_PARAMS>
+            <TRX_ID ns1:type="xsd:string">cce3d32e0159c1e62a9ec45b67676200</TRX_ID>
+        </ns1:ResultMsg>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
