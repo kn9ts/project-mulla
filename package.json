@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/kn9ts/project-mulla#readme",
   "dependencies": {
-    "loopback-connector-soap": "^2.4.0"
+    "loopback": "^2.27.0",
+    "loopback-component-explorer": "^2.4.0",
+    "loopback-connector-soap": "^2.4.0",
+    "loopback-datasource-juggler": "^2.45.2"
   }
 }
