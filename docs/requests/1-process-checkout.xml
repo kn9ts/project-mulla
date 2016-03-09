@@ -2,6 +2,7 @@
     <soapenv:Header>
         <tns:CheckOutHeader>
             <MERCHANT_ID>898945</MERCHANT_ID>
+            <!-- $PASSWORD  = base64_encode(CAPITALISE(hash("sha256", $MERCHANT_ID + $passkey + $TIMESTAMP))); -->
             <PASSWORD>MmRmNTliMjIzNjJhNmI5ODVhZGU5OTAxYWQ4NDJkZmI2MWE4ODg1ODFhMTQ3ZmZmNTFjMjg4M2UyYWQ5NTU3Yw==</PASSWORD>
             <TIMESTAMP>20141128174717</TIMESTAMP>
         </tns:CheckOutHeader>
