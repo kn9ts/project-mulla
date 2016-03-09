@@ -1,5 +1,31 @@
 # Created by https://www.gitignore.io/api/node,laravel,bower,justcode,linux,osx,jetbrains,sublimetext,vim,xcode
 
+## My additions
+.tmp
+.idea
+node_modules
+public
+dist
+./server/config/local.env.js
+npm-debug.log
+
+### Added by loopback framework
+*.csv
+*.dat
+*.iml
+*.log
+*.out
+*.pid
+*.seed
+*.sublime-*
+*.swo
+*.swp
+*.tgz
+*.xml
+.project
+.strong-pm
+coverage
+
 ### Node ###
 # Logs
 logs
@@ -202,4 +228,3 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-

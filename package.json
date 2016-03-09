@@ -2,9 +2,11 @@
   "name": "project-mulla",
   "version": "0.1.1",
   "description": "Safaricom Mpesa SOAP API transpiler to REST API",
-  "main": "index.js",
+  "main": "server/server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "pretest": "jshint ./server",
+    "posttest": "nsp check"
   },
   "repository": {
     "type": "git",
@@ -17,9 +19,18 @@
   },
   "homepage": "https://github.com/kn9ts/project-mulla#readme",
   "dependencies": {
+    "compression": "^1.0.3",
+    "cors": "^2.7.1",
+    "helmet": "^0.14.0",
     "loopback": "^2.27.0",
+    "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^2.4.0",
     "loopback-connector-soap": "^2.4.0",
-    "loopback-datasource-juggler": "^2.45.2"
+    "loopback-datasource-juggler": "^2.45.0",
+    "serve-favicon": "^2.0.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.6",
+    "nsp": "^2.1.0"
   }
 }
