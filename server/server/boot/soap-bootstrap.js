@@ -8,7 +8,7 @@ module.exports = function(app, callback) {
   var ds = loopback.createDataSource('soap', {
     connector: require('loopback-connector-soap'),
     remotingEnabled: true,
-    // wsdl: 'http://wsf.cdyne.com/WeatherWS/Weather.asmx?WSDL' // The url to WSDL
+    url: 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl',
     wsdl: path.join(__dirname, '../../../Checkout.wsdl'),
     soapHeaders: [{
       element: {
@@ -49,7 +49,7 @@ module.exports = function(app, callback) {
         .replace('<?xml version="1.0" encoding="utf-8"?>', '')
         .replace('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"', '');
 
-      console.log('REQUEST BODY:\n\n', ctx.req.body);
+      console.log('================ REQUEST: ===================\n\n', ctx.req);
       next();
 
     });
@@ -75,7 +75,7 @@ module.exports = function(app, callback) {
     // Refine the methods
     mPesa.checkout = function(MerchantID, password, cb) {
       mPesa.processCheckOut(checkoutInfo, function(err, response) {
-        console.log('Response: %j', response);
+        console.log('\n================ Response: ================\n\n %j', response);
         cb(err, result);
       });
 
