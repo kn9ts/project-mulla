@@ -76,7 +76,7 @@ module.exports = function(app, callback) {
     mPesa.checkout = function(MerchantID, password, cb) {
       mPesa.processCheckOut(checkoutInfo, function(err, response) {
         console.log('\n================ Response: ================\n\n %j', response);
-        cb(err, result);
+        cb(err, response ? response : { response: null });
       });
 
       // TODO: Move to it's own method
@@ -108,7 +108,6 @@ module.exports = function(app, callback) {
     loopback.remoteMethod(mPesa.checkout, {
       accepts: [MerchantID, password],
       returns: {
-        arg: 'result',
         type: 'object',
         root: true
       },
