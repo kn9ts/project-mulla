@@ -34,7 +34,9 @@ module.exports = function(app, callback) {
   // This is a hack to wait for the methods to be injected
   ds.once('connected', function() {
 
-    // Set up a before-execute hook to dump out the request object
+    // Set up a before-execute
+    // This way we get to clean the SOAP/XML POST body before being
+    // posted to the SAG
     ds.connector.observe('before execute', function(ctx, next) {
 
       ctx.req.body = ctx.req.body
@@ -72,15 +74,16 @@ module.exports = function(app, callback) {
 
     // Refine the methods
     mPesa.checkout = function(MerchantID, password, cb) {
-      // mPesa.processCheckOut(checkoutInfo, function(err, response) {
-      //   console.log('Response: %j', response);
-      //   cb(err, result);
-      // });
-
-      mPesa.confirmTransaction(confirmTransaction, function(err, response) {
+      mPesa.processCheckOut(checkoutInfo, function(err, response) {
         console.log('Response: %j', response);
         cb(err, result);
       });
+
+      // TODO: Move to it's own method
+      // mPesa.confirmTransaction(confirmTransaction, function(err, response) {
+      //   console.log('Response: %j', response);
+      //   cb(err, result);
+      // });
     };
 
     var MerchantID = {
