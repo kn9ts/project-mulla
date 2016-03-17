@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:s="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:tns="tns:ns"
+    targetNamespace="tns:ns">
+    <wsdl:types>
+        <s:schema targetNamespace="tns:ns">
+            <s:element name="CheckOutHeader">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="MERCHANT_ID" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="PASSWORD" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="TIMESTAMP" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="processCheckOutRequest">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="MERCHANT_TRANSACTION_ID" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="REFERENCE_ID" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
+                        <s:element minOccurs="1" maxOccurs="1" name="MSISDN" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="ENC_PARAMS" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="CALL_BACK_URL" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="CALL_BACK_METHOD" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TIMESTAMP" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="transactionStatusRequest">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="TRX_ID" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="MERCHANT_TRANSACTION_ID" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="processCheckOutResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" name="RETURN_CODE" type="s:string" />
+                        <s:element minOccurs="1" name="DESCRIPTION" type="s:string" />
+                        <s:element minOccurs="1" name="TRX_ID" type="s:string" />
+                        <s:element minOccurs="1" name="ENC_PARAMS" type="s:string" />
+                        <s:element minOccurs="1" name="CUST_MSG" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="transactionStatusResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" name="MSISDN" type="s:string" />
+                        <s:element minOccurs="1" name="AMOUNT" type="s:string" />
+                        <s:element minOccurs="1" name="MPESA_TRX_DATE" type="s:string" />
+                        <s:element minOccurs="1" name="MPESA_TRX_ID" type="s:string" />
+                        <s:element minOccurs="1" name="TRX_STATUS" type="s:string" />
+                        <s:element minOccurs="1" name="RETURN_CODE" type="s:string" />
+                        <s:element minOccurs="1" name="DESCRIPTION" type="s:string" />
+                        <s:element minOccurs="1" name="MERCHANT_TRANSACTION_ID" type="s:string" />
+                        <s:element minOccurs="1" name="ENC_PARAMS" type="s:string" />
+                        <s:element minOccurs="1" name="TRX_ID" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="transactionConfirmRequest">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="TRX_ID" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="MERCHANT_TRANSACTION_ID" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="transactionConfirmResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" name="RETURN_CODE" type="s:string" />
+                        <s:element minOccurs="1" name="DESCRIPTION" type="s:string" />
+                        <s:element minOccurs="1" name="MERCHANT_TRANSACTION_ID" type="s:string" />
+                        <s:element minOccurs="1" name="TRX_ID" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ResultMsg">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" name="MSISDN" type="s:string" />
+                        <s:element minOccurs="1" name="AMOUNT" type="s:string" />
+                        <s:element minOccurs="1" name="MPESA_TRX_DATE" type="s:string" />
+                        <s:element minOccurs="1" name="MPESA_TRX_ID" type="s:string" />
+                        <s:element minOccurs="1" name="TRX_STATUS" type="s:string" />
+                        <s:element minOccurs="1" name="RETURN_CODE" type="s:string" />
+                        <s:element minOccurs="1" name="DESCRIPTION" type="s:string" />
+                        <s:element minOccurs="1" name="MERCHANT_TRANSACTION_ID" type="s:string" />
+                        <s:element minOccurs="1" name="ENC_PARAMS" type="s:string" />
+                        <s:element minOccurs="1" name="TRX_ID" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ResponseMsg" type="s:string" />
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="mpesaCheckOutRequest">
+        <wsdl:part name="body" element="tns:processCheckOutRequest" />
+    </wsdl:message>
+    <wsdl:message name="mpesaCheckOutHeader">
+        <wsdl:part name="header" element="tns:CheckOutHeader" />
+    </wsdl:message>
+    <wsdl:message name="mpesaCheckOutResponse">
+        <wsdl:part name="parameters" element="tns:processCheckOutResponse" />
+    </wsdl:message>
+    <wsdl:message name="mpesaTransactionRequest">
+        <wsdl:part name="body" element="tns:transactionStatusRequest" />
+    </wsdl:message>
+    <wsdl:message name="mpesaTransactionResponse">
+        <wsdl:part name="parameters" element="tns:transactionStatusResponse" />
+    </wsdl:message>
+    <wsdl:message name="mpesaConfirmRequest">
+        <wsdl:part name="parameters" element="tns:transactionConfirmRequest" />
+    </wsdl:message>
+    <wsdl:message name="mpesaConfirmResponse">
+        <wsdl:part name="parameters" element="tns:transactionConfirmResponse" />
+    </wsdl:message>
+    <wsdl:message name="ResultMessage">
+        <wsdl:part name="ResultMsg" element="tns:ResultMsg">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResponseMessage">
+        <wsdl:part name="ResponseMsg" element="tns:ResponseMsg">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="LNMO_portType">
+        <wsdl:operation name="processCheckOut">
+            <wsdl:input message="tns:mpesaCheckOutRequest" />
+            <wsdl:output message="tns:mpesaCheckOutResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="transactionStatusQuery">
+            <wsdl:input message="tns:mpesaTransactionRequest" />
+            <wsdl:output message="tns:mpesaTransactionResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="confirmTransaction">
+            <wsdl:input message="tns:mpesaConfirmRequest" />
+            <wsdl:output message="tns:mpesaConfirmResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="LNMOResult">
+            <wsdl:input message="tns:ResultMessage">
+            </wsdl:input>
+            <wsdl:output message="tns:ResponseMessage">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="LNMO_binding" type="tns:LNMO_portType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="processCheckOut">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input>
+                <soap:header message="tns:mpesaCheckOutHeader" part="header" use="literal" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="transactionStatusQuery">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input>
+                <soap:header message="tns:mpesaCheckOutHeader" part="header" use="literal" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="confirmTransaction">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input>
+                <soap:header message="tns:mpesaCheckOutHeader" part="header" use="literal" />
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="LNMOResult">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="lnmo_checkout_Service">
+        <wsdl:port name="lnmo_checkout" binding="tns:LNMO_binding">
+            <soap:address location="lnmo_checkout_server.php" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
