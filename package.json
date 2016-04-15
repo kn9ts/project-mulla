@@ -3,9 +3,9 @@
   "version": "0.1.1",
   "description": "Safaricom Mpesa SOAP API transpiler to REST API",
   "private": true,
-  "main": "server/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
