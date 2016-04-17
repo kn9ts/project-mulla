@@ -13,8 +13,9 @@ var express = require('express'),
   models = require('./server/models'),
   routes = require('./server/routes');
 
-app.set('superSecret', config.webTokenSecret);
+// -- make the models available everywhere in the app --
 app.set('models', models);
+app.set('webTokenSecret', config.webTokenSecret);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -78,3 +79,4 @@ var server = app.listen(process.env.PORT || 3000, function() {
 
 //expose app
 module.exports = app;
+
