@@ -1,18 +1,24 @@
 // instantiate the database connection
 var mongoose = require('../config/database'),
   path = require('path'),
+  fs = require('fs'),
   ucFirst = require('../utils/ucfirst'),
   Schema = mongoose.Schema;
 
 // load models
-var models = [];
+// get all the models from this directory
+fs.readdirSync(__dirname)
+  .filter(function(file) {
+    return (file.indexOf('.') !== 0) && (file !== path.basename(module.filename));
+  })
+  .forEach(function(file) {
+    if (file.slice(-3) !== '.js') {
+      return;
+    }
 
-if (models.length > 0) {
-  // add them to be exported in one go
-  models.forEach(function(model) {
-    module.exports[ucFirst(model)] = require(path.join(__dirname, model))(mongoose, Schema);
+    var modelName = file.replace('.js', '');
+    module.exports[ucFirst(modelName)] = require(path.join(__dirname, modelName))(mongoose, Schema);
   });
-}
 
 // export connection
 module.exports.mongoose = mongoose;
