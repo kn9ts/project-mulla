@@ -1,9 +1,10 @@
 // instantiate the database connection
-var mongoose = require('../config/database'),
-  path = require('path'),
-  fs = require('fs'),
-  ucFirst = require('../utils/ucfirst'),
-  Schema = mongoose.Schema;
+import mongoose from '../config/database';
+import path from 'path';
+import fs from 'fs';
+import ucFirst from '../utils/ucfirst';
+
+const Schema = mongoose.Schema;
 
 // load models
 // get all the models from this directory
@@ -21,5 +22,4 @@ fs.readdirSync(__dirname)
   });
 
 // export connection
-module.exports.mongoose = mongoose;
-module.exports.Schema = Schema;
+export default {mongoose: mongoose, Schema: Schema};

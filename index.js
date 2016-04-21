@@ -1,17 +1,20 @@
-require('./environment');
+import './environment';
+import express from 'express';
+import path from 'path';
+import configSetUp from './config';
+// import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import connectMongo from 'connect-mongo';
+import models from './models';
+import routes from './routes';
 
-var express = require('express'),
-  app = express(),
-  path = require('path'),
-  config = require('./server/config')(process.env.NODE_ENV),
-  // favicon = require('serve-favicon'),
-  logger = require('morgan'),
-  cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),
-  session = require('express-session'),
-  MongoStore = require('connect-mongo')(session),
-  models = require('./server/models'),
-  routes = require('./server/routes');
+
+const app = express();
+const config = configSetUp(process.env.NODE_ENV);
+const MongoStore = connectMongo(session);
 
 // -- make the models available everywhere in the app --
 app.set('models', models);
@@ -48,7 +51,7 @@ var api = express.Router();
 app.use('/api', routes(api));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.request = req.originalUrl;
   err.status = 404;
@@ -56,10 +59,10 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-app.use(function(err, req, res) {
+app.use((err, req, res) => {
   res.status(err.status || 500);
   // get the error stack
-  var stack = err.stack.split(/\n/).map(function(err) {
+  var stack = err.stack.split(/\n/).map((err) => {
     return err.replace(/\s{2,}/g, ' ').trim();
   });
   console.log('ERROR PASSING THROUGH', err.message);
@@ -72,11 +75,10 @@ app.use(function(err, req, res) {
   });
 });
 
-var server = app.listen(process.env.PORT || 3000, function() {
+var server = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on %d, in %s' +
     ' mode', server.address().port, app.get('env'));
 });
 
 //expose app
-module.exports = app;
-
+export {app as default};

@@ -1,4 +1,4 @@
-module.exports = function(router) {
+export default function(router) {
   'use strict';
 
   /* Load up the homepage */
@@ -8,5 +8,4 @@ module.exports = function(router) {
   });
 
   return router;
-};
-
+}

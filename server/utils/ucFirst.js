@@ -1,5 +1,5 @@
 // ucFirst (typeof String): returns the String in question but changes the First Character to an Upper case
-module.exports = function(string) {
+export default function(string) {
   var word = string,
     ucFirstWord = '';
 
@@ -26,4 +26,4 @@ module.exports = function(string) {
     ucFirstWord += character;
   }
   return ucFirstWord;
-};
+}
