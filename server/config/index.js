@@ -1,5 +1,5 @@
 'use strict';
-module.exports = function(value) {
+export default function(value) {
   var envVariables = {
       host: process.env.HOST,
       database: process.env.DATABASE,
@@ -12,4 +12,4 @@ module.exports = function(value) {
       production: envVariables
     };
   return environments[value] ? environments[value] : environments.development;
-};
+}

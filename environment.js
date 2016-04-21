@@ -1,5 +1,7 @@
-var env = process.env.NODE_ENV || 'development';
-if (env === 'development') {
+import dotenv from 'dotenv';
+
+
+if ((process.env.NODE_ENV || 'development') === 'development') {
   // load the applications environment
-  require('dotenv').load();
+  dotenv.load();
 }

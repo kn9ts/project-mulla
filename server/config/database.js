@@ -1,4 +1,4 @@
-var Mongoose = require('mongoose');
+import Mongoose from 'mongoose';
 Mongoose.connect(process.env.DATABASE);
 
 // When successfully connected
@@ -24,4 +24,4 @@ process.on('SIGINT', function() {
   });
 });
 
-module.exports = Mongoose;
+export { Mongoose as default };
