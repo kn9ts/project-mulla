@@ -1,0 +1,68 @@
+{
+  "parser": "babel-eslint",
+
+  "parserOptions": {
+    "sourceType": "module"
+  },
+
+  "extends": "eslint:recommended",
+
+  "globals": {},
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jasmine": true,
+    "mocha": true
+  },
+
+  "plugins": [],
+
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "binaryLiterals": true,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "forOf": true,
+    "generators": true,
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+
+    "objectLiteralDuplicateProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "octalLiterals": true,
+    "regexUFlag": true,
+    "regexYFlag": true,
+    "spread": true,
+    "superInFunctions": true,
+    "templateStrings": true,
+    "unicodeCodePointEscapes": true,
+    "globalReturn": true,
+    "jsx": true
+  },
+
+
+  "rules": {
+    "indent": 0,
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "no-console": 0,
+    "no-case-declarations": 0,
+    "no-class-assign": 0,
+    "no-const-assign": 0,
+    "no-dupe-class-members": 0,
+    "no-empty-pattern": 0,
+    "no-new-symbol": 0,
+    "no-self-assign": 0,
+    "no-this-before-super": 0,
+    "no-unexpected-multiline": 0,
+    "no-unused-labels": 0,
+    "constructor-super": 0,
+  },
+}
+
