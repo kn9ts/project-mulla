@@ -1,4 +1,3 @@
-'use strict';
 export default function(value) {
   var envVariables = {
       host: process.env.HOST,
