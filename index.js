@@ -13,6 +13,7 @@ import routes from './routes';
 
 
 const app = express();
+const apiVersion = 1;
 const config = configSetUp(process.env.NODE_ENV);
 const MongoStore = connectMongo(session);
 
@@ -21,7 +22,7 @@ app.set('models', models);
 app.set('webTokenSecret', config.webTokenSecret);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'server/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
@@ -47,12 +48,11 @@ app.use(session({
 }));
 
 // get an instance of the router for api routes
-var api = express.Router();
-app.use('/api', routes(api));
+app.use(`/api/v${apiVersion}`, routes(express.Router()));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.request = req.originalUrl;
   err.status = 404;
   next(err);
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 app.use((err, req, res) => {
   res.status(err.status || 500);
   // get the error stack
-  var stack = err.stack.split(/\n/).map((err) => {
+  let stack = err.stack.split(/\n/).map((err) => {
     return err.replace(/\s{2,}/g, ' ').trim();
   });
   console.log('ERROR PASSING THROUGH', err.message);
