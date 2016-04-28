@@ -1,6 +1,0 @@
-Extract 1st line using this => /(\<([\w\-]+\:[\w\-]+\s)([\w\=\-\:\"\'\\\/\.]+\s?)+?\>)/gi
-
-Get the PREFIXES using this ==> /([\w\-]+\:[\w\-]+)+/gi
-They start with "xmlns:bla-bla"
-
-Modified, much specific => /((xmlns):[\w\-]+)+/gi or /(xmlns\:)([\w\-]+)/gi
