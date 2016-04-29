@@ -22,4 +22,4 @@ fs.readdirSync(__dirname)
   });
 
 // export connection
-export default {mongoose: mongoose, Schema: Schema};
+export default { mongoose, Schema };
