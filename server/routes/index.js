@@ -1,5 +1,5 @@
 import uuid from 'node-uuid';
-import cRequest from '../controllers/checkout-request.js';
+import checkoutRequest from '../controllers/checkout-request.js';
 
 export default function(router) {
   /* Load up the homepage */
@@ -9,7 +9,7 @@ export default function(router) {
   });
 
   router.get('/request/checkout', function(req, res) {
-    cRequest.send(cRequest.constructSOAPBody({
+    checkoutRequest.send(checkoutRequest.constructSOAPBody({
       referenceID: uuid.v4(),
       amountInDoubleFloat: '10.00',
       clientPhoneNumber: '254723001575'
