@@ -2,6 +2,7 @@ import request from 'request';
 import moment from 'moment';
 import uuid from 'node-uuid';
 import EncryptedPassword from './encrypt';
+import ParseResponse from './parseResponse';
 
 
 export default class CheckOutRequest {
@@ -34,18 +35,19 @@ export default class CheckOutRequest {
     </soapenv:Envelope>`;
   }
 
-  static send(body) {
+  static send(soapBody) {
     request({
       'method': 'POST',
       'uri': process.env.ENDPOINT,
       'rejectUnauthorized': false,
-      'body': body,
+      'body': soapBody,
       'headers': {
         'content-type': 'application/xml; charset=utf-8',
       },
     }, (err, response, body) => {
       if (!err && response.statusCode == 200) {
-        console.log(body);
+        let parsed = new ParseResponse(body);
+        console.log(parsed.response);
       }
     });
   }

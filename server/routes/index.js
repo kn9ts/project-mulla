@@ -1,5 +1,5 @@
 import uuid from 'node-uuid';
-import checkoutRequest from '../controllers/checkout-request.js';
+import checkoutRequest from '../controllers/checkout-request';
 
 export default function(router) {
   /* Load up the homepage */
