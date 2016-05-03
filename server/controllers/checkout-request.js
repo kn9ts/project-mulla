@@ -9,7 +9,7 @@ export default class CheckOutRequest {
   static constructSOAPBody(data) {
     data.timeStamp = moment().format('Y-m-d H:mm:s');
     data.encryptedPassword = new EncryptedPassword(data.timeStamp);
-    data.merchantTransactionID = uuid.v1(); // time-based
+    data.merchantTransactionID = new Buffer(uuid.v1()).toString('base64'); // time-based
     // data.referenceID // Product, service or order ID
 
     return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
@@ -26,7 +26,7 @@ export default class CheckOutRequest {
           <REFERENCE_ID>${data.referenceID}</REFERENCE_ID>
           <AMOUNT>${data.amountInDoubleFloat}</AMOUNT>
           <MSISDN>${data.clientPhoneNumber}</MSISDN>
-          <ENC_PARAMS>${data.extraMerchantPayload}</ENC_PARAMS>
+          <ENC_PARAMS>${(data.extraMerchantPayload || '')}</ENC_PARAMS>
           <CALL_BACK_URL>${process.env.CALLBACK_URL}</CALL_BACK_URL>
           <CALL_BACK_METHOD>${process.env.CALLBACK_METHOD}</CALL_BACK_METHOD>
           <TIMESTAMP>${data.timeStamp}</TIMESTAMP>
