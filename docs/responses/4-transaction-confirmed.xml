@@ -3,7 +3,7 @@
         <ns1:transactionConfirmResponse>
             <RETURN_CODE>00</RETURN_CODE>
             <DESCRIPTION>Success</DESCRIPTION>
-            <MERCHANT_TRANSACTION_ID/>
+            <MERCHANT_TRANSACTION_ID><MERCHANT_TRANSACTION_ID/>
             <TRX_ID>5f6af12be0800c4ffabb4cf2608f0808</TRX_ID>
         </ns1:transactionConfirmResponse>
     </SOAP-ENV:Body>
