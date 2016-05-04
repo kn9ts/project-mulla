@@ -5,15 +5,33 @@
 - Get the PREFIXES using this:
 
   ```js
-  /((xmlns):[\w\-]+)+/gi or /(xmlns\:)([\w\-]+)/gi
-  ````
+  var re = (/((xmlns):[\w\-]+)+/gi || /(xmlns\:)([\w\-]+)/gi)
+  ```
   They start with `xmlns:bla-bla`
 
 - Remove the `bla-bla:` from all elements in the SOAP tree
 - Remove all "xmlns:" from envelope header
 - Lowercase the SOAP string
 
-Results in:
+The response from SAG:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="tns:ns">
+    <SOAP-ENV:Body>
+        <ns1:processCheckOutResponse>
+            <RETURN_CODE>34</RETURN_CODE>
+            <DESCRIPTION>Failed. The system is experiencing delays. Please try again after 5 minutes.
+            </DESCRIPTION>
+            <TRX_ID/>
+            <ENC_PARAMS></ENC_PARAMS>
+            <CUST_MSG></CUST_MSG>
+        </ns1:processCheckOutResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+```
+
+The response parsed into a HTML fragment:
 
 ```html
 <envelope soap-env="http://schemas.xmlsoap.org/soap/envelope/" ns1="tns:ns">
@@ -31,4 +49,5 @@ Results in:
 ```
 
 - Now we have a clean HTML-like tree
-- The `parse5/minidom` nodejs library can take over from here
+- The `cheerio` HTML node.js parsing library can take over from here
+- We can then interpret the code sent back into a HTTP STATUS CODE.
