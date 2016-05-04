@@ -9,7 +9,7 @@
     <soapenv:Body>
         <tns:transactionConfirmRequest>
             <!--Optional:-->
-            <TRX_ID>?</TRX_ID>
+            <TRX_ID>243809842908</TRX_ID>
             <!--Optional:-->
             <MERCHANT_TRANSACTION_ID>911-000</MERCHANT_TRANSACTION_ID>
         </tns:transactionConfirmRequest>
