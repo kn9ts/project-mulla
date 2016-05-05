@@ -2,12 +2,12 @@ import request from 'request';
 import moment from 'moment';
 import uuid from 'node-uuid';
 import EncryptedPassword from './encrypt';
-import ParseResponse from './parseResponse';
+import ParseResponse from './parse-response';
 
 
 export default class CheckOutRequest {
   static constructSOAPBody(data) {
-    data.timeStamp = moment().format('Y-m-d H:mm:s');
+    data.timeStamp = moment().format('Y-m-d H:m:s');
     data.encryptedPassword = new EncryptedPassword(data.timeStamp);
     data.merchantTransactionID = new Buffer(uuid.v1()).toString('base64'); // time-based
     // data.referenceID // Product, service or order ID
@@ -36,19 +36,27 @@ export default class CheckOutRequest {
   }
 
   static send(soapBody) {
-    request({
-      'method': 'POST',
-      'uri': process.env.ENDPOINT,
-      'rejectUnauthorized': false,
-      'body': soapBody,
-      'headers': {
-        'content-type': 'application/xml; charset=utf-8',
-      },
-    }, (err, response, body) => {
-      if (!err && response.statusCode == 200) {
-        let parsed = new ParseResponse(body);
-        console.log(parsed.response);
-      }
+    return new Promise((resolve, reject) => {
+      request({
+        'method': 'POST',
+        'uri': process.env.ENDPOINT,
+        'rejectUnauthorized': false,
+        'body': soapBody,
+        'headers': {
+          'content-type': 'application/xml; charset=utf-8',
+        },
+      }, (err, response, body) => {
+        if (err) {
+          err = new Error(err);
+          err.status = 503;
+          reject(err);
+          return;
+        }
+        if (response.statusCode == 200) {
+          let parsed = new ParseResponse(body);
+          resolve(parsed.toJSON());
+        }
+      });
     });
   }
 }

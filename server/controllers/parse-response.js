@@ -1,5 +1,8 @@
+import cheerio from 'cheerio';
+
 export default class ParseResponse {
   constructor(soapResponse) {
+    // console.log(soapResponse);
     // Remove the XML header tag
     soapResponse = soapResponse.replace(/\<\?[\w\s\=\.\-\'\"]+\?\>/gmi, '');
 
@@ -20,5 +23,26 @@ export default class ParseResponse {
 
     // lowercase and trim before returning it
     this.response = soapResponse.toLowerCase().trim();
+  }
+
+  toJSON() {
+    // console.log(this.response);
+    let soapTree = cheerio.load(this.response, {
+      xmlMode: true
+    });
+
+    let JSON = {};
+    soapTree('processcheckoutresponse').children().each((i, el) => {
+      if (el.children.length > 1) {
+        console.log('Has more than one child.');
+      }
+
+      if (el.children.length === 1) {
+        // console.log(el.name, el.children[0].data);
+        JSON[el.name] = el.children[0].data;
+      }
+    });
+
+    return JSON;
   }
 }
