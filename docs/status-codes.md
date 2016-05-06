@@ -41,13 +41,13 @@
 
 ### 5xx - Server Error
 
-##### Gateway Timeout
-
-- __`[504]`__ => `05` => Transaction expired in the instance where it wasn’t picked in time for processing.
-
 ##### Service Unavailable
 
 - __`[503]`__ => `06` => Transaction could not be confirmed possibly due to confirm operation failure.
 - __`[503]`__ => `11` => This message is returned when the system is unable to complete the transaction.
 - __`[503]`__ => `34` => Returned when there is a request processing delay.
 - __`[503]`__ => `29` => System Downtime message when the system is inaccessible.
+
+##### Gateway Timeout
+
+- __`[504]`__ => `05` => Transaction expired in the instance where it wasn’t picked in time for processing.
