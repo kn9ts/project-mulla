@@ -8,7 +8,7 @@ export default function(router) {
     return res.json({ 'status': 200 });
   });
 
-  router.get('/request/checkout', function(req, res) {
+  router.get('/request/checkout', function(req, res, next) {
     let checkout = checkoutRequest.send(checkoutRequest.constructSOAPBody({
       referenceID: uuid.v4(),
       amountInDoubleFloat: '20.00',
@@ -17,7 +17,12 @@ export default function(router) {
     }));
 
     // process checkout response
-    checkout.then((response) => res.json(response)).catch((err) => next(err));
+    checkout.then((response) => res.json(response)).catch((_error) => {
+      let err = new Error('description' in _error ? _error.description : _error)
+      err.status = 'httpCode' in _error ? _error.httpCode : 500;
+      res.status(err.status).json({ response: _error });
+      // next(err);
+    });
   });
 
   return router;
