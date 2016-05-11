@@ -1,7 +1,7 @@
 export default [{
   returnCode: 0,
   httpCode: 200,
-  message: 'Everthing went well'
+  message: 'Transaction carried successfully'
 }, {
   returnCode: 9,
   httpCode: 400,
