@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 import configSetUp from './config';
 // import favicon from 'serve-favicon';
-import logger from 'morgan';
+import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import session from 'express-session';
@@ -25,7 +25,9 @@ app.set('webTokenSecret', config.webTokenSecret);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+// Uncomment this for Morgan to intercept all Error instantiations
+// For now, they churned out via a JSON response
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
