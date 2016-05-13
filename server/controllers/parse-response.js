@@ -4,7 +4,8 @@ import statusCodes from '../config/status-codes';
 
 
 export default class ParseResponse {
-  constructor(soapResponse) {
+  constructor(soapResponse, bodyTagName) {
+    this.bodyTagName = bodyTagName;
     // Remove the XML header tag
     soapResponse = soapResponse.replace(/\<\?[\w\s\=\.\-\'\"]+\?\>/gmi, '');
 
@@ -30,7 +31,7 @@ export default class ParseResponse {
   toJSON() {
     this.json = {};
     let $ = cheerio.load(this.response, { xmlMode: true });
-    $('processcheckoutresponse').children().each((i, el) => {
+    $(this.bodyTagName).children().each((i, el) => {
       if (el.children.length > 1) {
         console.log('Has more than one child.');
       }
@@ -42,7 +43,9 @@ export default class ParseResponse {
     });
 
     // Unserialise the ENC_PARAMS value
-    this.json.enc_params = JSON.parse(this.json.enc_params)
+    if ('enc_params' in this.json) {
+      this.json.enc_params = JSON.parse(this.json.enc_params);
+    }
 
     // Get the equivalent HTTP CODE to respond with
     this.json = _.assignIn(this.extractCode(), this.json);

@@ -53,7 +53,7 @@ export default class CheckOutRequest {
 
         console.log('RESPONSE: ', body)
 
-        let parsed = new ParseResponse(body);
+        let parsed = new ParseResponse(body, 'processcheckoutresponse');
         let json = parsed.toJSON();
 
         if (json.httpCode !== 200) {
