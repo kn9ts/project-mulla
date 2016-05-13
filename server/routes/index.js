@@ -1,5 +1,6 @@
 import uuid from 'node-uuid';
 import checkoutRequest from '../controllers/checkout-request';
+import confirmTransaction from '../controllers/confirm-transaction';
 
 
 export default function(router) {
@@ -18,6 +19,21 @@ export default function(router) {
 
     // process checkout response
     checkout.then((response) => res.json(response)).catch((_error) => {
+      let err = new Error('description' in _error ? _error.description : _error)
+      err.status = 'httpCode' in _error ? _error.httpCode : 500;
+      res.status(err.status).json({ response: _error });
+      // next(err);
+    });
+  });
+
+  router.get('/confirm/transaction', function(req, res, next) {
+    let confirm = confirmTransaction.send(confirmTransaction.constructSOAPBody({
+      transactionID: '99d0b1c0237b70f3dc63f36232b9984c',
+      // merchantTransactionID: ''
+    }));
+
+    // process confirmTransaction response
+    confirm.then((response) => res.json(response)).catch((_error) => {
       let err = new Error('description' in _error ? _error.description : _error)
       err.status = 'httpCode' in _error ? _error.httpCode : 500;
       res.status(err.status).json({ response: _error });
