@@ -2,7 +2,7 @@
 
 ### 2xx - Successful
 
-##### Successful
+##### Successful 
 
 - __`[200]`__ => `00` => The Request has been successfully received or the transaction has successfully completed.
 
@@ -10,7 +10,7 @@
 
 ### 4xx - Client Error
 
-##### Bad requests(incorrect/missing detials)
+##### Bad requests(incorrect/missing detials) 
 
 - __`[400]`__ => `09` => The store number specified in the transaction could not be found. This happens if the Merchant Pay bill number was incorrectly captured during registration.
 - __`[400]`__ => `10` => This occurs when the system is unable to resolve the credit account i.e the MSISDN provided isn’t registered on M-PESA
@@ -20,19 +20,19 @@
 - __`[400]`__ => `40` => Missing parameters
 - __`[400]`__ => `41` => MSISDN(phone no.) is in incorrect format
 
-##### Unauthorised
+##### Unauthorised 
 
 - __`[401]`__ => `32` => Returned when the account in the request hasn’t been activated. (unactivated)
 - __`[401]`__ => `33` => Returned when the account hasn’t been approved to transact. (unapproved to transact)
 
-##### Payment required, details are ok, but still fails
+##### Payment required, details are ok, but still fails 
 
 - __`[402]`__ => `01` => Insufficient Funds on MSISDN account
 - __`[402]`__ => `03` => Amount less than the minimum single transfer allowed on the system.
 - __`[402]`__ => `04` => Amount more than the maximum single transfer amount allowed.
 - __`[402]`__ => `08` => Balance would rise above the allowed maximum amount. This happens if the MSISDN has reached its maximum transaction limit for the day.
 
-##### Conflict found
+##### Conflict found 
 
 - __`[409]`__ => `35` => Response when a duplicate request is detected.
 - __`[409]`__ => `12` => Message returned when the transaction details are different from original captured request details.
@@ -48,6 +48,6 @@
 - __`[503]`__ => `34` => Returned when there is a request processing delay.
 - __`[503]`__ => `29` => System Downtime message when the system is inaccessible.
 
-##### Gateway Timeout
+##### Gateway Timeout 
 
 - __`[504]`__ => `05` => Transaction expired in the instance where it wasn’t picked in time for processing.
