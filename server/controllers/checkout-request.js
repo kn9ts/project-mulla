@@ -43,16 +43,15 @@ export default class CheckOutRequest {
         'rejectUnauthorized': false,
         'body': soapBody,
         'headers': {
-          'content-type': 'application/xml; charset=utf-8',
-        },
+          'content-type': 'application/xml; charset=utf-8'
+        }
       }, (err, response, body) => {
         if (err) {
           reject(err);
           return;
         }
 
-        console.log('RESPONSE: ', body)
-
+        // console.log('RESPONSE: ', body);
         let parsed = new ParseResponse(body, 'processcheckoutresponse');
         let json = parsed.toJSON();
 
