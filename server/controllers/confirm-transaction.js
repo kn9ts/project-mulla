@@ -1,6 +1,5 @@
 import request from 'request';
 import moment from 'moment';
-import uuid from 'node-uuid';
 import EncryptPassword from './encrypt';
 import ParseResponse from './parse-response';
 
@@ -38,15 +37,15 @@ export default class ConfirmTransaction {
         'rejectUnauthorized': false,
         'body': soapBody,
         'headers': {
-          'content-type': 'application/xml; charset=utf-8',
-        },
+          'content-type': 'application/xml; charset=utf-8'
+        }
       }, (err, response, body) => {
         if (err) {
           reject(err);
           return;
         }
 
-        console.log('RESPONSE: ', body);
+        // console.log('RESPONSE: ', body);
         let parsed = new ParseResponse(body, 'transactionconfirmresponse');
         let json = parsed.toJSON();
 
