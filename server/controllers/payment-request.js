@@ -5,7 +5,7 @@ import EncryptPassword from './encrypt';
 import ParseResponse from './parse-response';
 
 
-export default class CheckOutRequest {
+export default class PaymentRequest {
   static constructSOAPBody(data) {
     data.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
     data.encryptedPassword = new EncryptPassword(data.timeStamp).hashedPassword;

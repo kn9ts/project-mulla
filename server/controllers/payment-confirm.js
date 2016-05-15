@@ -4,7 +4,7 @@ import EncryptPassword from './encrypt';
 import ParseResponse from './parse-response';
 
 
-export default class ConfirmTransaction {
+export default class ConfirmPayment {
   static constructSOAPBody(data) {
     let transactionConfirmRequest = typeof data.transactionID !== undefined ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :
