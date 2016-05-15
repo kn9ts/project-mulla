@@ -12,7 +12,8 @@ export default function(router) {
 
   router.get('/payment/request', function(req, res) {
     let request = PaymentRequest.send(PaymentRequest.constructSOAPBody({
-      referenceID: uuid.v4(),
+      referenceID: uuid.v4(), // product, service or order ID
+      merchantTransactionID: uuid.v1(), // time-based
       amountInDoubleFloat: '20.00',
       clientPhoneNumber: '254723001575',
       extraMerchantPayload: JSON.stringify({ 'extra': 'info', 'as': 'object' })
@@ -26,10 +27,9 @@ export default function(router) {
     });
   });
 
-  router.get('/payment/confirm', function(req, res) {
+  router.get('/payment/confirm/:id', function(req, res) {
     let confirm = ConfirmPayment.send(ConfirmPayment.constructSOAPBody({
-      transactionID: '99d0b1c0237b70f3dc63f36232b9984c'
-        // merchantTransactionID: ''
+      transactionID: req.params.id
     }));
 
     // process ConfirmPayment response
@@ -40,10 +40,9 @@ export default function(router) {
     });
   });
 
-  router.get('/payment/status', function(req, res) {
+  router.get('/payment/status/:id', function(req, res) {
     let status = PaymentStatus.send(PaymentStatus.constructSOAPBody({
-      transactionID: '99d0b1c0237b70f3dc63f36232b9984c'
-        // merchantTransactionID: ''
+      transactionID: req.params.id // eg. '99d0b1c0237b70f3dc63f36232b9984c'
     }));
 
     // process PaymentStatus response
