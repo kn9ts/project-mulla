@@ -4,14 +4,14 @@ import EncryptPassword from './encrypt';
 import ParseResponse from './parse-response';
 
 
-export default class ConfirmTransaction {
-  static constructSOAPBody(data) {
+export default class PaymentStatus {
+  static construct(data) {
+    data.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
+    data.encryptedPassword = new EncryptPassword(data.timeStamp).hashedPassword;
+
     let transactionStatusRequest = typeof data.transactionID !== undefined ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :
       '<MERCHANT_TRANSACTION_ID>' + data.merchantTransactionID + '</MERCHANT_TRANSACTION_ID>';
-
-    data.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
-    data.encryptedPassword = new EncryptPassword(data.timeStamp).hashedPassword;
 
     return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
       <soapenv:Header>
@@ -58,6 +58,3 @@ export default class ConfirmTransaction {
     });
   }
 }
-
-// Please note:
-// encryptedPassword = base64_encode(CAPITALISE(hash('sha256', $MERCHANT_ID + $passkey + $TIMESTAMP)));

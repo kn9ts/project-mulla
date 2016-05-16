@@ -1,16 +1,13 @@
 import request from 'request';
 import moment from 'moment';
-import uuid from 'node-uuid';
 import EncryptPassword from './encrypt';
 import ParseResponse from './parse-response';
 
 
-export default class CheckOutRequest {
-  static constructSOAPBody(data) {
+export default class PaymentRequest {
+  static construct(data) {
     data.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
     data.encryptedPassword = new EncryptPassword(data.timeStamp).hashedPassword;
-    data.merchantTransactionID = new Buffer(uuid.v1()).toString('base64'); // time-based
-    // data.referenceID // Product, service or order ID
 
     return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
       <soapenv:Header>
@@ -64,6 +61,3 @@ export default class CheckOutRequest {
     });
   }
 }
-
-// Please note:
-// encryptedPassword = base64_encode(CAPITALISE(hash('sha256', $MERCHANT_ID + $passkey + $TIMESTAMP)));
