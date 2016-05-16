@@ -5,7 +5,7 @@ import ParseResponse from './parse-response';
 
 
 export default class PaymentStatus {
-  static constructSOAPBody(data) {
+  static construct(data) {
     data.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
     data.encryptedPassword = new EncryptPassword(data.timeStamp).hashedPassword;
 
