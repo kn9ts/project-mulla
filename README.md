@@ -8,7 +8,7 @@ In short, it'll deal with all of the SOAP shinanigans while you REST.
 
 The aim of __Project Mulla__, is to create a REST API that interfaces with the Ugly MPESA G2 API.
 
-Sounded like a broken reacord, but it was to emphasize what we hope to archieve :)
+Sounded like a broken record, but it was to emphasize what we hope to achieve :)
 
 #### Since We Know, SOAP! Yuck!
 Developers should not go through the __trauma__ involved with dealing with SOAP/XML in the 21st century.
