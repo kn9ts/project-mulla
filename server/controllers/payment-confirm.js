@@ -1,7 +1,5 @@
-import request from 'request';
 import moment from 'moment';
 import EncryptPassword from './encrypt';
-import ParseResponse from './parse-response';
 
 
 export default class ConfirmPayment {

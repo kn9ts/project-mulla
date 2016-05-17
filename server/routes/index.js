@@ -47,12 +47,15 @@ export default function(router) {
   });
 
   router.get('/payment/status/:id', function(req, res) {
-    let status = PaymentStatus.send(PaymentStatus.construct({
+    let payment = new PaymentStatus({
       transactionID: req.params.id // eg. '99d0b1c0237b70f3dc63f36232b9984c'
-    }));
+    });
+    let parser = new ParseResponse('transactionstatusresponse');
+    let status = new SOAPRequest(payment, parser);
 
     // process PaymentStatus response
-    status.then((response) => res.json(response))
+    status.post()
+      .then((response) => res.json(response))
       .catch((_error) => ResponseError.handler(_error, res));
   });
 
