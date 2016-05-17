@@ -20,7 +20,7 @@ Developers should not go through the __trauma__ involved with dealing with SOAP/
 
 ### This project uses GPL3 LICENSE
 
-You saw the __LICENSE__ but you were like __*TL;DR*__. Here's a summary of what it entails:
+You saw the __LICENSE__ but you were like __*TL;DR*__. Here's sort of WHY I have used this restricting license:
 
 ```markdown
 1. If you disagree with it then don’t use my software. It’s as simple as that.
