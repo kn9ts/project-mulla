@@ -25,21 +25,24 @@ export default function(router) {
 
     let payment = new PaymentRequest(paymentDetails);
     let parser = new ParseResponse('processcheckoutresponse');
-    let soapRequest = new SOAPRequest(payment, parser);
+    let request = new SOAPRequest(payment, parser);
 
     // make the payment requets and process response
-    soapRequest.post()
+    request.post()
       .then((response) => res.json(response))
       .catch((_error) => ResponseError.handler(_error, res));
   });
 
   router.get('/payment/confirm/:id', function(req, res) {
-    let confirm = ConfirmPayment.send(ConfirmPayment.construct({
+    let payment = new ConfirmPayment({
       transactionID: req.params.id // eg. '99d0b1c0237b70f3dc63f36232b9984c'
-    }));
+    });
+    let parser = new ParseResponse('transactionconfirmresponse');
+    let confirm = new SOAPRequest(payment, parser);
 
     // process ConfirmPayment response
-    confirm.then((response) => res.json(response))
+    confirm.post()
+      .then((response) => res.json(response))
       .catch((_error) => ResponseError.handler(_error, res));
   });
 
