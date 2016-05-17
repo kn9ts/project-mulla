@@ -4,13 +4,19 @@ import statusCodes from '../config/status-codes';
 
 
 export default class ParseResponse {
-  constructor(soapResponse, bodyTagName) {
+  constructor(bodyTagName) {
     this.bodyTagName = bodyTagName;
+  }
+
+  parse(soapResponse) {
+    let XMLHeader = /\<\?[\w\s\=\.\-\'\"]+\?\>/gi;
+    let soapHeaderPrefixes = /(\<([\w\-]+\:[\w\-]+\s)([\w\=\-\:\"\'\\\/\.]+\s?)+?\>)/gi;
+
     // Remove the XML header tag
-    soapResponse = soapResponse.replace(/\<\?[\w\s\=\.\-\'\"]+\?\>/gmi, '');
+    soapResponse = soapResponse.replace(XMLHeader, '');
 
     // Get the element PREFIXES from the soap wrapper
-    let soapInstance = soapResponse.match(/(\<([\w\-]+\:[\w\-]+\s)([\w\=\-\:\"\'\\\/\.]+\s?)+?\>)/gi);
+    let soapInstance = soapResponse.match(soapHeaderPrefixes);
     let soapPrefixes = soapInstance[0].match(/((xmlns):[\w\-]+)+/gi);
     soapPrefixes = soapPrefixes.map((prefix) => {
       return prefix.split(':')[1].replace(/\s+/gi, '');
@@ -18,7 +24,8 @@ export default class ParseResponse {
 
     // Now clean the SOAP elements in the response
     soapPrefixes.forEach((prefix) => {
-      soapResponse = soapResponse.replace(new RegExp(prefix + ':', 'gmi'), '');
+      let xmlPrefixes = new RegExp(prefix + ':', 'gmi');
+      soapResponse = soapResponse.replace(xmlPrefixes, '');
     });
 
     // Remove xmlns from the soap wrapper
@@ -26,6 +33,7 @@ export default class ParseResponse {
 
     // lowercase and trim before returning it
     this.response = soapResponse.toLowerCase().trim();
+    return this;
   }
 
   toJSON() {

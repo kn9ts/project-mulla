@@ -1,8 +1,10 @@
 import uuid from 'node-uuid';
+import ParseResponse from '../controllers/parse-response';
 import ResponseError from '../controllers/errorhandler';
 import PaymentRequest from '../controllers/payment-request';
 import ConfirmPayment from '../controllers/payment-confirm';
 import PaymentStatus from '../controllers/payment-status';
+import SOAPRequest from '../controllers/request';
 
 
 export default function(router) {
@@ -12,16 +14,22 @@ export default function(router) {
   });
 
   router.get('/payment/request', function(req, res) {
-    let request = PaymentRequest.send(PaymentRequest.construct({
+    let extraPayload = { 'extra': 'info', 'as': 'object' };
+    let paymentDetails = {
       referenceID: uuid.v4(), // product, service or order ID
       merchantTransactionID: uuid.v1(), // time-based
       amountInDoubleFloat: '10.00',
       clientPhoneNumber: '254723001575',
-      extraMerchantPayload: JSON.stringify({ 'extra': 'info', 'as': 'object' })
-    }));
+      extraMerchantPayload: JSON.stringify(extraPayload)
+    };
 
-    // process request response
-    request.then((response) => res.json(response))
+    let payment = new PaymentRequest(paymentDetails);
+    let parser = new ParseResponse('processcheckoutresponse');
+    let soapRequest = new SOAPRequest(payment, parser);
+
+    // make the payment requets and process response
+    soapRequest.post()
+      .then((response) => res.json(response))
       .catch((_error) => ResponseError.handler(_error, res));
   });
 
