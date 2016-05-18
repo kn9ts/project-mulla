@@ -18,9 +18,9 @@ export default class SOAPRequest {
   post() {
     return new Promise((resolve, reject) => {
       // Make the soap request to the SAG URI
-      request(this.requestOptions, (_error, response, body) => {
-        if (_error) {
-          reject(_error);
+      request(this.requestOptions, (error, response, body) => {
+        if (error) {
+          reject(error);
           return;
         }
 

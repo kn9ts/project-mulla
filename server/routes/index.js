@@ -7,13 +7,13 @@ import PaymentStatus from '../controllers/payment-status';
 import SOAPRequest from '../controllers/request';
 
 
-export default function(router) {
+export default (router) => {
   /* Check the status of the API system */
-  router.get('/', function(req, res) {
+  router.get('/', (req, res) => {
     return res.json({ 'status': 200 });
   });
 
-  router.get('/payment/request', function(req, res) {
+  router.get('/payment/request', (req, res) => {
     let extraPayload = { 'extra': 'info', 'as': 'object' };
     let paymentDetails = {
       referenceID: uuid.v4(), // product, service or order ID
@@ -29,11 +29,11 @@ export default function(router) {
 
     // make the payment requets and process response
     request.post()
-      .then((response) => res.json(response))
-      .catch((_error) => ResponseError(_error, res));
+      .then(response => res.json(response))
+      .catch(error => ResponseError(error, res));
   });
 
-  router.get('/payment/confirm/:id', function(req, res) {
+  router.get('/payment/confirm/:id', (req, res) => {
     let payment = new ConfirmPayment({
       transactionID: req.params.id // eg. '99d0b1c0237b70f3dc63f36232b9984c'
     });
@@ -42,11 +42,11 @@ export default function(router) {
 
     // process ConfirmPayment response
     confirm.post()
-      .then((response) => res.json(response))
-      .catch((_error) => ResponseError(_error, res));
+      .then(response => res.json(response))
+      .catch(error => ResponseError(error, res));
   });
 
-  router.get('/payment/status/:id', function(req, res) {
+  router.get('/payment/status/:id', (req, res) => {
     let payment = new PaymentStatus({
       transactionID: req.params.id // eg. '99d0b1c0237b70f3dc63f36232b9984c'
     });
@@ -55,8 +55,8 @@ export default function(router) {
 
     // process PaymentStatus response
     status.post()
-      .then((response) => res.json(response))
-      .catch((_error) => ResponseError(_error, res));
+      .then(response => res.json(response))
+      .catch(error => ResponseError(error, res));
   });
 
   return router;

@@ -18,12 +18,10 @@ export default class ParseResponse {
     // Get the element PREFIXES from the soap wrapper
     let soapInstance = soapResponse.match(soapHeaderPrefixes);
     let soapPrefixes = soapInstance[0].match(/((xmlns):[\w\-]+)+/gi);
-    soapPrefixes = soapPrefixes.map((prefix) => {
-      return prefix.split(':')[1].replace(/\s+/gi, '');
-    });
+    soapPrefixes = soapPrefixes.map(prefix => prefix.split(':')[1].replace(/\s+/gi, ''));
 
     // Now clean the SOAP elements in the response
-    soapPrefixes.forEach((prefix) => {
+    soapPrefixes.forEach(prefix => {
       let xmlPrefixes = new RegExp(prefix + ':', 'gmi');
       soapResponse = soapResponse.replace(xmlPrefixes, '');
     });
