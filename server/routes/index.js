@@ -1,6 +1,6 @@
 import uuid from 'node-uuid';
 import ParseResponse from '../controllers/parse-response';
-import ResponseError from '../controllers/errorhandler';
+import ResponseError from '../controllers/response-error';
 import PaymentRequest from '../controllers/payment-request';
 import ConfirmPayment from '../controllers/payment-confirm';
 import PaymentStatus from '../controllers/payment-status';
@@ -30,7 +30,7 @@ export default function(router) {
     // make the payment requets and process response
     request.post()
       .then((response) => res.json(response))
-      .catch((_error) => ResponseError.handler(_error, res));
+      .catch((_error) => ResponseError(_error, res));
   });
 
   router.get('/payment/confirm/:id', function(req, res) {
@@ -43,7 +43,7 @@ export default function(router) {
     // process ConfirmPayment response
     confirm.post()
       .then((response) => res.json(response))
-      .catch((_error) => ResponseError.handler(_error, res));
+      .catch((_error) => ResponseError(_error, res));
   });
 
   router.get('/payment/status/:id', function(req, res) {
@@ -56,7 +56,7 @@ export default function(router) {
     // process PaymentStatus response
     status.post()
       .then((response) => res.json(response))
-      .catch((_error) => ResponseError.handler(_error, res));
+      .catch((_error) => ResponseError(_error, res));
   });
 
   return router;
