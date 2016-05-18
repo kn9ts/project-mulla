@@ -27,7 +27,7 @@ export default class PaymentStatus {
     </soapenv:Envelope>`;
   }
 
-  requestBody(soapBody) {
+  requestBody() {
     return this.body;
   }
 }

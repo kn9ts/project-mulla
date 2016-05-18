@@ -1,85 +1,85 @@
 export default [{
-  returnCode: 0,
-  httpCode: 200,
+  return_code: 0,
+  http_code: 200,
   message: 'Transaction carried successfully'
 }, {
-  returnCode: 9,
-  httpCode: 400,
+  return_code: 9,
+  http_code: 400,
   message: 'The merchant ID provided does not exist in our systems'
 }, {
-  returnCode: 10,
-  httpCode: 400,
+  return_code: 10,
+  http_code: 400,
   message: 'The phone number(MSISDN) provided isn’t registered on M-PESA'
 }, {
-  returnCode: 30,
-  httpCode: 400,
+  return_code: 30,
+  http_code: 400,
   message: 'Missing reference ID'
 }, {
-  returnCode: 31,
-  httpCode: 400,
+  return_code: 31,
+  http_code: 400,
   message: 'The request amount is invalid or blank'
 }, {
-  returnCode: 36,
-  httpCode: 400,
+  return_code: 36,
+  http_code: 400,
   message: 'Incorrect credentials are provided in the request'
 }, {
-  returnCode: 40,
-  httpCode: 400,
+  return_code: 40,
+  http_code: 400,
   message: 'Missing required parameters'
 }, {
-  returnCode: 41,
-  httpCode: 400,
+  return_code: 41,
+  http_code: 400,
   message: 'MSISDN(phone number) is in incorrect format'
 }, {
-  returnCode: 32,
-  httpCode: 401,
+  return_code: 32,
+  http_code: 401,
   message: 'The merchant/paybill account in the request hasn’t been activated'
 }, {
-  returnCode: 33,
-  httpCode: 401,
+  return_code: 33,
+  http_code: 401,
   message: 'The merchant/paybill account hasn’t been approved to transact'
 }, {
-  returnCode: 1,
-  httpCode: 402,
+  return_code: 1,
+  http_code: 402,
   message: 'Client has insufficient funds to complete the transaction'
 }, {
-  returnCode: 3,
-  httpCode: 402,
+  return_code: 3,
+  http_code: 402,
   message: 'The amount to be transacted is less than the minimum single transfer amount allowed'
 }, {
-  returnCode: 4,
-  httpCode: 402,
+  return_code: 4,
+  http_code: 402,
   message: 'The amount to be transacted is more than the maximum single transfer amount allowed'
 }, {
-  returnCode: 8,
-  httpCode: 402,
+  return_code: 8,
+  http_code: 402,
   message: 'The client has reached his/her maximum transaction limit for the day'
 }, {
-  returnCode: 35,
-  httpCode: 409,
+  return_code: 35,
+  http_code: 409,
   message: 'A duplicate request has been detected'
 }, {
-  returnCode: 12,
-  httpCode: 409,
+  return_code: 12,
+  http_code: 409,
   message: 'The transaction details are different from original captured request details'
 }, {
-  returnCode: 6,
-  httpCode: 503,
+  return_code: 6,
+  http_code: 503,
   message: 'Transaction could not be confirmed possibly due to the operation failing'
 }, {
-  returnCode: 11,
-  httpCode: 503,
+  return_code: 11,
+  http_code: 503,
   message: 'The system is unable to complete the transaction'
 }, {
-  returnCode: 34,
-  httpCode: 503,
+  return_code: 34,
+  http_code: 503,
   message: 'A delay is being experienced while processing requests'
 }, {
-  returnCode: 29,
-  httpCode: 503,
+  return_code: 29,
+  http_code: 503,
   message: 'The system is inaccessible; The system may be down'
 }, {
-  returnCode: 5,
-  httpCode: 504,
+  return_code: 5,
+  http_code: 504,
   message: 'Duration provided to complete the transaction has expired'
 }];
