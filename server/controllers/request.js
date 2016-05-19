@@ -18,9 +18,9 @@ export default class SOAPRequest {
   post() {
     return new Promise((resolve, reject) => {
       // Make the soap request to the SAG URI
-      request(this.requestOptions, (_error, response, body) => {
-        if (_error) {
-          reject(_error);
+      request(this.requestOptions, (error, response, body) => {
+        if (error) {
+          reject(error);
           return;
         }
 
@@ -29,7 +29,7 @@ export default class SOAPRequest {
 
         // Anything that is not "00" as the
         // SOAP response code is a Failure
-        if (json.httpCode !== 200) {
+        if (json.http_code !== 200) {
           reject(json);
           return;
         }

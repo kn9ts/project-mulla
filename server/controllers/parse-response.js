@@ -18,12 +18,10 @@ export default class ParseResponse {
     // Get the element PREFIXES from the soap wrapper
     let soapInstance = soapResponse.match(soapHeaderPrefixes);
     let soapPrefixes = soapInstance[0].match(/((xmlns):[\w\-]+)+/gi);
-    soapPrefixes = soapPrefixes.map((prefix) => {
-      return prefix.split(':')[1].replace(/\s+/gi, '');
-    });
+    soapPrefixes = soapPrefixes.map(prefix => prefix.split(':')[1].replace(/\s+/gi, ''));
 
     // Now clean the SOAP elements in the response
-    soapPrefixes.forEach((prefix) => {
+    soapPrefixes.forEach(prefix => {
       let xmlPrefixes = new RegExp(prefix + ':', 'gmi');
       soapResponse = soapResponse.replace(xmlPrefixes, '');
     });
@@ -39,14 +37,15 @@ export default class ParseResponse {
   toJSON() {
     this.json = {};
     let $ = cheerio.load(this.response, { xmlMode: true });
-    $(this.bodyTagName).children().each((i, el) => {
-      if (el.children.length > 1) {
-        console.log('Has more than one child.');
-      }
 
+    // Get the children tagName and its values
+    $(this.bodyTagName).children().each((i, el) => {
+      // if (el.children.length > 1) return;
       if (el.children.length === 1) {
         // console.log(el.name, el.children[0].data);
-        this.json[el.name] = el.children[0].data.replace(/\s{2,}/gi, ' ').replace(/\n/gi, '').trim();
+        let value = el.children[0].data.replace(/\s{2,}/gi, ' ');
+        value = value.replace(/\n/gi, '').trim();
+        this.json[el.name] = value;
       }
     });
 
@@ -57,11 +56,10 @@ export default class ParseResponse {
 
     // Get the equivalent HTTP CODE to respond with
     this.json = _.assignIn(this.extractCode(), this.json);
-    delete this.json.return_code;
     return this.json;
   }
 
   extractCode() {
-    return _.find(statusCodes, (o) => o.returnCode == this.json.return_code);
+    return _.find(statusCodes, (o) => o.return_code == this.json.return_code);
   }
 }
