@@ -23,15 +23,15 @@ Developers should not go through the __trauma__ involved with dealing with SOAP/
 __*TL;DR*__ Here's what the license entails:
 
 ```markdown
-1. You have to include the license and copyright notice with each and every distribution/code base.
-2. You can be copied, modified and distrubuted by anyone.
-3. You can used privately.
-3. You can use this sofware for commercial purposes.
-6. If you dare build your business solely from this code, you risk open-sourcing the whole code base.
-4. Any modifications of this code base MUST be distributed with the same license, GPLv3.
-5. If you modifiy it, you have to indicate changes made to the code.
-7. This sofware is provided without warranty.
-8. The software author or license can not be held liable for any damages inflicted by the software.
+1. Anyone can copy, modify and distrubute this software.
+2. You have to include the license and copyright notice with each and every distribution.
+3. You can use this software privately.
+4. You can use this sofware for commercial purposes.
+5. If you dare build your business solely from this code, you risk open-sourcing the whole code base.
+6. If you modifiy it, you have to indicate changes made to the code.
+7. Any modifications of this code base MUST be distributed with the same license, GPLv3.
+8. This sofware is provided without warranty.
+9. The software author or license can not be held liable for any damages inflicted by the software.
 ```
 
 More information on about the [LICENSE can be found here](http://choosealicense.com/licenses/gpl-3.0/)
