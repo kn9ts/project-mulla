@@ -20,21 +20,21 @@ Developers should not go through the __trauma__ involved with dealing with SOAP/
 
 ### This project uses GPL3 LICENSE
 
-You saw the __LICENSE__ but you were like __*TL;DR*__. Here's sort of WHY I have used this restricting license:
+__*TL;DR*__ Here's what the license entails:
 
 ```markdown
-1. If you disagree with it then don’t use my software. It’s as simple as that.
-
-2. I almost need people, organisations and companies to have to admit they use my software.
-
-3. I have no social incentive to "give" my software free to companies just after nothing else but profit. 
-   Open source to open source, corporation to corporation.
-
-4. To keep you honest. You now have to tell your bosses you’re using my gear. And it will scare 
-   the shit out of them. Why? They risk opensourcing all of their codebase.
-
-5. Some companies who use our software do not give back. The irony of the situation is that, 
-   in order to improve my motivation to do open source, I have to charge for it.
+1. You have to include the license and copyright notice with each and every distribution/code base.
+2. You can be copied, modified and distrubuted by anyone.
+3. You can used privately.
+3. You can use this sofware for commercial purposes.
+6. If you dare build your business solely from this code, you risk open-sourcing the whole code base.
+4. Any modifications of this code base MUST be distributed with the same license, GPLv3.
+5. If you modifiy it, you have to indicate changes made to the code.
+7. This sofware is provided without warranty.
+8. The software author or license can not be held liable for any damages inflicted by the software.
 ```
+
+More information on about the [LICENSE can be found here](http://choosealicense.com/licenses/gpl-3.0/)
+
 
 *__PLEASE NOTE:__ All opinions aired in this repo are ours and do not reflect any company or organisation any contributor is involved with.*
