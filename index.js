@@ -27,7 +27,7 @@ app.set('view engine', 'jade');
 
 // Uncomment this for Morgan to intercept all Error instantiations
 // For now, they churned out via a JSON response
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -83,4 +83,5 @@ var server = app.listen(process.env.PORT || 3000, () => {
 });
 
 //expose app
-export {app as default};
+export { app as
+  default };
