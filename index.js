@@ -10,6 +10,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import models from './models';
 import routes from './routes';
+import genTransactionPassword from './utils/generatePassword';
 
 
 const app = express();
@@ -17,7 +18,7 @@ const apiVersion = 1;
 const config = configSetUp(process.env.NODE_ENV);
 const MongoStore = connectMongo(session);
 
-// -- make the models available everywhere in the app --
+// make the models available everywhere in the app
 app.set('models', models);
 app.set('webTokenSecret', config.webTokenSecret);
 
@@ -48,6 +49,10 @@ app.use(session({
     mongooseConnection: models.mongoose.connection
   })
 }));
+
+// on payment transaction requests,
+// generate and password to req object
+app.use(`/api/v${apiVersion}/payment*`, genTransactionPassword);
 
 // get an instance of the router for api routes
 app.use(`/api/v${apiVersion}`, routes(express.Router()));
@@ -82,6 +87,5 @@ var server = app.listen(process.env.PORT || 3000, () => {
     ' mode', server.address().port, app.get('env'));
 });
 
-//expose app
-export { app as
-  default };
+// expose app
+export { app as default };

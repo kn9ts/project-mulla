@@ -4,9 +4,6 @@ import EncryptPassword from './encrypt';
 
 export default class ConfirmPayment {
   constructor(data) {
-    data.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
-    data.encryptedPassword = new EncryptPassword(data.timeStamp).hashedPassword;
-
     let transactionConfirmRequest = typeof data.transactionID !== undefined ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :
       '<MERCHANT_TRANSACTION_ID>' + data.merchantTransactionID + '</MERCHANT_TRANSACTION_ID>';

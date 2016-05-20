@@ -4,9 +4,6 @@ import EncryptPassword from './encrypt';
 
 export default class PaymentRequest {
   constructor(data) {
-    data.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
-    data.encryptedPassword = new EncryptPassword(data.timeStamp).hashedPassword;
-
     this.body = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
       <soapenv:Header>
         <tns:CheckOutHeader>

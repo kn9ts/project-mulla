@@ -20,7 +20,9 @@ export default (router) => {
       merchantTransactionID: uuid.v1(), // time-based
       amountInDoubleFloat: '10.00',
       clientPhoneNumber: '254723001575',
-      extraMerchantPayload: JSON.stringify(extraPayload)
+      extraMerchantPayload: JSON.stringify(extraPayload),
+      timeStamp: req.timeStamp,
+      encryptedPassword: req.encryptedPassword
     };
 
     let payment = new PaymentRequest(paymentDetails);
@@ -35,7 +37,9 @@ export default (router) => {
 
   router.get('/payment/confirm/:id', (req, res) => {
     let payment = new ConfirmPayment({
-      transactionID: req.params.id // eg. '99d0b1c0237b70f3dc63f36232b9984c'
+      transactionID: req.params.id, // eg. '99d0b1c0237b70f3dc63f36232b9984c'
+      timeStamp: req.timeStamp,
+      encryptedPassword: req.encryptedPassword
     });
     let parser = new ParseResponse('transactionconfirmresponse');
     let confirm = new SOAPRequest(payment, parser);
@@ -48,7 +52,9 @@ export default (router) => {
 
   router.get('/payment/status/:id', (req, res) => {
     let payment = new PaymentStatus({
-      transactionID: req.params.id // eg. '99d0b1c0237b70f3dc63f36232b9984c'
+      transactionID: req.params.id,
+      timeStamp: req.timeStamp,
+      encryptedPassword: req.encryptedPassword,
     });
     let parser = new ParseResponse('transactionstatusresponse');
     let status = new SOAPRequest(payment, parser);
