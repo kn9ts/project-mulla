@@ -15,6 +15,24 @@ export default (router) => {
   });
 
   router.get('/payment/request', (req, res) => {
+    const requiredBodyParams = [
+      'referenceID',
+      'merchantTransactionID',
+      'totalAmount',
+      'phoneNumber'
+    ];
+
+    const extraPayload = {};
+    const bodyParamKeys = Object.keys(req.body);
+
+    // anything that is not required should be added
+    // to the extraPayload object
+    for (const key of bodyParamKeys) {
+      if (!requiredBodyParams.includes(key)) {
+        extraPayload[key] = req.body[key];
+      }
+    }
+
     let paymentDetails = {
       // transaction reference ID
       referenceID: (req.body.referenceID || uuid.v4()),
@@ -22,6 +40,7 @@ export default (router) => {
       merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
       amountInDoubleFloat: (req.body.totalAmount || '10.00'),
       clientPhoneNumber: (req.body.phoneNumber || '254723001575'),
+      extraPayload: JSON.stringify(extraPayload),
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword
     };
