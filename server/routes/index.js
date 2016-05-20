@@ -1,9 +1,10 @@
 import uuid from 'node-uuid';
-import ParseResponse from '../controllers/parse-response';
-import ResponseError from '../controllers/response-error';
-import PaymentRequest from '../controllers/payment-request';
-import ConfirmPayment from '../controllers/payment-confirm';
-import PaymentStatus from '../controllers/payment-status';
+import request from 'request';
+import ResponseError from '../errors/ResponseError';
+import ParseResponse from '../controllers/ParseResponse';
+import PaymentRequest from '../controllers/PaymentRequest';
+import ConfirmPayment from '../controllers/ConfirmPayment';
+import PaymentStatus from '../controllers/PaymentStatus';
 import SOAPRequest from '../controllers/request';
 
 
@@ -54,7 +55,7 @@ export default (router) => {
     let payment = new PaymentStatus({
       transactionID: req.params.id,
       timeStamp: req.timeStamp,
-      encryptedPassword: req.encryptedPassword,
+      encryptedPassword: req.encryptedPassword
     });
     let parser = new ParseResponse('transactionstatusresponse');
     let status = new SOAPRequest(payment, parser);
@@ -65,5 +66,33 @@ export default (router) => {
       .catch(error => ResponseError(error, res));
   });
 
+  // the SAG pings a callback request provided
+  // via SOAP POST, HTTP POST or GET request
+  router.all('/payment/success', (req, res) => {
+    const keys = Object.keys(req.body);
+    let response = {};
+
+    for (const x of keys) {
+      let prop = x.toLowerCase().replace(/\-/g, '');
+      response[prop] = req.body[x];
+    }
+
+    // make a request to the merchant's endpoint
+    request({
+      'method': 'POST',
+      'uri': process.env.MERCHANT_ENDPOINT,
+      'rejectUnauthorized': false,
+      'body': JSON.stringify(response),
+      'headers': {
+        'content-type': 'application/json; charset=utf-8'
+      }
+    }, (error, response, body) => {
+      // merchant should respond with
+      // an 'ok' or 'success'
+    });
+
+    res.status(200).status('ok'); // or 'success'
+  });
+
   return router;
-}
+};

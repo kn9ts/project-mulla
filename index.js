@@ -10,7 +10,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import models from './models';
 import routes from './routes';
-import genTransactionPassword from './utils/generatePassword';
+import genTransactionPassword from './utils/genTransactionPassword';
 
 
 const app = express();
@@ -31,7 +31,7 @@ app.set('view engine', 'jade');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: true
 }));
 app.use(cookieParser());
 // uncomment after placing your favicon in /public

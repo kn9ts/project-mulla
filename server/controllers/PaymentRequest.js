@@ -1,7 +1,3 @@
-import moment from 'moment';
-import EncryptPassword from './encrypt';
-
-
 export default class PaymentRequest {
   constructor(data) {
     this.body = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
