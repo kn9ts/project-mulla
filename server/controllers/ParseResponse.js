@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
 import _ from 'lodash';
-import statusCodes from '../config/status-codes';
+import statusCodes from '../config/statusCodes';
 
 
 export default class ParseResponse {

@@ -10,7 +10,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import models from './models';
 import routes from './routes';
-import genTransactionPassword from './utils/generatePassword';
+import genTransactionPassword from './utils/genTransactionPassword';
 
 
 const app = express();

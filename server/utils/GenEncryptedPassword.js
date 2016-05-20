@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 
-export default class EncryptedPassword {
+
+export default class GenEncryptedPassword {
   constructor(timeStamp) {
     let concatenatedString = [process.env.PAYBILL_NUMBER, process.env.PASSKEY, timeStamp].join('');
     let hash = crypto.createHash('sha256');

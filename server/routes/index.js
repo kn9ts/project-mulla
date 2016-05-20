@@ -1,10 +1,10 @@
 import uuid from 'node-uuid';
 import request from 'request';
-import ParseResponse from '../controllers/parse-response';
-import ResponseError from '../controllers/response-error';
-import PaymentRequest from '../controllers/payment-request';
-import ConfirmPayment from '../controllers/payment-confirm';
-import PaymentStatus from '../controllers/payment-status';
+import ResponseError from '../errors/ResponseError';
+import ParseResponse from '../controllers/ParseResponse';
+import PaymentRequest from '../controllers/PaymentRequest';
+import ConfirmPayment from '../controllers/ConfirmPayment';
+import PaymentStatus from '../controllers/PaymentStatus';
 import SOAPRequest from '../controllers/request';
 
 
