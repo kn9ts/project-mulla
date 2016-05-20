@@ -1,4 +1,5 @@
 import uuid from 'node-uuid';
+import request from 'request';
 import ParseResponse from '../controllers/parse-response';
 import ResponseError from '../controllers/response-error';
 import PaymentRequest from '../controllers/payment-request';
@@ -63,6 +64,34 @@ export default (router) => {
     status.post()
       .then(response => res.json(response))
       .catch(error => ResponseError(error, res));
+  });
+
+  // the SAG pings a callback request provided
+  // via SOAP POST, HTTP POST or GET request
+  router.all('/payment/success', (req, res) => {
+    const keys = Object.keys(req.body);
+    let response = {};
+
+    for (const x of keys) {
+      let prop = x.toLowerCase().replace(/\-/g, '');
+      response[prop] = req.body[x];
+    }
+
+    // make a request to the merchant's endpoint
+    request({
+      'method': 'POST',
+      'uri': process.env.MERCHANT_ENDPOINT,
+      'rejectUnauthorized': false,
+      'body': JSON.stringify(response),
+      'headers': {
+        'content-type': 'application/json; charset=utf-8'
+      }
+    }, (error, response, body) => {
+      // merchant should respond with
+      // an 'ok' or 'success'
+    });
+
+    res.status(200).status('ok'); // or 'success'
   });
 
   return router;
