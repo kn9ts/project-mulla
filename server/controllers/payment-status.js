@@ -1,7 +1,3 @@
-import moment from 'moment';
-import EncryptPassword from './encrypt';
-
-
 export default class PaymentStatus {
   constructor(data) {
     let transactionStatusRequest = typeof data.transactionID !== undefined ?

@@ -6,6 +6,6 @@ const genTransactionPassword = (req, res, next) => {
   req.encryptedPassword = new EncryptPassword(req.timeStamp).hashedPassword;
   // console.log('encryptedPassword:', req.encryptedPassword);
   next();
-}
+};
 
 export default genTransactionPassword;

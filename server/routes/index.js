@@ -55,7 +55,7 @@ export default (router) => {
     let payment = new PaymentStatus({
       transactionID: req.params.id,
       timeStamp: req.timeStamp,
-      encryptedPassword: req.encryptedPassword,
+      encryptedPassword: req.encryptedPassword
     });
     let parser = new ParseResponse('transactionstatusresponse');
     let status = new SOAPRequest(payment, parser);
@@ -95,4 +95,4 @@ export default (router) => {
   });
 
   return router;
-}
+};
