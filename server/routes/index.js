@@ -15,13 +15,13 @@ export default (router) => {
   });
 
   router.get('/payment/request', (req, res) => {
-    let extraPayload = { 'extra': 'info', 'as': 'object' };
     let paymentDetails = {
-      referenceID: uuid.v4(), // product, service or order ID
-      merchantTransactionID: uuid.v1(), // time-based
-      amountInDoubleFloat: '10.00',
-      clientPhoneNumber: '254723001575',
-      extraMerchantPayload: JSON.stringify(extraPayload),
+      // transaction reference ID
+      referenceID: (req.body.referenceID || uuid.v4()),
+      // product, service or order ID
+      merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
+      amountInDoubleFloat: (req.body.totalAmount || '10.00'),
+      clientPhoneNumber: (req.body.phoneNumber || '254723001575'),
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword
     };
