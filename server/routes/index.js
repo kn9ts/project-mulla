@@ -1,7 +1,7 @@
 import uuid from 'node-uuid';
 import request from 'request';
 import ResponseError from '../errors/ResponseError';
-import ParseResponse from '../controllers/ParseResponse';
+import ParseResponse from '../utils/ParseResponse';
 import PaymentRequest from '../controllers/PaymentRequest';
 import ConfirmPayment from '../controllers/ConfirmPayment';
 import PaymentStatus from '../controllers/PaymentStatus';
@@ -90,7 +90,7 @@ export default (router) => {
   router.all('/payment/success', (req, res) => {
     const keys = Object.keys(req.body);
     let response = {};
-    let localhost = `${req.hostname}:${process.env.PORT}/respond/ok`;
+    let localhost = `${req.hostname}:${process.env.PORT}/thumbs/up`;
 
     for (const x of keys) {
       let prop = x.toLowerCase().replace(/\-/g, '');
@@ -114,7 +114,7 @@ export default (router) => {
 
     // for testing last POST response
     // if MERCHANT_ENDPOINT has not been provided
-    router.post('/respond/ok', (req, res) => {
+    router.post('/thumbs/up', (req, res) => {
       res.status(200).send('ok');
     });
   });
