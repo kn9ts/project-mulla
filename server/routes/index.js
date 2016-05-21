@@ -90,6 +90,7 @@ export default (router) => {
   router.all('/payment/success', (req, res) => {
     const keys = Object.keys(req.body);
     let response = {};
+    let localhost = `${req.hostname}:${process.env.PORT}/respond/ok`;
 
     for (const x of keys) {
       let prop = x.toLowerCase().replace(/\-/g, '');
@@ -99,18 +100,23 @@ export default (router) => {
     // make a request to the merchant's endpoint
     request({
       'method': 'POST',
-      'uri': process.env.MERCHANT_ENDPOINT,
+      'uri': (process.env.MERCHANT_ENDPOINT || localhost),
       'rejectUnauthorized': false,
       'body': JSON.stringify(response),
       'headers': {
         'content-type': 'application/json; charset=utf-8'
       }
     }, (error, response, body) => {
-      // merchant should respond with
-      // an 'ok' or 'success'
+      // merchant should respond with 'ok'
+      // status 200
+      res.status(200).status(body);
     });
 
-    res.status(200).status('ok'); // or 'success'
+    // for testing last POST response
+    // if MERCHANT_ENDPOINT has not been provided
+    router.post('/respond/ok', (req, res) => {
+      res.status(200).send('ok');
+    });
   });
 
   return router;
