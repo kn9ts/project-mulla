@@ -14,7 +14,7 @@ export default (router) => {
     return res.json({ 'status': 200 });
   });
 
-  router.get('/payment/request', (req, res) => {
+  router.post('/payment/request', (req, res) => {
     const requiredBodyParams = [
       'referenceID',
       'merchantTransactionID',
@@ -28,7 +28,7 @@ export default (router) => {
     // anything that is not required should be added
     // to the extraPayload object
     for (const key of bodyParamKeys) {
-      if (!requiredBodyParams.includes(key)) {
+      if (requiredBodyParams.indexOf(key) == -1) {
         extraPayload[key] = req.body[key];
       }
     }
@@ -38,8 +38,8 @@ export default (router) => {
       referenceID: (req.body.referenceID || uuid.v4()),
       // product, service or order ID
       merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
-      amountInDoubleFloat: (req.body.totalAmount || '10.00'),
-      clientPhoneNumber: (req.body.phoneNumber || '254723001575'),
+      amountInDoubleFloat: (req.body.totalAmount || process.env.TEST_AMOUNT),
+      clientPhoneNumber: (req.body.phoneNumber || process.env.TEST_PHONENUMBER),
       extraPayload: JSON.stringify(extraPayload),
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword
@@ -49,9 +49,14 @@ export default (router) => {
     let parser = new ParseResponse('processcheckoutresponse');
     let request = new SOAPRequest(payment, parser);
 
+    // remove encryptedPassword and extraPayload
+    // should not be added to response object
+    delete paymentDetails.encryptedPassword;
+    delete paymentDetails.extraPayload;
+
     // make the payment requets and process response
     request.post()
-      .then(response => res.json(response))
+      .then(response => res.json(Object.assign({}, response, paymentDetails)))
       .catch(error => ResponseError(error, res));
   });
 
