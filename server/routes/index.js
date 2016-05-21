@@ -14,7 +14,7 @@ export default (router) => {
     return res.json({ 'status': 200 });
   });
 
-  router.get('/payment/request', (req, res) => {
+  router.post('/payment/request', (req, res) => {
     const requiredBodyParams = [
       'referenceID',
       'merchantTransactionID',
