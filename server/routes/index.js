@@ -90,33 +90,40 @@ export default (router) => {
   router.all('/payment/success', (req, res) => {
     const keys = Object.keys(req.body);
     let response = {};
-    let localhost = `${req.hostname}:${process.env.PORT}/thumbs/up`;
+    let baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT}`;
+    let testEndpoint = `${baseURL}/api/v1/thumbs/up`;
+    let endpoint = 'MERCHANT_ENDPOINT' in process.env ? process.env.MERCHANT_ENDPOINT : testEndpoint;
+    console.log('endpoint:', endpoint)
 
     for (const x of keys) {
       let prop = x.toLowerCase().replace(/\-/g, '');
       response[prop] = req.body[x];
     }
 
-    // make a request to the merchant's endpoint
-    request({
+    const requestParams = {
       'method': 'POST',
-      'uri': (process.env.MERCHANT_ENDPOINT || localhost),
+      'uri': endpoint,
       'rejectUnauthorized': false,
       'body': JSON.stringify(response),
       'headers': {
         'content-type': 'application/json; charset=utf-8'
       }
-    }, (error, response, body) => {
-      // merchant should respond with 'ok'
-      // status 200
-      res.status(200).status(body);
-    });
+    };
 
-    // for testing last POST response
-    // if MERCHANT_ENDPOINT has not been provided
-    router.post('/thumbs/up', (req, res) => {
-      res.status(200).send('ok');
+    // make a request to the merchant's endpoint
+    request(requestParams, (error, response, body) => {
+      if (error) {
+        res.sendStatus(500);
+        return;
+      }
+      res.sendStatus(200);
     });
+  });
+
+  // for testing last POST response
+  // if MERCHANT_ENDPOINT has not been provided
+  router.all('/thumbs/up', (req, res) => {
+    return res.sendStatus(200);
   });
 
   return router;
