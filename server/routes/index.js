@@ -49,9 +49,14 @@ export default (router) => {
     let parser = new ParseResponse('processcheckoutresponse');
     let request = new SOAPRequest(payment, parser);
 
+    // remove encryptedPassword and extraPayload
+    // should not be added to response object
+    delete paymentDetails.encryptedPassword;
+    delete paymentDetails.extraPayload;
+
     // make the payment requets and process response
     request.post()
-      .then(response => res.json(response))
+      .then(response => res.json(Object.assign({}, response, paymentDetails)))
       .catch(error => ResponseError(error, res));
   });
 
