@@ -43,18 +43,19 @@ X-Powered-By: Express
 set-cookie: connect.sid=s%3Anc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
 
 {
-    "amountInDoubleFloat": "10.00", 
-    "clientPhoneNumber": "0723001575", 
-    "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions", 
-    "description": "success", 
-    "extraPayload": "{}", 
-    "http_code": 200, 
-    "merchantTransactionID": "4938a780-1f3b-11e6-acc6-5dabc98661b9", 
-    "message": "Transaction carried successfully", 
-    "referenceID": "f765b1ef-6890-44f2-bc7a-9be23013da1c", 
-    "return_code": "00", 
-    "timeStamp": "20160521130337",
-    "trx_id": "6c1b1dcc796ed6c1d5ea6d03d34ddb7f"
+    "response": {
+        "return_code": "00",
+        "http_code": 200,
+        "message": "Transaction carried successfully",
+        "description": "success",
+        "trx_id": "b3f28c05ae72ff3cb23fb70b2b33ad4d",
+        "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
+        "referenceID": "f765b1ef-6890-44f2-bc7a-9be23013da1c",
+        "timeStamp": "20160522000459",
+        "clientPhoneNumber": "254723001575",
+        "merchantTransactionID": "4938a780-1f3b-11e6-acc6-5dabc98661b9",
+        "amountInDoubleFloat": "450.00"
+    }
 }
 ```
 
