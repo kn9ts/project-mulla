@@ -53,7 +53,7 @@ set-cookie: connect.sid=s%3Anc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7
     "message": "Transaction carried successfully", 
     "referenceID": "f765b1ef-6890-44f2-bc7a-9be23013da1c", 
     "return_code": "00", 
-    "timeStamp": "20160521130337", 
+    "timeStamp": "20160521130337",
     "trx_id": "6c1b1dcc796ed6c1d5ea6d03d34ddb7f"
 }
 ```
