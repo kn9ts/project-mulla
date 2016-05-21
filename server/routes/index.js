@@ -56,7 +56,9 @@ export default (router) => {
 
     // make the payment requets and process response
     request.post()
-      .then(response => res.json(Object.assign({}, response, paymentDetails)))
+      .then(response => res.json({
+        response: Object.assign({}, response, paymentDetails)
+      }))
       .catch(error => ResponseError(error, res));
   });
 
@@ -71,7 +73,7 @@ export default (router) => {
 
     // process ConfirmPayment response
     confirm.post()
-      .then(response => res.json(response))
+      .then(response => res.json({ response: response }))
       .catch(error => ResponseError(error, res));
   });
 
@@ -86,7 +88,7 @@ export default (router) => {
 
     // process PaymentStatus response
     status.post()
-      .then(response => res.json(response))
+      .then(response => res.json({ response: response }))
       .catch(error => ResponseError(error, res));
   });
 
