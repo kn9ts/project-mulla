@@ -1,9 +1,9 @@
 import moment from 'moment';
-import EncryptPassword from '../controllers/encrypt';
+import GenEncryptedPassword from './GenEncryptedPassword';
 
 const genTransactionPassword = (req, res, next) => {
   req.timeStamp = moment().format('YYYYMMDDHHmmss'); // In PHP => "YmdHis"
-  req.encryptedPassword = new EncryptPassword(req.timeStamp).hashedPassword;
+  req.encryptedPassword = new GenEncryptedPassword(req.timeStamp).hashedPassword;
   // console.log('encryptedPassword:', req.encryptedPassword);
   next();
 };

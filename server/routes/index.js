@@ -38,8 +38,8 @@ export default (router) => {
       referenceID: (req.body.referenceID || uuid.v4()),
       // product, service or order ID
       merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
-      amountInDoubleFloat: (req.body.totalAmount || '10.00'),
-      clientPhoneNumber: (req.body.phoneNumber || '254723001575'),
+      amountInDoubleFloat: (req.body.totalAmount || process.env.TEST_AMOUNT),
+      clientPhoneNumber: (req.body.phoneNumber || process.env.TEST_PHONENUMBER),
       extraPayload: JSON.stringify(extraPayload),
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword
