@@ -59,6 +59,10 @@ export default [{
   http_code: 409,
   message: 'A duplicate request has been detected'
 }, {
+  return_code: 43,
+  http_code: 409,
+  message: "Duplicate merchant transaction ID detected",
+}, {
   return_code: 12,
   http_code: 409,
   message: 'The transaction details are different from original captured request details'
