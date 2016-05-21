@@ -28,7 +28,7 @@ export default (router) => {
     // anything that is not required should be added
     // to the extraPayload object
     for (const key of bodyParamKeys) {
-      if (!requiredBodyParams.includes(key)) {
+      if (requiredBodyParams.indexOf(key) == -1) {
         extraPayload[key] = req.body[key];
       }
     }
