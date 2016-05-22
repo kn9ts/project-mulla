@@ -1,0 +1,117 @@
+@import url(main.css);
+#header-4 {
+  position: relative;
+}
+#header-4 .navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  border-radius: 0;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  height: 80px;
+}
+#header-4 .navbar div {
+  height: 100%;
+}
+#header-4 .navbar div .navbar-brand {
+  color: #000;
+  height: 100%;
+  display: table-cell !important;
+  vertical-align: middle;
+}
+#header-4 .navbar div .navbar-brand img {
+  height: inherit;
+  vertical-align: middle;
+  text-align: center;
+}
+#header-4 .navbar div .navbar-brand h2 {
+  color: #000;
+  font-weight: bolder;
+}
+#header-4 .navbar .navbar-collapse {
+  margin-top: 1%;
+}
+#header-4 .navbar .navbar-collapse a {
+  color: #000;
+}
+#header-4 .navbar .navbar-collapse a:hover {
+  color: #000;
+  text-decoration: none;
+  background: none;
+}
+@media screen and (max-width: 750px) {
+  #header-4 .navbar {
+    height: 60px;
+  }
+  #header-4 .navbar .navbar-toggle {
+    z-index: 99;
+  }
+}
+#header-4 .header-slider {
+  clear: both;
+  padding: 0;
+}
+#header-4 .header-slider ul {
+  margin: 0;
+  padding: 0;
+}
+#header-4 .header-slider ul li {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  list-style-type: none;
+}
+#header-4 .header-slider ul li img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 550px;
+  z-index: 5;
+}
+#header-4 .header-slider ul li .slider-content {
+  position: absolute;
+  width: 100%;
+  top: 25%;
+  left: 0;
+  z-index: 10;
+  color: #000;
+}
+#header-4 .header-slider ul li .slider-content h2 {
+  font-size: 6em;
+  text-transform: uppercase;
+  font-weight: bolder;
+  color: #000
+}
+#header-4 .header-slider ul li .slider-content p {
+  font-size: 1.5em;
+  font-weight: bolder;
+  color: #000
+}
+#header-4 .header-slider ul li .slider-content .btn-in-slider {
+  color: #000;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px 25px;
+  background: transparent;
+  border: 2px solid #000;
+  margin-top: 1em;
+  margin-left: .5em;
+}
+#header-4 .header-slider ul li .slider-content .btn-in-slider:hover {
+  background: #000;
+  color: white;
+}
+@media screen and (max-width: 750px) {
+  #header-4 .header-slider ul li .slider-content {
+    top: 10%;
+    width: 80%;
+    margin: 0 10%;
+  }
+}

@@ -1,0 +1,30 @@
+# Site settings
+project_name: Project Mulla
+title: Project Mulla
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+
+# the subpath of your site, e.g. /blog/
+baseurl: "/project-mulla"
+
+# the base hostname & protocol for your site
+url: http://kn9ts.github.io/project-mulla/
+
+
+# Build settings
+markdown: kramdown
+highlighter: pygments
+github: [Repository metadata]
+
+# Permalinks
+# permalink: pretty
+# relative_permalinks: true
+
+# Custom variables
+author_name: Eugene Mutai
+email: eugenemutai@gmail.com
+twitter_username: kn9ts
+github_username:  kn9ts
+project_url: "https://github.com/kn9ts/project-mulla/"
