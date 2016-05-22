@@ -40,7 +40,7 @@ export default (router) => {
       merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
       amountInDoubleFloat: (req.body.totalAmount || process.env.TEST_AMOUNT),
       clientPhoneNumber: (req.body.phoneNumber || process.env.TEST_PHONENUMBER),
-      extraPayload: JSON.stringify(extraPayload),
+      extraPayload: extraPayload,
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword
     };
@@ -49,10 +49,17 @@ export default (router) => {
     let parser = new ParseResponse('processcheckoutresponse');
     let request = new SOAPRequest(payment, parser);
 
-    // remove encryptedPassword and extraPayload
+    // remove encryptedPassword
     // should not be added to response object
     delete paymentDetails.encryptedPassword;
-    delete paymentDetails.extraPayload;
+
+    // convert paymentDetails properties to underscore notation
+    // to match the SAG JSON response
+    for (const key of Object.keys(paymentDetails)) {
+      let newkey = key.replace(/[A-Z]{1,}/g, match => '_' + match.toLowerCase());
+      paymentDetails[newkey] = paymentDetails[key];
+      delete paymentDetails[key];
+    }
 
     // make the payment requets and process response
     request.post()
