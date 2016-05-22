@@ -14,7 +14,7 @@ let MongoStore = require('connect-mongo')(session);
 let models = require('./server/models');
 let routes = require('./server/routes');
 let genTransactionPassword = require('./server/utils/genTransactionPassword');
-let apiVersion = 1;
+let apiVersion = process.env.API_VERSION;
 
 
 // make the models available everywhere in the app

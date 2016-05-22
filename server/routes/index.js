@@ -3,6 +3,7 @@ const uuid = require('node-uuid');
 const request = require('request');
 const ResponseError = require('../errors/ResponseError');
 const ParseResponse = require('../utils/ParseResponse');
+const requiredParams = require('../validators/requiredParams');
 const PaymentRequest = require('../controllers/PaymentRequest');
 const ConfirmPayment = require('../controllers/ConfirmPayment');
 const PaymentStatus = require('../controllers/PaymentStatus');
@@ -15,25 +16,7 @@ module.exports = (router) => {
     return res.json({ 'status': 200 });
   });
 
-  router.post('/payment/request', (req, res) => {
-    const requiredBodyParams = [
-      'referenceID',
-      'merchantTransactionID',
-      'totalAmount',
-      'phoneNumber'
-    ];
-
-    const extraPayload = {};
-    const bodyParamKeys = Object.keys(req.body);
-
-    // anything that is not required should be added
-    // to the extraPayload object
-    for (const key of bodyParamKeys) {
-      if (requiredBodyParams.indexOf(key) == -1) {
-        extraPayload[key] = req.body[key];
-      }
-    }
-
+  router.post('/payment/request', requiredParams, (req, res) => {
     let paymentDetails = {
       // transaction reference ID
       referenceID: (req.body.referenceID || uuid.v4()),
@@ -41,7 +24,7 @@ module.exports = (router) => {
       merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
       amountInDoubleFloat: (req.body.totalAmount || process.env.TEST_AMOUNT),
       clientPhoneNumber: (req.body.phoneNumber || process.env.TEST_PHONENUMBER),
-      extraPayload: extraPayload,
+      extraPayload: req.body.extraPayload,
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword
     };
@@ -126,7 +109,7 @@ module.exports = (router) => {
     };
 
     // make a request to the merchant's endpoint
-    request(requestParams, (error, response, body) => {
+    request(requestParams, (error) => {
       if (error) {
         res.sendStatus(500);
         return;
