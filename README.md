@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/kn9ts/project-mulla/develop/docs/banner.png)
+![](http://cdn.javascript.co.ke/images/banner.png)
 
 > **What MPESA G2 API should have been in the 21st century.**
 
