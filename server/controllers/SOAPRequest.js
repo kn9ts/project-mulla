@@ -30,7 +30,7 @@ module.exports = class SOAPRequest {
 
         // Anything that is not "00" as the
         // SOAP response code is a Failure
-        if (json.http_code !== 200) {
+        if (json.status_code !== 200) {
           reject(json);
           return;
         }

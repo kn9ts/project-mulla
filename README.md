@@ -45,7 +45,7 @@ set-cookie: connect.sid=s%3Anc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7
 {
     "response": {
         "return_code": "00",
-        "http_code": 200,
+        "status_code": 200,
         "message": "Transaction carried successfully",
         "description": "success",
         "trx_id": "b3f28c05ae72ff3cb23fb70b2b33ad4d",
@@ -168,7 +168,7 @@ set-cookie: connect.sid=s%3AiWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
         "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions", 
         "description": "success", 
         "extra_payload": {}, 
-        "http_code": 200, 
+        "status_code": 200, 
         "merchant_transaction_id": "c9bcf350-201e-11e6-a676-5984a015f2fd", 
         "message": "Transaction carried successfully", 
         "reference_id": "7d2c8f65-1228-4e6c-9b67-bb3b825c8441", 
