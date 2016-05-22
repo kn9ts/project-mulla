@@ -1,6 +1,6 @@
-# Project Mulla
+![](https://raw.githubusercontent.com/kn9ts/project-mulla/develop/docs/banner.png)
 
-**What MPESA G2 API should have been in the 21st century.**
+> **What MPESA G2 API should have been in the 21st century.**
 
 **MPESA API RESTful mediator**. Basically converts all merchant requests to the dreaded ancient SOAP/XML
 requests. It then mediates all communications to and from the Safaricom MPESA gateway frictionlessly.
