@@ -1,14 +1,15 @@
-import uuid from 'node-uuid';
-import request from 'request';
-import ResponseError from '../errors/ResponseError';
-import ParseResponse from '../utils/ParseResponse';
-import PaymentRequest from '../controllers/PaymentRequest';
-import ConfirmPayment from '../controllers/ConfirmPayment';
-import PaymentStatus from '../controllers/PaymentStatus';
-import SOAPRequest from '../controllers/request';
+'use strict';
+const uuid = require('node-uuid');
+const request = require('request');
+const ResponseError = require('../errors/ResponseError');
+const ParseResponse = require('../utils/ParseResponse');
+const PaymentRequest = require('../controllers/PaymentRequest');
+const ConfirmPayment = require('../controllers/ConfirmPayment');
+const PaymentStatus = require('../controllers/PaymentStatus');
+const SOAPRequest = require('../controllers/SOAPRequest');
 
 
-export default (router) => {
+module.exports = (router) => {
   /* Check the status of the API system */
   router.get('/', (req, res) => {
     return res.json({ 'status': 200 });

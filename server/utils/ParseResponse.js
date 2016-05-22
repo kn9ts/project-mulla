@@ -1,9 +1,10 @@
-import cheerio from 'cheerio';
-import _ from 'lodash';
-import statusCodes from '../config/statusCodes';
+'use strict';
+const cheerio = require('cheerio');
+const _ = require('lodash');
+const statusCodes = require('../config/statusCodes');
 
 
-export default class ParseResponse {
+module.exports = class ParseResponse {
   constructor(bodyTagName) {
     this.bodyTagName = bodyTagName;
   }

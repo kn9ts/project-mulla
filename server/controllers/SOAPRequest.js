@@ -1,7 +1,8 @@
-import request from 'request';
+'use strict';
 
+const request = require('request');
 
-export default class SOAPRequest {
+module.exports = class SOAPRequest {
   constructor(payment, parser) {
     this.parser = parser;
     this.requestOptions = {

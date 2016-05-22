@@ -1,7 +1,8 @@
-import crypto from 'crypto';
+'use strict';
+const crypto = require('crypto');
 
 
-export default class GenEncryptedPassword {
+module.exports = class GenEncryptedPassword {
   constructor(timeStamp) {
     let concatenatedString = [process.env.PAYBILL_NUMBER, process.env.PASSKEY, timeStamp].join('');
     let hash = crypto.createHash('sha256');

@@ -1,4 +1,6 @@
-export default class PaymentRequest {
+'use strict';
+
+module.exports = class PaymentRequest {
   constructor(data) {
     this.body = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
       <soapenv:Header>

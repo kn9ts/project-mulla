@@ -1,4 +1,6 @@
-export default [{
+'use strict';
+
+module.exports = [{
   return_code: 0,
   http_code: 200,
   message: 'Transaction carried successfully'
