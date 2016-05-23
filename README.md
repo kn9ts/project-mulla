@@ -145,19 +145,30 @@ Express server listening on 3000, in development mode
 Mongoose has connected to the database specified.
 ```
 
-#### Test run
+#### Do a test run
 
-If you have [httpie](https://github.com/jkbrzt/httpie) installed, too lazy to give a CURL example, you give it make test run by invoking:
+You can make a test run using **CURL**:
+
+```bash
+$ curl -i -X POST \
+  --url http://localhost:3000/api/v1/payment/request \
+  --data 'phoneNumber=254723001575' \
+  --data 'totalAmount=450.00' \
+  --data 'clientName="Eugene Mutai"' \
+  --data 'clientLocation=Kilimani' \
+```
+
+Or if you have [httpie](https://github.com/jkbrzt/httpie) installed:
 
 ```bash
 $ http POST localhost:3000/api/v1/payment/request \
-phoneNumber=254723001575 \
-totalAmount=450.00 \
-clientName='Eugene Mutai' \
-clientLocation='Kilimani'
+  phoneNumber=254723001575 \
+  totalAmount=450.00 \
+  clientName='Eugene Mutai' \
+  clientLocation='Kilimani'
 ```
 
-And immediately get back a response as follows:
+You should expect back a similar structured **response** as follows:
 
 ```http
 HTTP/1.1 200 OK
