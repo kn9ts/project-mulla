@@ -1,4 +1,6 @@
-export default class PaymentRequest {
+'use strict';
+
+module.exports = class PaymentRequest {
   constructor(data) {
     this.body = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
       <soapenv:Header>
@@ -14,7 +16,7 @@ export default class PaymentRequest {
           <REFERENCE_ID>${data.referenceID}</REFERENCE_ID>
           <AMOUNT>${data.amountInDoubleFloat}</AMOUNT>
           <MSISDN>${data.clientPhoneNumber}</MSISDN>
-          <ENC_PARAMS>${(data.extraMerchantPayload || '')}</ENC_PARAMS>
+          <ENC_PARAMS>${data.extraMerchantPayload ? JSON.stringify(data.extraMerchantPayload) : ''}</ENC_PARAMS>
           <CALL_BACK_URL>${process.env.CALLBACK_URL}</CALL_BACK_URL>
           <CALL_BACK_METHOD>${process.env.CALLBACK_METHOD}</CALL_BACK_METHOD>
           <TIMESTAMP>${data.timeStamp}</TIMESTAMP>

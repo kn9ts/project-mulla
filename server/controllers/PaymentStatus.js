@@ -1,4 +1,5 @@
-export default class PaymentStatus {
+'use strict';
+module.exports = class PaymentStatus {
   constructor(data) {
     let transactionStatusRequest = typeof data.transactionID !== undefined ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :

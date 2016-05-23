@@ -1,27 +1,29 @@
-import Mongoose from 'mongoose';
-Mongoose.connect(process.env.DATABASE);
+'use strict';
+
+const mongoose = require('mongoose');
+mongoose.connect(process.env.DATABASE);
 
 // When successfully connected
-Mongoose.connection.on('connected', function() {
+mongoose.connection.on('connected', () => {
   console.log('Mongoose has connected to the database specified.');
 });
 
 // If the connection throws an error
-Mongoose.connection.on('error', function(err) {
+mongoose.connection.on('error', err => {
   console.log('Mongoose default connection error: ' + err);
 });
 
 // When the connection is disconnected
-Mongoose.connection.on('disconnected', function() {
+mongoose.connection.on('disconnected', () => {
   console.log('Mongoose default connection disconnected');
 });
 
-// If the Node process ends, close the Mongoose connection
-process.on('SIGINT', function() {
-  Mongoose.connection.close(function() {
+// If the Node process ends, close the mongoose connection
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
     console.log('Mongoose disconnected on application exit');
     process.exit(0);
   });
 });
 
-export { Mongoose as default };
+module.exports = mongoose;

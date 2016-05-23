@@ -1,4 +1,6 @@
-export default function(value) {
+'use strict';
+
+module.exports = (value) => {
   var envVariables = {
       host: process.env.HOST,
       database: process.env.DATABASE,

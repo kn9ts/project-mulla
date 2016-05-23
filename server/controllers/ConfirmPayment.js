@@ -1,4 +1,6 @@
-export default class ConfirmPayment {
+'use strict';
+
+module.exports = class ConfirmPayment {
   constructor(data) {
     let transactionConfirmRequest = typeof data.transactionID !== undefined ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :

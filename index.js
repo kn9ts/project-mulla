@@ -1,22 +1,21 @@
-import './environment';
-import express from 'express';
-import path from 'path';
-import configSetUp from './config';
-// import favicon from 'serve-favicon';
-import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
-import session from 'express-session';
-import connectMongo from 'connect-mongo';
-import models from './models';
-import routes from './routes';
-import genTransactionPassword from './utils/generatePassword';
+'use strict';
 
+require('./environment');
+let express = require('express');
+let app = express();
+let path = require('path');
+let config = require('./server/config')(process.env.NODE_ENV);
+// let favicon = require('serve-favicon');
+let morgan = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+let session = require('express-session');
+let MongoStore = require('connect-mongo')(session);
+let models = require('./server/models');
+let routes = require('./server/routes');
+let genTransactionPassword = require('./server/utils/genTransactionPassword');
+let apiVersion = process.env.API_VERSION;
 
-const app = express();
-const apiVersion = 1;
-const config = configSetUp(process.env.NODE_ENV);
-const MongoStore = connectMongo(session);
 
 // make the models available everywhere in the app
 app.set('models', models);
@@ -38,7 +37,7 @@ app.use(cookieParser());
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // not using express less
 // app.use(require('less-middleware')(path.join(__dirname, 'server/public')));
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, './server/public')));
 app.use(session({
   secret: config.expressSessionKey,
   maxAge: new Date(Date.now() + 3600000),
@@ -46,7 +45,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   store: new MongoStore({
-    mongooseConnection: models.mongoose.connection
+    mongooseConnection: models.mongoose.connection,
+    collection: 'session'
   })
 }));
 
@@ -88,4 +88,4 @@ var server = app.listen(process.env.PORT || 3000, () => {
 });
 
 // expose app
-export { app as default };
+exports.default = app;

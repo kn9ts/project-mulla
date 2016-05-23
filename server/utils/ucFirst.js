@@ -1,11 +1,13 @@
-// ucFirst (typeof String): returns the String in question but changes the First Character to an Upper case
-export default function(string) {
-  var word = string,
+'use strict';
+// ucFirst (typeof String):
+// returns String with first character uppercased
+module.exports = (string) => {
+  let word = string,
     ucFirstWord = '';
 
-  for (var x = 0, length = word.length; x < length; x++) {
+  for (let x = 0, length = word.length; x < length; x++) {
     // get the character's ASCII code
-    var character = word[x],
+    let character = word[x],
       // check to see if the character is capitalised/in uppercase using REGEX
       isUpperCase = /[A-Z]/g.test(character),
       asciiCode = character.charCodeAt(0);
@@ -25,5 +27,6 @@ export default function(string) {
 
     ucFirstWord += character;
   }
+
   return ucFirstWord;
-}
+};
