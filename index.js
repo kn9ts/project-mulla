@@ -10,16 +10,10 @@ let morgan = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let session = require('express-session');
-let MongoStore = require('connect-mongo')(session);
-let models = require('./server/models');
 let routes = require('./server/routes');
 let genTransactionPassword = require('./server/utils/genTransactionPassword');
 let apiVersion = process.env.API_VERSION;
 
-
-// make the models available everywhere in the app
-app.set('models', models);
-app.set('webTokenSecret', config.webTokenSecret);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,16 +32,12 @@ app.use(cookieParser());
 // not using express less
 // app.use(require('less-middleware')(path.join(__dirname, 'server/public')));
 app.use(express.static(path.join(__dirname, './server/public')));
+
+// memory based session
 app.use(session({
   secret: config.expressSessionKey,
-  maxAge: new Date(Date.now() + 3600000),
-  proxy: true,
-  resave: true,
+  resave: false,
   saveUninitialized: true,
-  store: new MongoStore({
-    mongooseConnection: models.mongoose.connection,
-    collection: 'session'
-  })
 }));
 
 // on payment transaction requests,
