@@ -44,17 +44,18 @@ set-cookie: connect.sid=s%3Anc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7
 
 {
     "response": {
-        "return_code": "00",
-        "status_code": 200,
-        "message": "Transaction carried successfully",
-        "description": "success",
-        "trx_id": "b3f28c05ae72ff3cb23fb70b2b33ad4d",
-        "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
-        "referenceID": "f765b1ef-6890-44f2-bc7a-9be23013da1c",
-        "timeStamp": "20160522000459",
-        "clientPhoneNumber": "254723001575",
-        "merchantTransactionID": "4938a780-1f3b-11e6-acc6-5dabc98661b9",
-        "amountInDoubleFloat": "450.00"
+        "amount_in_double_float": "450.00", 
+        "client_phone_number": "254723001575", 
+        "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions", 
+        "description": "success", 
+        "extra_payload": {}, 
+        "status_code": 200, 
+        "merchant_transaction_id": "c9bcf350-201e-11e6-a676-5984a015f2fd", 
+        "message": "Transaction carried successfully", 
+        "reference_id": "7d2c8f65-1228-4e6c-9b67-bb3b825c8441", 
+        "return_code": "00", 
+        "time_stamp": "20160522161208", 
+        "trx_id": "45a3f4b64cde9d88440211187f73944b"
     }
 }
 ```
@@ -124,6 +125,10 @@ TEST_PHONENUMBER = '0720000000'
 TEST_AMOUNT = '10.00'
 ```
 
+__The `PAYBILL_NUMBER` and `PASSKEY` are provided by Safaricom once you have registered for the MPESA G2 API.__
+
+*__PLEASE NOTE__: The details above only serve as examples*
+
 #### It's now ready to launch
 
 ```bash
@@ -133,7 +138,6 @@ $ npm start
 > node index.js
 
 Express server listening on 3000, in development mode
-Mongoose has connected to the database specified.
 ```
 
 #### Do a test run
@@ -173,17 +177,17 @@ set-cookie: connect.sid=s%3AiWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 
 {
     "response": {
-        "amount_in_double_float": "450.00", 
-        "client_phone_number": "254723001575", 
-        "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions", 
-        "description": "success", 
-        "extra_payload": {}, 
-        "status_code": 200, 
-        "merchant_transaction_id": "c9bcf350-201e-11e6-a676-5984a015f2fd", 
-        "message": "Transaction carried successfully", 
-        "reference_id": "7d2c8f65-1228-4e6c-9b67-bb3b825c8441", 
-        "return_code": "00", 
-        "time_stamp": "20160522161208", 
+        "amount_in_double_float": "450.00",
+        "client_phone_number": "254723001575",
+        "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
+        "description": "success",
+        "extra_payload": {},
+        "status_code": 200,
+        "merchant_transaction_id": "c9bcf350-201e-11e6-a676-5984a015f2fd",
+        "message": "Transaction carried successfully",
+        "reference_id": "7d2c8f65-1228-4e6c-9b67-bb3b825c8441",
+        "return_code": "00",
+        "time_stamp": "20160522161208",
         "trx_id": "45a3f4b64cde9d88440211187f73944b"
     }
 }

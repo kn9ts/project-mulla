@@ -3,6 +3,7 @@
 ## My additions
 .tmp
 .idea
+.vscode
 node_modules
 public
 dist

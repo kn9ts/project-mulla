@@ -10,25 +10,25 @@ module.exports = class ParseResponse {
   }
 
   parse(soapResponse) {
-    let XMLHeader = /\<\?[\w\s\=\.\-\'\"]+\?\>/gi;
-    let soapHeaderPrefixes = /(\<([\w\-]+\:[\w\-]+\s)([\w\=\-\:\"\'\\\/\.]+\s?)+?\>)/gi;
+    const XMLHeader = /<\?[\w\s=.\-'"]+\?>/gi;
+    const soapHeaderPrefixes = /(<([\w\-]+:[\w\-]+\s)([\w=\-:"'\\\/\.]+\s?)+?>)/gi;
 
     // Remove the XML header tag
     soapResponse = soapResponse.replace(XMLHeader, '');
 
     // Get the element PREFIXES from the soap wrapper
-    let soapInstance = soapResponse.match(soapHeaderPrefixes);
+    const soapInstance = soapResponse.match(soapHeaderPrefixes);
     let soapPrefixes = soapInstance[0].match(/((xmlns):[\w\-]+)+/gi);
     soapPrefixes = soapPrefixes.map(prefix => prefix.split(':')[1].replace(/\s+/gi, ''));
 
     // Now clean the SOAP elements in the response
     soapPrefixes.forEach(prefix => {
-      let xmlPrefixes = new RegExp(prefix + ':', 'gmi');
+      const xmlPrefixes = new RegExp(prefix + ':', 'gmi');
       soapResponse = soapResponse.replace(xmlPrefixes, '');
     });
 
     // Remove xmlns from the soap wrapper
-    soapResponse = soapResponse.replace(/(xmlns)\:/gmi, '');
+    soapResponse = soapResponse.replace(/(xmlns):/gmi, '');
 
     // lowercase and trim before returning it
     this.response = soapResponse.toLowerCase().trim();
@@ -37,7 +37,7 @@ module.exports = class ParseResponse {
 
   toJSON() {
     this.json = {};
-    let $ = cheerio.load(this.response, { xmlMode: true });
+    const $ = cheerio.load(this.response, { xmlMode: true });
 
     // Get the children tagName and its values
     $(this.bodyTagName).children().each((i, el) => {
@@ -61,6 +61,6 @@ module.exports = class ParseResponse {
   }
 
   extractCode() {
-    return _.find(statusCodes, (o) => o.return_code == this.json.return_code);
+    return _.find(statusCodes, (o) => o.return_code === this.json.return_code);
   }
-}
+};
