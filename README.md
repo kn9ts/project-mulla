@@ -27,8 +27,11 @@ _Endpoint_: **`https://awesome-service.com/api/v1/payment/request`**
 _Parameters_:
 - **`phoneNumber`** - The phone number of your client
 - **`totalAmount`** - The total amount you are charging the client
-- **`referenceID`** - The reference ID of the order or service **[optional; one is generated for you if missing]**
-- **`merchantTransactionID`** - This specific order's or service's transaction ID **[optional; one is generated for you if missing]**
+- **`referenceID`** - The reference ID of the order or service **[optional]**
+- **`merchantTransactionID`** - This specific order's or service's transaction ID **[optional]**
+
+__NOTE:__ If `merchantTransactionID` or `referenceID` are not provided a time-based and random 
+UUID is generated for each respectively.
 
 _Response:_
 
