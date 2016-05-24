@@ -1,7 +1,7 @@
 'use strict';
 module.exports = class PaymentStatus {
   constructor(data) {
-    let transactionStatusRequest = typeof data.transactionID !== undefined ?
+    const transactionStatusRequest = typeof data.transactionID !== undefined ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :
       '<MERCHANT_TRANSACTION_ID>' + data.merchantTransactionID + '</MERCHANT_TRANSACTION_ID>';
 
@@ -24,4 +24,4 @@ module.exports = class PaymentStatus {
   requestBody() {
     return this.body;
   }
-}
+};
