@@ -68,14 +68,6 @@ You will need to install some stuff, if they are not yet in your machine:
 ##### Majors:
 
 * **Node.js (v4.4.4 LTS)** - [Click here](http://nodejs.org) to install
-* **MongoDB (v3+)** - [Click here](https://docs.mongodb.com/manual/installation/) to install on your specific OS distro
-
-Alternatively to the **MongoDB** installation you can create an account on [mLab.com](https://mlab.com/)
-(previously mongolab.com) create a DB once logged in and copy the URL to your `.env` _DATABASE_ config variable.
-
-```js
-DATABASE = "mongodb://8cp52rbucbhdnd@ds033285.mongolab.com:33285"
-```
 
 ##### Secondaries(click for further information):
 
@@ -121,7 +113,6 @@ It should look like the example below, only with your specific config values:
 API_VERSION = 1
 HOST = localhost
 PORT = 3000
-DATABASE = 'localhost:27017/project-mulla' // Your mongodb database path
 EXPRESS_SESSION_KEY = '88186735405ab8d59f968ed4dab89da5515'
 WEB_TOKEN_SECRET = 'a7f3f061-197f-4d94-bcfc-0fa72fc2d897'
 PAYBILL_NUMBER = '898998'
