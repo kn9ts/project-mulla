@@ -6,7 +6,7 @@
 requests. It then mediates all communications to and from the Safaricom MPESA gateway frictionlessly.
 Responding to the merchant via a beautiful and soothing 21st century REST API.
 
-In short, it'll deal with all of the SOAP shenanigans while you REST. 😄
+In short, it'll deal with all of the SOAP shenanigans while you REST. 
 
 The aim of **Project Mulla**, is to create a REST API that interfaces with the **ugly MPESA G2 API.**
 
@@ -40,7 +40,7 @@ Content-Type: application/json; charset=utf-8
 Date: Sat, 21 May 2016 10:03:37 GMT
 ETag: W/"1fe-jy66YehfhiFHWoyTNHpSnA"
 X-Powered-By: Express
-set-cookie: connect.sid=s%3Anc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
+set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
 
 {
     "response": {
@@ -173,7 +173,7 @@ Content-Type: application/json; charset=utf-8
 Date: Sun, 22 May 2016 13:12:09 GMT
 ETag: W/"216-NgmF2VWb0PIkUOKfya6WlA"
 X-Powered-By: Express
-set-cookie: connect.sid=s%3AiWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
+set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 
 {
     "response": {
