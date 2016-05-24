@@ -3,7 +3,7 @@
         "node": true,
         "mocha": true
     },
-    "extends": "airbnb",
+    "extends": "airbnb/base",
     "rules": {
         "prefer-template": 0,
         "prefer-rest-params": 0,

@@ -9,7 +9,7 @@ module.exports = (value) => {
   const environments = {
     development: envVariables,
     staging: envVariables,
-    production: envVariables
+    production: envVariables,
   };
   return environments[value] ? environments[value] : environments.development;
-}
+};

@@ -2,7 +2,7 @@
 
 module.exports = class ConfirmPayment {
   constructor(data) {
-    let transactionConfirmRequest = typeof data.transactionID !== undefined ?
+    const transactionConfirmRequest = typeof data.transactionID !== undefined ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :
       '<MERCHANT_TRANSACTION_ID>' + data.merchantTransactionID + '</MERCHANT_TRANSACTION_ID>';
 
@@ -25,4 +25,4 @@ module.exports = class ConfirmPayment {
   requestBody() {
     return this.body;
   }
-}
+};

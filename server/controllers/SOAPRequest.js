@@ -6,13 +6,13 @@ module.exports = class SOAPRequest {
   constructor(payment, parser) {
     this.parser = parser;
     this.requestOptions = {
-      'method': 'POST',
-      'uri': process.env.ENDPOINT,
-      'rejectUnauthorized': false,
-      'body': payment.requestBody(),
-      'headers': {
-        'content-type': 'application/xml; charset=utf-8'
-      }
+      method: 'POST',
+      uri: process.env.ENDPOINT,
+      rejectUnauthorized: false,
+      body: payment.requestBody(),
+      headers: {
+        'content-type': 'application/xml; charset=utf-8',
+      },
     };
   }
 
@@ -25,8 +25,8 @@ module.exports = class SOAPRequest {
           return;
         }
 
-        let parsedResponse = this.parser.parse(body);
-        let json = parsedResponse.toJSON();
+        const parsedResponse = this.parser.parse(body);
+        const json = parsedResponse.toJSON();
 
         // Anything that is not "00" as the
         // SOAP response code is a Failure
@@ -40,4 +40,4 @@ module.exports = class SOAPRequest {
       });
     });
   }
-}
+};

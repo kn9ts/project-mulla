@@ -3,7 +3,7 @@ module.exports = (req, res, next) => {
     'referenceID',
     'merchantTransactionID',
     'totalAmount',
-    'phoneNumber'
+    'phoneNumber',
   ];
 
   if ('phoneNumber' in req.body) {
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
     }
 
     if (/^[\d]+$/g.test(req.body.totalAmount)) {
-      req.body.totalAmount = (parseInt(req.body.totalAmount)).toFixed(2)
+      req.body.totalAmount = (parseInt(req.body.totalAmount, 10)).toFixed(2);
     }
   } else {
     return res.status(400).send('No [totalAmount] parameter was found');
@@ -34,11 +34,11 @@ module.exports = (req, res, next) => {
   // anything that is not a required param
   // should be added to the extraPayload object
   for (const key of bodyParamKeys) {
-    if (requiredBodyParams.indexOf(key) == -1) {
+    if (requiredBodyParams.indexOf(key) === -1) {
       req.body.extraPayload[key] = req.body[key];
       delete req.body[key];
     }
   }
 
-  next();
+  return next();
 };

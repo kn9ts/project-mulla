@@ -1,7 +1,7 @@
 'use strict';
 const uuid = require('node-uuid');
 const request = require('request');
-const ResponseError = require('../errors/ResponseError');
+const responseError = require('../errors/ResponseError');
 const ParseResponse = require('../utils/ParseResponse');
 const requiredParams = require('../validators/requiredParams');
 const PaymentRequest = require('../controllers/PaymentRequest');
@@ -12,12 +12,10 @@ const SOAPRequest = require('../controllers/SOAPRequest');
 
 module.exports = (router) => {
   /* Check the status of the API system */
-  router.get('/', (req, res) => {
-    return res.json({ 'status': 200 });
-  });
+  router.get('/', (req, res) => res.json({ status: 200 }));
 
   router.post('/payment/request', requiredParams, (req, res) => {
-    let paymentDetails = {
+    const paymentDetails = {
       // transaction reference ID
       referenceID: (req.body.referenceID || uuid.v4()),
       // product, service or order ID
@@ -26,12 +24,12 @@ module.exports = (router) => {
       clientPhoneNumber: (req.body.phoneNumber || process.env.TEST_PHONENUMBER),
       extraPayload: req.body.extraPayload,
       timeStamp: req.timeStamp,
-      encryptedPassword: req.encryptedPassword
+      encryptedPassword: req.encryptedPassword,
     };
 
-    let payment = new PaymentRequest(paymentDetails);
-    let parser = new ParseResponse('processcheckoutresponse');
-    let request = new SOAPRequest(payment, parser);
+    const payment = new PaymentRequest(paymentDetails);
+    const parser = new ParseResponse('processcheckoutresponse');
+    const soapRequest = new SOAPRequest(payment, parser);
 
     // remove encryptedPassword
     // should not be added to response object
@@ -40,72 +38,72 @@ module.exports = (router) => {
     // convert paymentDetails properties to underscore notation
     // to match the SAG JSON response
     for (const key of Object.keys(paymentDetails)) {
-      let newkey = key.replace(/[A-Z]{1,}/g, match => '_' + match.toLowerCase());
+      const newkey = key.replace(/[A-Z]{1,}/g, match => '_' + match.toLowerCase());
       paymentDetails[newkey] = paymentDetails[key];
       delete paymentDetails[key];
     }
 
     // make the payment requets and process response
-    request.post()
+    soapRequest.post()
       .then(response => res.json({
-        response: Object.assign({}, response, paymentDetails)
+        response: Object.assign({}, response, paymentDetails),
       }))
-      .catch(error => ResponseError(error, res));
+      .catch(error => responseError(error, res));
   });
 
   router.get('/payment/confirm/:id', (req, res) => {
-    let payment = new ConfirmPayment({
+    const payment = new ConfirmPayment({
       transactionID: req.params.id, // eg. '99d0b1c0237b70f3dc63f36232b9984c'
       timeStamp: req.timeStamp,
-      encryptedPassword: req.encryptedPassword
+      encryptedPassword: req.encryptedPassword,
     });
-    let parser = new ParseResponse('transactionconfirmresponse');
-    let confirm = new SOAPRequest(payment, parser);
+    const parser = new ParseResponse('transactionconfirmresponse');
+    const confirm = new SOAPRequest(payment, parser);
 
     // process ConfirmPayment response
     confirm.post()
-      .then(response => res.json({ response: response }))
-      .catch(error => ResponseError(error, res));
+      .then(response => res.json({ response }))
+      .catch(error => responseError(error, res));
   });
 
   router.get('/payment/status/:id', (req, res) => {
-    let payment = new PaymentStatus({
+    const payment = new PaymentStatus({
       transactionID: req.params.id,
       timeStamp: req.timeStamp,
-      encryptedPassword: req.encryptedPassword
+      encryptedPassword: req.encryptedPassword,
     });
-    let parser = new ParseResponse('transactionstatusresponse');
-    let status = new SOAPRequest(payment, parser);
+    const parser = new ParseResponse('transactionstatusresponse');
+    const status = new SOAPRequest(payment, parser);
 
     // process PaymentStatus response
     status.post()
-      .then(response => res.json({ response: response }))
-      .catch(error => ResponseError(error, res));
+      .then(response => res.json({ response }))
+      .catch(error => responseError(error, res));
   });
 
   // the SAG pings a callback request provided
   // via SOAP POST, HTTP POST or GET request
   router.all('/payment/success', (req, res) => {
     const keys = Object.keys(req.body);
-    let response = {};
-    let baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT}`;
-    let testEndpoint = `${baseURL}/api/v1/thumbs/up`;
-    let endpoint = 'MERCHANT_ENDPOINT' in process.env ? process.env.MERCHANT_ENDPOINT : testEndpoint;
-    console.log('endpoint:', endpoint)
+    const response = {};
+    const baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT}`;
+    const testEndpoint = `${baseURL}/api/v1/thumbs/up`;
+    const endpoint = 'MERCHANT_ENDPOINT' in process.env ?
+      process.env.MERCHANT_ENDPOINT : testEndpoint;
 
     for (const x of keys) {
-      let prop = x.toLowerCase().replace(/\-/g, '');
+      const prop = x.toLowerCase().replace(/\-/g, '');
       response[prop] = req.body[x];
     }
 
     const requestParams = {
-      'method': 'POST',
-      'uri': endpoint,
-      'rejectUnauthorized': false,
-      'body': JSON.stringify(response),
-      'headers': {
-        'content-type': 'application/json; charset=utf-8'
-      }
+      method: 'POST',
+      uri: endpoint,
+      rejectUnauthorized: false,
+      body: JSON.stringify(response),
+      headers: {
+        'content-type': 'application/json; charset=utf-8',
+      },
     };
 
     // make a request to the merchant's endpoint
@@ -120,9 +118,7 @@ module.exports = (router) => {
 
   // for testing last POST response
   // if MERCHANT_ENDPOINT has not been provided
-  router.all('/thumbs/up', (req, res) => {
-    return res.sendStatus(200);
-  });
+  router.all('/thumbs/up', (req, res) => res.sendStatus(200));
 
   return router;
 };
