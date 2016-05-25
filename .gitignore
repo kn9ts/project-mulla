@@ -7,8 +7,10 @@
 node_modules
 public
 dist
-./server/config/local.env.js
+server/config/local.env.js
 npm-debug.log
+.sass-cache
+_site
 
 ### Added by loopback framework
 *.csv
