@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/kn9ts/project-mulla/badge.svg?branch=master)](https://coveralls.io/github/kn9ts/project-mulla?branch=master)
+
 ![](http://cdn.javascript.co.ke/images/banner.png)
 
 > **What MPESA G2 API should have been in the 21st century.**
