@@ -1,7 +1,7 @@
 'use strict';
 const uuid = require('node-uuid');
 const request = require('request');
-const responseError = require('../errors/ResponseError');
+const responseError = require('../utils/errors/responseError');
 const ParseResponse = require('../utils/ParseResponse');
 const requiredParams = require('../validators/requiredParams');
 const PaymentRequest = require('../controllers/PaymentRequest');

@@ -1,3 +1,6 @@
+[![Coverage Status](https://coveralls.io/repos/github/kn9ts/project-mulla/badge.svg?branch=master)](https://coveralls.io/github/kn9ts/project-mulla?branch=master)
+[![Build Status](https://semaphoreci.com/api/v1/kn9ts/project-mulla/branches/develop/badge.svg)](https://semaphoreci.com/kn9ts/project-mulla)
+
 ![](http://cdn.javascript.co.ke/images/banner.png)
 
 > **What MPESA G2 API should have been in the 21st century.**
@@ -6,7 +9,7 @@
 requests. It then mediates all communications to and from the Safaricom MPESA gateway frictionlessly.
 Responding to the merchant via a beautiful and soothing 21st century REST API.
 
-In short, it'll deal with all of the SOAP shenanigans while you REST. 😄
+In short, it'll deal with all of the SOAP shenanigans while you REST. 
 
 The aim of **Project Mulla**, is to create a REST API that interfaces with the **ugly MPESA G2 API.**
 
@@ -27,8 +30,11 @@ _Endpoint_: **`https://awesome-service.com/api/v1/payment/request`**
 _Parameters_:
 - **`phoneNumber`** - The phone number of your client
 - **`totalAmount`** - The total amount you are charging the client
-- **`referenceID`** - The reference ID of the order or service **[optional; one is generated for you if missing]**
-- **`merchantTransactionID`** - This specific order's or service's transaction ID **[optional; one is generated for you if missing]**
+- **`referenceID`** - The reference ID of the order or service **[optional]**
+- **`merchantTransactionID`** - This specific order's or service's transaction ID **[optional]**
+
+__NOTE:__ If `merchantTransactionID` or `referenceID` are not provided a time-based and random 
+UUID is generated for each respectively.
 
 _Response:_
 
@@ -40,7 +46,7 @@ Content-Type: application/json; charset=utf-8
 Date: Sat, 21 May 2016 10:03:37 GMT
 ETag: W/"1fe-jy66YehfhiFHWoyTNHpSnA"
 X-Powered-By: Express
-set-cookie: connect.sid=s%3Anc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
+set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
 
 {
     "response": {
@@ -173,7 +179,7 @@ Content-Type: application/json; charset=utf-8
 Date: Sun, 22 May 2016 13:12:09 GMT
 ETag: W/"216-NgmF2VWb0PIkUOKfya6WlA"
 X-Powered-By: Express
-set-cookie: connect.sid=s%3AiWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
+set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 
 {
     "response": {
