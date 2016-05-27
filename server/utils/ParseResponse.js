@@ -50,10 +50,8 @@ module.exports = class ParseResponse {
       }
     });
 
-    // Unserialise the ENC_PARAMS value
-    if ('enc_params' in this.json) {
-      this.json.enc_params = JSON.parse(this.json.enc_params);
-    }
+    // delete the enc_params value
+    delete this.json.enc_params;
 
     // Get the equivalent HTTP CODE to respond with
     this.json = _.assignIn(this.extractCode(), this.json);
@@ -61,6 +59,6 @@ module.exports = class ParseResponse {
   }
 
   extractCode() {
-    return _.find(statusCodes, (o) => o.return_code === this.json.return_code);
+    return _.find(statusCodes, (o) => o.return_code === parseInt(this.json.return_code, 10));
   }
 };

@@ -1,4 +1,9 @@
 'use strict';
+
+const ParseResponse = require('../utils/ParseResponse');
+const SOAPRequest = require('../controllers/SOAPRequest');
+const responseError = require('../utils/errors/responseError');
+
 module.exports = class PaymentStatus {
   constructor(data) {
     const transactionStatusRequest = typeof data.transactionID !== undefined ?
@@ -23,5 +28,20 @@ module.exports = class PaymentStatus {
 
   requestBody() {
     return this.body;
+  }
+
+  static handler(req, res) {
+    const payment = new PaymentStatus({
+      transactionID: req.params.id,
+      timeStamp: req.timeStamp,
+      encryptedPassword: req.encryptedPassword,
+    });
+    const parser = new ParseResponse('transactionstatusresponse');
+    const status = new SOAPRequest(payment, parser);
+
+    // process PaymentStatus response
+    return status.post()
+      .then(response => res.status(200).json({ response }))
+      .catch(error => responseError(error, res));
   }
 };
