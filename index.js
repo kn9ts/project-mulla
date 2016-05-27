@@ -56,13 +56,13 @@ app.use((req, res, next) => {
 
 // error handlers
 app.use((err, req, res) => {
-  res.status(err.status || 500);
+  console.log('ERROR PASSING THROUGH', err.message);
   // get the error stack
   const stack = err.stack.split(/\n/)
     .map(error => error.replace(/\s{2,}/g, ' ').trim());
-  // console.log('ERROR PASSING THROUGH', err.message);
+
   // send out the error as json
-  res.json({
+  res.status(err.status || 500).json({
     api: err,
     url: req.originalUrl,
     error: err.message,

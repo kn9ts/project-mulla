@@ -35,4 +35,4 @@ module.exports = class PaymentSuccess {
       res.sendStatus(200);
     });
   }
-}
+};

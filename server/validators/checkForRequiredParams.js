@@ -31,7 +31,7 @@ module.exports = (req, res, next) => {
   }
 
   const bodyParamKeys = Object.keys(req.body);
-  let extraPayload = {};
+  const extraPayload = {};
 
   // anything that is not a required param
   // should be added to the extraPayload object
@@ -43,5 +43,5 @@ module.exports = (req, res, next) => {
   }
   req.body.extraPayload = extraPayload;
   // console.log('extraPayload', req.body.extraPayload);
-  next();
+  return next();
 };

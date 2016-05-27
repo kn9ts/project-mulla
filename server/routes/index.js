@@ -4,9 +4,7 @@ const PaymentRequest = require('../controllers/PaymentRequest');
 const ConfirmPayment = require('../controllers/ConfirmPayment');
 const PaymentStatus = require('../controllers/PaymentStatus');
 const PaymentSuccess = require('../controllers/PaymentSuccess');
-
 const requiredParams = require('../validators/checkForRequiredParams');
-const SOAPRequest = require('../controllers/SOAPRequest');
 
 
 module.exports = (router) => {
