@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (req, res, next) => {
   const requiredBodyParams = [
     'referenceID',
@@ -29,16 +31,17 @@ module.exports = (req, res, next) => {
   }
 
   const bodyParamKeys = Object.keys(req.body);
-  req.body.extraPayload = {};
+  let extraPayload = {};
 
   // anything that is not a required param
   // should be added to the extraPayload object
   for (const key of bodyParamKeys) {
     if (requiredBodyParams.indexOf(key) === -1) {
-      req.body.extraPayload[key] = req.body[key];
+      extraPayload[key] = req.body[key];
       delete req.body[key];
     }
   }
-
-  return next();
+  req.body.extraPayload = extraPayload;
+  // console.log('extraPayload', req.body.extraPayload);
+  next();
 };
