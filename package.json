@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp test",
-    "develop": "nodemon -w ./server/** --exec npm start",
+    "develop": "nodemon -w ./server --exec npm start",
     "lint": "eslint --fix ./server ./test",
     "start": "node index.js"
   },

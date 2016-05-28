@@ -3,25 +3,27 @@
 const request = require('request');
 
 module.exports = class SOAPRequest {
-  constructor(payment, parser) {
+  construct(payment, parser) {
+    this.request = request;
     this.parser = parser;
     this.requestOptions = {
       method: 'POST',
       uri: process.env.ENDPOINT,
       rejectUnauthorized: false,
-      body: payment.requestBody(),
+      body: payment.body,
       headers: {
         'content-type': 'application/xml; charset=utf-8',
       },
     };
+    return this;
   }
 
   post() {
     return new Promise((resolve, reject) => {
       // Make the soap request to the SAG URI
-      request(this.requestOptions, (error, response, body) => {
+      this.request(this.requestOptions, (error, response, body) => {
         if (error) {
-          reject(error);
+          reject({ description: error.message });
           return;
         }
 
@@ -30,7 +32,7 @@ module.exports = class SOAPRequest {
 
         // Anything that is not "00" as the
         // SOAP response code is a Failure
-        if (json.status_code !== 200) {
+        if (json && json.status_code !== 200) {
           reject(json);
           return;
         }

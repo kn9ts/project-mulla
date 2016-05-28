@@ -2,8 +2,12 @@
 
 const request = require('request');
 
-module.exports = class PaymentSuccess {
-  static handler(req, res) {
+class PaymentSuccess {
+  constructor() {
+    this.request = request;
+  }
+
+  handler(req, res) {
     const keys = Object.keys(req.body);
     const response = {};
     const baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT}`;
@@ -27,7 +31,7 @@ module.exports = class PaymentSuccess {
     };
 
     // make a request to the merchant's endpoint
-    request(requestParams, (error) => {
+    this.request(requestParams, (error) => {
       if (error) {
         res.sendStatus(500);
         return;
@@ -35,4 +39,6 @@ module.exports = class PaymentSuccess {
       res.sendStatus(200);
     });
   }
-};
+}
+
+module.exports = new PaymentSuccess();
