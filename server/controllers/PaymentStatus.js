@@ -4,9 +4,17 @@ const ParseResponse = require('../utils/ParseResponse');
 const SOAPRequest = require('../controllers/SOAPRequest');
 const responseError = require('../utils/errors/responseError');
 
-module.exports = class PaymentStatus {
-  constructor(data) {
-    const transactionStatusRequest = typeof data.transactionID !== undefined ?
+const parseResponse = new ParseResponse('transactionstatusresponse');
+const soapRequest = new SOAPRequest();
+
+class PaymentStatus {
+  constructor(request, parser) {
+    this.parser = parser;
+    this.soapRequest = request;
+  }
+
+  buildSoapBody(data) {
+    const transactionStatusRequest = typeof data.transactionID !== 'undefined' ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :
       '<MERCHANT_TRANSACTION_ID>' + data.merchantTransactionID + '</MERCHANT_TRANSACTION_ID>';
 
@@ -26,22 +34,20 @@ module.exports = class PaymentStatus {
     </soapenv:Envelope>`;
   }
 
-  requestBody() {
-    return this.body;
-  }
-
-  static handler(req, res) {
-    const payment = new PaymentStatus({
+  handler(req, res) {
+    const paymentDetails = {
       transactionID: req.params.id,
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword,
-    });
-    const parser = new ParseResponse('transactionstatusresponse');
-    const status = new SOAPRequest(payment, parser);
+    };
+    const payment = this.buildSoapBody(paymentDetails);
+    const status = this.soapRequest.construct(payment, this.parser);
 
     // process PaymentStatus response
     return status.post()
       .then(response => res.status(200).json({ response }))
       .catch(error => responseError(error, res));
   }
-};
+}
+
+module.exports = new PaymentStatus(soapRequest, parseResponse);

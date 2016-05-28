@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     'phoneNumber',
   ];
 
-  if ('phoneNumber' in req.body) {
+  if (req.body && 'phoneNumber' in req.body) {
     // validate the phone number
     if (!/\+?(254)[0-9]{9}/g.test(req.body.phoneNumber)) {
       return res.status(400).send('Invalid [phoneNumber]');
@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
   }
 
   // validate total amount
-  if ('totalAmount' in req.body) {
+  if (req.body && 'totalAmount' in req.body) {
     if (!/^[\d]+(\.[\d]{2})?$/g.test(req.body.totalAmount)) {
       return res.status(400).send('Invalid [totalAmount]');
     }

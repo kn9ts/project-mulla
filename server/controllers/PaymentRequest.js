@@ -5,8 +5,16 @@ const ParseResponse = require('../utils/ParseResponse');
 const SOAPRequest = require('../controllers/SOAPRequest');
 const responseError = require('../utils/errors/responseError');
 
-module.exports = class PaymentRequest {
-  constructor(data) {
+const parseResponse = new ParseResponse('processcheckoutresponse');
+const soapRequest = new SOAPRequest();
+
+class PaymentRequest {
+  constructor(request, parser) {
+    this.parser = parser;
+    this.soapRequest = request;
+  }
+
+  buildSoapBody(data) {
     this.body = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="tns:ns">
       <soapenv:Header>
         <tns:CheckOutHeader>
@@ -32,11 +40,7 @@ module.exports = class PaymentRequest {
     </soapenv:Envelope>`;
   }
 
-  requestBody() {
-    return this.body;
-  }
-
-  static handler(req, res) {
+  handler(req, res) {
     const paymentDetails = {
       // transaction reference ID
       referenceID: (req.body.referenceID || uuid.v4()),
@@ -49,9 +53,8 @@ module.exports = class PaymentRequest {
       encryptedPassword: req.encryptedPassword,
     };
 
-    const payment = new PaymentRequest(paymentDetails);
-    const parser = new ParseResponse('processcheckoutresponse');
-    const soapRequest = new SOAPRequest(payment, parser);
+    const payment = this.buildSoapBody(paymentDetails);
+    const request = this.soapRequest.construct(payment, this.parser);
 
     // remove encryptedPassword
     delete paymentDetails.encryptedPassword;
@@ -65,10 +68,12 @@ module.exports = class PaymentRequest {
     }
 
     // make the payment requets and process response
-    soapRequest.post()
+    return request.post()
       .then(response => res.status(200).json({
         response: Object.assign({}, response, returnThesePaymentDetails),
       }))
       .catch(error => responseError(error, res));
   }
-};
+}
+
+module.exports = new PaymentRequest(soapRequest, parseResponse);

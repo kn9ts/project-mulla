@@ -4,9 +4,17 @@ const ParseResponse = require('../utils/ParseResponse');
 const SOAPRequest = require('../controllers/SOAPRequest');
 const responseError = require('../utils/errors/responseError');
 
-module.exports = class ConfirmPayment {
-  constructor(data) {
-    const transactionConfirmRequest = typeof data.transactionID !== undefined ?
+const parseResponse = new ParseResponse('transactionconfirmresponse');
+const soapRequest = new SOAPRequest();
+
+class ConfirmPayment {
+  constructor(request, parser) {
+    this.parser = parser;
+    this.soapRequest = request;
+  }
+
+  buildSoapBody(data) {
+    const transactionConfirmRequest = typeof data.transactionID !== 'undefined' ?
       '<TRX_ID>' + data.transactionID + '</TRX_ID>' :
       '<MERCHANT_TRANSACTION_ID>' + data.merchantTransactionID + '</MERCHANT_TRANSACTION_ID>';
 
@@ -26,22 +34,20 @@ module.exports = class ConfirmPayment {
     </soapenv:Envelope>`;
   }
 
-  requestBody() {
-    return this.body;
-  }
-
-  static handler(req, res) {
-    const payment = new ConfirmPayment({
+  handler(req, res) {
+    const paymentDetails = {
       transactionID: req.params.id, // eg. '99d0b1c0237b70f3dc63f36232b9984c'
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword,
-    });
-    const parser = new ParseResponse('transactionconfirmresponse');
-    const confirm = new SOAPRequest(payment, parser);
+    };
+    const payment = this.buildSoapBody(paymentDetails);
+    const confirm = this.soapRequest.construct(payment, this.parser);
 
     // process ConfirmPayment response
-    confirm.post()
+    return confirm.post()
       .then(response => res.status(200).json({ response }))
       .catch(error => responseError(error, res));
   }
-};
+}
+
+module.exports = new ConfirmPayment(soapRequest, parseResponse);
