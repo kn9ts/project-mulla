@@ -10,18 +10,18 @@ const uuid = require('node-uuid');
 const confirmPayment = require('../../server/controllers/ConfirmPayment');
 const GenEncryptedPassword = require('../../server/utils/GenEncryptedPassword');
 
-let timeStamp = moment().format('YYYYMMDDHHmmss');
-let encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
-let params = {
+const timeStamp = moment().format('YYYYMMDDHHmmss');
+const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
+const params = {
   transactionID: uuid.v1(),
   timeStamp,
   encryptedPassword,
 };
 
-let req = {};
+const req = {};
 const res = {};
-let response = { status_code: 200 };
-let promise = new Promise((resolve, reject) => {
+const response = { status_code: 200 };
+const promise = new Promise((resolve) => {
   resolve(response);
 });
 

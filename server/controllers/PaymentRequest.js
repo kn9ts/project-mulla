@@ -38,6 +38,8 @@ class PaymentRequest {
         </tns:processCheckOutRequest>
       </soapenv:Body>
     </soapenv:Envelope>`;
+
+    return this;
   }
 
   handler(req, res) {
