@@ -1,9 +1,11 @@
 [![Coverage Status](https://coveralls.io/repos/github/kn9ts/project-mulla/badge.svg?branch=master)](https://coveralls.io/github/kn9ts/project-mulla?branch=master)
-[![Build Status](https://semaphoreci.com/api/v1/kn9ts/project-mulla/branches/develop/badge.svg)](https://semaphoreci.com/kn9ts/project-mulla)
+[![Build Status](https://semaphoreci.com/api/v1/kn9ts/project-mulla/branches/master/badge.svg)](https://semaphoreci.com/kn9ts/project-mulla)
 
 ![](http://cdn.javascript.co.ke/images/banner.png)
 
 > **What MPESA G2 API should have been in the 21st century.**
+
+> **PLEASE NOTE: RESTifys C2B portion only for now.**
 
 **MPESA API RESTful mediator**. Basically converts all merchant requests to the dreaded ancient SOAP/XML
 requests. It then mediates all communications to and from the Safaricom MPESA gateway frictionlessly.
@@ -11,7 +13,7 @@ Responding to the merchant via a beautiful and soothing 21st century REST API.
 
 In short, it'll deal with all of the SOAP shenanigans while you REST. 
 
-The aim of **Project Mulla**, is to create a REST API that interfaces with the **ugly MPESA G2 API.**
+The aim of **Project Mulla** is to create a REST API that interfaces with the **ugly MPESA G2 API.**
 
 ### Yes We Know! SOAP! Yuck!
 
@@ -19,7 +21,11 @@ Developers should not go through the **trauma** involved with dealing with SOAP/
 
 # Example of how it works
 
-Once **Project Mulla** is set up, up and running in whichever clould platform you prefer(we recommend `Heroku.com`). Your 1st request once your customer/client has consumed your services or purchasing products from you is to innitiate a payment request.
+Once **Project Mulla** is set up in whichever cloud platform you prefer(we recommend [Heroku.com](https://heroku.com) or [Google App Engine](https://cloud.google.com/appengine/)) it is ready to mediate your MPESA G2 API requests.
+
+Let's go on ahead and make the 1st call, **ProcessCheckoutRequest**. Basically, this is telling the SAG to initialise a payment request you want to transact. After initialisation, you can on ahead and tell SAG to go on and do the actual transaction.
+
+Ok! Now you just have to make a **POST request to Project Mulla**. _Not Safaricom_. Project Mulla's mission, remember!!! See below of the request hueristics:
 
 ##### Initiate Payment Request:
 
@@ -27,7 +33,7 @@ _Method_: **`POST`**
 
 _Endpoint_: **`https://awesome-service.com/api/v1/payment/request`**
 
-_Parameters_:
+_Body Parameters_:
 - **`phoneNumber`** - The phone number of your client
 - **`totalAmount`** - The total amount you are charging the client
 - **`referenceID`** - The reference ID of the order or service **[optional]**
@@ -36,7 +42,7 @@ _Parameters_:
 __NOTE:__ If `merchantTransactionID` or `referenceID` are not provided a time-based and random 
 UUID is generated for each respectively.
 
-_Response:_
+_The response you get:_
 
 ```http
 HTTP/1.1 200 OK
@@ -49,20 +55,20 @@ X-Powered-By: Express
 set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
 
 {
-    "response": {
-        "amount_in_double_float": "450.00", 
-        "client_phone_number": "254723001575", 
-        "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions", 
-        "description": "success", 
-        "extra_payload": {}, 
-        "status_code": 200, 
-        "merchant_transaction_id": "c9bcf350-201e-11e6-a676-5984a015f2fd", 
-        "message": "Transaction carried successfully", 
-        "reference_id": "7d2c8f65-1228-4e6c-9b67-bb3b825c8441", 
-        "return_code": "00", 
-        "time_stamp": "20160522161208", 
-        "trx_id": "45a3f4b64cde9d88440211187f73944b"
-    }
+  "response": {
+    "return_code": "00",
+    "status_code": 200,
+    "message": "Transaction carried successfully",
+    "trx_id": "453c70c4b2434bd94bcbafb17518dc8e",
+    "description": "success",
+    "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
+    "reference_id": "3e3beff0-fc05-417a-bbf2-190ee19a5e58",
+    "merchant_transaction_id": "95d64500-2514-11e6-bcb8-a7f8e1c786c4",
+    "amount_in_double_float": "450.00",
+    "client_phone_number": "254723001575",
+    "extra_payload": {},
+    "time_stamp": "20160528234142"
+  }
 }
 ```
 
@@ -74,7 +80,7 @@ You will need to install some stuff, if they are not yet in your machine:
 
 ##### Majors:
 
-* **Node.js (v4.4.4 LTS)** - [Click here](http://nodejs.org) to install
+* **Node.js (v4.3.2 or higher; LTS)** - [Click here](http://nodejs.org) to install
 
 ##### Secondaries(click for further information):
 
@@ -120,15 +126,13 @@ It should look like the example below, only with your specific config values:
 API_VERSION = 1
 HOST = localhost
 PORT = 3000
-EXPRESS_SESSION_KEY = '88186735405ab8d59f968ed4dab89da5515'
-WEB_TOKEN_SECRET = 'a7f3f061-197f-4d94-bcfc-0fa72fc2d897'
-PAYBILL_NUMBER = '898998'
-PASSKEY = 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
+EXPRESS_SESSION_KEY = '88186735405ab8d59f968ed4dab89da5515' // for security purposes
+WEB_TOKEN_SECRET = 'a7f3f061-197f-4d94-bcfc-0fa72fc2d897' // this too
+PAYBILL_NUMBER = '123456'
+PASSKEY = 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8' // this a pure giberish string, don't bother
 ENDPOINT = 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
 CALLBACK_URL = 'http://awesome-service.com/mpesa/confirm-checkout.php'
 CALLBACK_METHOD = 'POST'
-TEST_PHONENUMBER = '0720000000'
-TEST_AMOUNT = '10.00'
 ```
 
 __The `PAYBILL_NUMBER` and `PASSKEY` are provided by Safaricom once you have registered for the MPESA G2 API.__
@@ -204,14 +208,14 @@ set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 **_TL;DR_*** Here's what the license entails:
 
 ```markdown
-1. Anyone can copy, modify and distrubute this software.
+1. Anyone can copy, modify and distribute this software.
 2. You have to include the license and copyright notice with each and every distribution.
 3. You can use this software privately.
-4. You can use this sofware for commercial purposes.
+4. You can use this software for commercial purposes.
 5. If you dare build your business solely from this code, you risk open-sourcing the whole code base.
-6. If you modifiy it, you have to indicate changes made to the code.
+6. If you modify it, you have to indicate changes made to the code.
 7. Any modifications of this code base MUST be distributed with the same license, GPLv3.
-8. This sofware is provided without warranty.
+8. This software is provided without warranty.
 9. The software author or license can not be held liable for any damages inflicted by the software.
 ```
 
