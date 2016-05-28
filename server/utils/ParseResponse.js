@@ -1,6 +1,5 @@
 'use strict';
 const cheerio = require('cheerio');
-const _ = require('lodash');
 const statusCodes = require('../config/statusCodes');
 
 
@@ -54,11 +53,11 @@ module.exports = class ParseResponse {
     delete this.json.enc_params;
 
     // Get the equivalent HTTP CODE to respond with
-    this.json = _.assignIn(this.extractCode(), this.json);
+    this.json = Object.assign({}, this.extractCode(), this.json);
     return this.json;
   }
 
   extractCode() {
-    return _.find(statusCodes, (o) => o.return_code === parseInt(this.json.return_code, 10));
+    return statusCodes.find(sts => sts.return_code === parseInt(this.json.return_code, 10));
   }
 };

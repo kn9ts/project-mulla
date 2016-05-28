@@ -10,9 +10,9 @@ const uuid = require('node-uuid');
 const paymentRequest = require('../../server/controllers/PaymentRequest');
 const GenEncryptedPassword = require('../../server/utils/GenEncryptedPassword');
 
-let timeStamp = moment().format('YYYYMMDDHHmmss');
-let encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
-let params = {
+const timeStamp = moment().format('YYYYMMDDHHmmss');
+const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
+const params = {
   referenceID: uuid.v4(),
   merchantTransactionID: uuid.v1(),
   amountInDoubleFloat: '100.00',
@@ -22,10 +22,10 @@ let params = {
   encryptedPassword,
 };
 
-let req = {};
+const req = {};
 const res = {};
-let response = { status_code: 200 };
-let promise = new Promise((resolve, reject) => {
+const response = { status_code: 200 };
+const promise = new Promise((resolve) => {
   resolve(response);
 });
 

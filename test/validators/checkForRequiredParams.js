@@ -68,7 +68,6 @@ describe('checkForRequiredParams', () => {
       totalAmount: '100',
     };
     checkForRequiredParams(req, res, next);
-    const spyCall = res.send.getCall(0);
 
     assert.equal(res.status.callCount, 0);
     assert.equal(res.send.callCount, 0);

@@ -4,8 +4,6 @@ require('../../environment');
 const chai = require('chai');
 const assert = chai.assert;
 const sinon = require('sinon');
-const moment = require('moment');
-const uuid = require('node-uuid');
 
 const paymentSuccess = require('../../server/controllers/PaymentSuccess');
 
@@ -13,18 +11,18 @@ const req = {};
 req.protocol = 'https';
 req.hostname = 'localhost';
 req.body = {
-  'MSISDN': '254723001575',
-  'MERCHANT_TRANSACTION_ID': 'FG232FT0',
-  'USERNAME': '',
-  'PASSWORD': '',
-  'AMOUNT': '100',
-  'TRX_STATUS': 'Success',
-  'RETURN_CODE': '00',
-  'DESCRIPTION': 'Transaction successful',
+  MSISDN: '254723001575',
+  MERCHANT_TRANSACTION_ID: 'FG232FT0',
+  USERNAME: '',
+  PASSWORD: '',
+  AMOUNT: '100',
+  TRX_STATUS: 'Success',
+  RETURN_CODE: '00',
+  DESCRIPTION: 'Transaction successful',
   'M-PESA_TRX_DATE': '2014-08-01 15:30:00',
   'M-PESA_TRX_ID': 'FG232FT0',
-  'TRX_ID': '1448',
-  'ENC_PARAMS': '{}',
+  TRX_ID: '1448',
+  ENC_PARAMS: '{}',
 };
 const res = {};
 res.sendStatus = sinon.stub();

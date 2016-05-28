@@ -32,6 +32,8 @@ class ConfirmPayment {
         </tns:transactionConfirmRequest>
       </soapenv:Body>
     </soapenv:Envelope>`;
+
+    return this;
   }
 
   handler(req, res) {

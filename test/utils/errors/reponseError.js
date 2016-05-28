@@ -2,7 +2,6 @@
 
 const chai = require('chai');
 const assert = chai.assert;
-const expect = chai.expect;
 const sinon = require('sinon');
 
 const responseError = require('../../../server/utils/errors/responseError');
@@ -34,7 +33,7 @@ describe('responseError', () => {
   it('Calls response method with custom error code', () => {
     error = {
       description: 'Bad request',
-      status_code: 400
+      status_code: 400,
     };
     responseError(error, res);
     spyCall = res.status.getCall(0);
