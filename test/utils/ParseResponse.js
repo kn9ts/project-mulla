@@ -76,12 +76,14 @@ describe('ParseResponse', () => {
 
     assert.isObject(parser.json, 'JSON was extracted');
     assert.sameMembers(Object.keys(parser.json), [
+      'return_code',
+      'status_code',
+      'message',
       'msisdn',
       'amount',
       'm-pesa_trx_date',
       'm-pesa_trx_id',
       'trx_status',
-      'return_code',
       'description',
       'merchant_transaction_id',
       'trx_id',

@@ -32,6 +32,8 @@ class PaymentStatus {
         </tns:transactionStatusRequest>
       </soapenv:Body>
     </soapenv:Envelope>`;
+
+    return this;
   }
 
   handler(req, res) {
