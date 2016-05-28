@@ -27,6 +27,11 @@ req.body = {
 const res = {};
 res.sendStatus = sinon.stub();
 
+let error = false;
+sinon.stub(paymentSuccess, 'request', (params, callback) => {
+  callback(error);
+});
+
 describe('paymentSuccess', () => {
   it('Make a request to MERCHANT_ENDPOINT and respond to SAG with OK', (done) => {
     process.env.MERCHANT_ENDPOINT = process.env.ENDPOINT;
@@ -35,16 +40,17 @@ describe('paymentSuccess', () => {
     setTimeout(() => {
       assert.isTrue(res.sendStatus.calledWithExactly(200));
       done();
-    }, 1500);
+    }, 20);
   });
 
   it('If ENDPOINT is not reachable, an error reponse is sent back', (done) => {
     delete process.env.MERCHANT_ENDPOINT;
+    error = new Error('ENDPOINT not reachable');
     paymentSuccess.handler(req, res);
 
     setTimeout(() => {
       assert.isTrue(res.sendStatus.calledWithExactly(500));
       done();
-    }, 1000);
+    }, 20);
   });
 });

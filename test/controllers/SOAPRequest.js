@@ -24,7 +24,7 @@ const paymentDetails = {
   encryptedPassword,
 };
 
-const parser = new ParseResponse('processcheckoutresponse');
+const parser = new ParseResponse('bodyTagName');
 parser.parse = sinon.stub().returns(parser);
 parser.toJSON = sinon.stub();
 parser.toJSON.onFirstCall().returns({ status_code: 200 });
@@ -34,8 +34,16 @@ const soapRequest = new SOAPRequest();
 paymentRequest.buildSoapBody(paymentDetails);
 soapRequest.construct(paymentRequest, parser);
 
+let requestError = undefined;
+sinon.stub(soapRequest, 'request', (params, callback) => {
+  callback(requestError, null, 'a soap dom tree string');
+});
 
 describe('SOAPRequest', () => {
+  afterEach(() => {
+    requestError = undefined;
+  });
+
   it('SOAPRequest is contructed', () => {
     assert.instanceOf(soapRequest.parser, ParseResponse);
     assert.sameMembers(Object.keys(soapRequest.requestOptions), [
@@ -54,6 +62,7 @@ describe('SOAPRequest', () => {
       assert.sameMembers(Object.keys(response), ['status_code']);
       assert.isTrue(soapRequest.parser.parse.called);
       assert.isTrue(soapRequest.parser.toJSON.called);
+      assert.isTrue(soapRequest.request.called);
       done();
     });
   });
@@ -65,14 +74,14 @@ describe('SOAPRequest', () => {
       assert.sameMembers(Object.keys(error), ['status_code']);
       assert.isTrue(soapRequest.parser.parse.called);
       assert.isTrue(soapRequest.parser.toJSON.called);
+      assert.isTrue(soapRequest.request.called);
       done();
     });
   });
 
 
   it('Invokes catch method if an error is returned on invalid request', (done) => {
-    process.env.ENDPOINT = 'undefined';
-    soapRequest.construct(paymentRequest, parser);
+    requestError = new Error('invalid URI provided');
 
     const request = soapRequest.post().catch((error) => {
       assert.instanceOf(request, Promise);
@@ -80,6 +89,7 @@ describe('SOAPRequest', () => {
       assert.sameMembers(Object.keys(error), ['description']);
       assert.isTrue(soapRequest.parser.parse.called);
       assert.isTrue(soapRequest.parser.toJSON.called);
+      assert.isTrue(soapRequest.request.called);
       done();
     });
   });
