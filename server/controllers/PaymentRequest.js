@@ -25,13 +25,12 @@ class PaymentRequest {
       </soapenv:Header>
       <soapenv:Body>
         <tns:processCheckOutRequest>
-          <MERCHANT_TRANSACTION_ID>${data.merchantTransactionID}</MERCHANT_TRANSACTION_ID>
+          <MERCHANT_TRANSACTION_ID>${String(data.merchantTransactionID).slice(0, 8)}
+          </MERCHANT_TRANSACTION_ID>
           <REFERENCE_ID>${data.referenceID}</REFERENCE_ID>
           <AMOUNT>${data.amountInDoubleFloat}</AMOUNT>
           <MSISDN>${data.clientPhoneNumber}</MSISDN>
-          <ENC_PARAMS>
-            ${data.extraPayload ? JSON.stringify(data.extraPayload) : ''}
-          </ENC_PARAMS>
+          <ENC_PARAMS>${JSON.stringify(data.extraPayload)}</ENC_PARAMS>
           <CALL_BACK_URL>${process.env.CALLBACK_URL}</CALL_BACK_URL>
           <CALL_BACK_METHOD>${process.env.CALLBACK_METHOD}</CALL_BACK_METHOD>
           <TIMESTAMP>${data.timeStamp}</TIMESTAMP>
@@ -48,8 +47,8 @@ class PaymentRequest {
       referenceID: (req.body.referenceID || uuid.v4()),
       // product, service or order ID
       merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
-      amountInDoubleFloat: (req.body.totalAmount || process.env.TEST_AMOUNT),
-      clientPhoneNumber: (req.body.phoneNumber || process.env.TEST_PHONENUMBER),
+      amountInDoubleFloat: req.body.totalAmount,
+      clientPhoneNumber: req.body.phoneNumber,
       extraPayload: req.body.extraPayload,
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword,
