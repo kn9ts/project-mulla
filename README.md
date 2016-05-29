@@ -23,17 +23,20 @@ Developers should not go through the **trauma** involved with dealing with SOAP/
 
 Once **Project Mulla** is set up in whichever cloud platform you prefer(we recommend [Heroku.com](https://heroku.com) or [Google App Engine](https://cloud.google.com/appengine/)) it is ready to mediate your MPESA G2 API requests.
 
-Let's go on ahead and make the 1st call, **ProcessCheckoutRequest**. Basically, this is telling the SAG to initialise a payment request you want to transact. After initialisation, you can on ahead and tell SAG to go on and do the actual transaction.
+Let's go ahead and make the 1st call, **ProcessCheckoutRequest**. Basically, this is telling the SAG to initialise a payment request you want to transact. After initialisation, you then confirm with SAG via another POST request to do the actual payment/transaction.
 
-Ok! Now you just have to make a **POST request to Project Mulla**. _Not Safaricom_. Project Mulla's mission, remember!!! See below of the request hueristics:
+Make the initialisation request by making a **POST request to Project Mulla**. _Not Safaricom_. Project Mulla's mission, remember!!!
+
+See below on how you'd make the 1st request:
 
 ##### Initiate Payment Request:
 
 _Method_: **`POST`** 
 
-_Endpoint_: **`https://awesome-service.com/api/v1/payment/request`**
+_Endpoint_: **`https://your-project-mulla-endpoint.herokuapp.com/api/v1/payment/request`**
 
 _Body Parameters_:
+
 - **`phoneNumber`** - The phone number of your client
 - **`totalAmount`** - The total amount you are charging the client
 - **`referenceID`** - The reference ID of the order or service **[optional]**
@@ -53,7 +56,9 @@ Date: Sat, 21 May 2016 10:03:37 GMT
 ETag: W/"1fe-jy66YehfhiFHWoyTNHpSnA"
 X-Powered-By: Express
 set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
+```
 
+```json
 {
   "response": {
     "return_code": "00",
@@ -76,7 +81,7 @@ set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7Gd
 
 ## Dependencies
 
-You will need to install some stuff, if they are not yet in your machine:
+You will need to install some stuff, if they are not yet installed in your machine:
 
 ##### Majors:
 
@@ -88,7 +93,7 @@ You will need to install some stuff, if they are not yet in your machine:
 
 You may need to update it to the latest version:
 
-```
+```bash
 $ npm update -g npm
 ```
 
@@ -152,7 +157,7 @@ Express server listening on 3000, in development mode
 
 #### Do a test run
 
-You can make a test run using **CURL**:
+Now make a test run using **CURL**:
 
 ```bash
 $ curl -i -X POST \
@@ -173,7 +178,7 @@ $ http POST localhost:3000/api/v1/payment/request \
   clientLocation='Kilimani'
 ```
 
-You should expect back a similar structured **response** as follows:
+Once the request is executed, your console should print a similar structured **response** as below:
 
 ```http
 HTTP/1.1 200 OK
@@ -186,24 +191,24 @@ X-Powered-By: Express
 set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 
 {
-    "response": {
-        "amount_in_double_float": "450.00",
-        "client_phone_number": "254723001575",
-        "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
-        "description": "success",
-        "extra_payload": {},
-        "status_code": 200,
-        "merchant_transaction_id": "c9bcf350-201e-11e6-a676-5984a015f2fd",
-        "message": "Transaction carried successfully",
-        "reference_id": "7d2c8f65-1228-4e6c-9b67-bb3b825c8441",
-        "return_code": "00",
-        "time_stamp": "20160522161208",
-        "trx_id": "45a3f4b64cde9d88440211187f73944b"
-    }
+  "response": {
+    "return_code": "00",
+    "status_code": 200,
+    "message": "Transaction carried successfully",
+    "trx_id": "453c70c4b2434bd94bcbafb17518dc8e",
+    "description": "success",
+    "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
+    "reference_id": "3e3beff0-fc05-417a-bbf2-190ee19a5e58",
+    "merchant_transaction_id": "95d64500-2514-11e6-bcb8-a7f8e1c786c4",
+    "amount_in_double_float": "450.00",
+    "client_phone_number": "254723001575",
+    "extra_payload": {},
+    "time_stamp": "20160528234142"
+  }
 }
 ```
 
-# This project uses GPL3 LICENSE
+# This project uses GPLv3 LICENSE
 
 **_TL;DR_*** Here's what the license entails:
 
@@ -219,6 +224,6 @@ set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 9. The software author or license can not be held liable for any damages inflicted by the software.
 ```
 
-More information on about the [LICENSE can be found here](http://choosealicense.com/licenses/gpl-3.0/)
+More information on the [LICENSE can be found here](http://choosealicense.com/licenses/gpl-3.0/)
 
-**_PLEASE NOTE:_** All opinions aired in this repo are ours and do not reflect any company or organisation any contributor is involved with.*
+**_DISCLAIMER:_** _All opinions aired in this repo are ours and do not reflect any company or organisation any contributor is involved with._
