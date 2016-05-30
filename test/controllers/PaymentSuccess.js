@@ -3,6 +3,7 @@
 require('../../environment');
 const chai = require('chai');
 const assert = chai.assert;
+const expect = chai.expect;
 const sinon = require('sinon');
 
 const paymentSuccess = require('../../server/controllers/PaymentSuccess');
@@ -27,30 +28,35 @@ req.body = {
 const res = {};
 res.sendStatus = sinon.stub();
 
+const response = {};
+for (const x of Object.keys(req.body)) {
+  const prop = x.toLowerCase().replace(/\-/g, '');
+  response[prop] = req.body[x];
+}
+
 let error = false;
 sinon.stub(paymentSuccess, 'request', (params, callback) => {
   callback(error);
 });
 
 describe('paymentSuccess', () => {
-  it('Make a request to MERCHANT_ENDPOINT and respond to SAG with OK', (done) => {
+  it('Make a request to MERCHANT_ENDPOINT and respond to SAG with OK', () => {
     process.env.MERCHANT_ENDPOINT = process.env.ENDPOINT;
     paymentSuccess.handler(req, res);
 
-    setTimeout(() => {
-      assert.isTrue(res.sendStatus.calledWithExactly(200));
-      done();
-    }, 20);
+    const spyCall = paymentSuccess.request.getCall(0);
+    const args = spyCall.args[0];
+
+    assert.isTrue(res.sendStatus.calledWithExactly(200));
+    assert.isTrue(paymentSuccess.request.called);
+    expect(response).to.deep.equal(JSON.parse(args.body));
   });
 
-  it('If ENDPOINT is not reachable, an error reponse is sent back', (done) => {
+  it('If ENDPOINT is not reachable, an error reponse is sent back', () => {
     delete process.env.MERCHANT_ENDPOINT;
     error = new Error('ENDPOINT not reachable');
     paymentSuccess.handler(req, res);
 
-    setTimeout(() => {
-      assert.isTrue(res.sendStatus.calledWithExactly(500));
-      done();
-    }, 20);
+    assert.isTrue(res.sendStatus.calledWithExactly(500));
   });
 });
