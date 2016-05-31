@@ -6,14 +6,15 @@ const sinon = require('sinon');
 
 const responseError = require('../../../server/utils/errors/responseError');
 
-let spyCall;
-const res = {};
-let error = 'An error message';
-
 describe('responseError', () => {
+  let spyCall;
+  const res = {};
+  let error = 'An error message';
+
   beforeEach(() => {
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub();
+
     responseError(error, res);
   });
 

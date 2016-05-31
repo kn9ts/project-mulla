@@ -10,46 +10,44 @@ const uuid = require('node-uuid');
 const confirmPayment = require('../../server/controllers/ConfirmPayment');
 const GenEncryptedPassword = require('../../server/utils/GenEncryptedPassword');
 
-const timeStamp = moment().format('YYYYMMDDHHmmss');
-const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
-const params = {
-  transactionID: uuid.v1(),
-  timeStamp,
-  encryptedPassword,
-};
-
-const req = {};
-const res = {};
-const response = { status_code: 200 };
-const promise = new Promise((resolve) => {
-  resolve(response);
-});
-
-sinon.stub(promise, 'then', (callback) => {
-  callback(response);
-  return promise;
-});
-
-sinon.stub(promise, 'catch', (callback) => {
-  callback(new Error('threw an error'));
-  return promise;
-});
-
 describe('confirmPayment', () => {
-  beforeEach(() => {
-    req.timeStamp = timeStamp;
-    req.encryptedPassword = encryptedPassword;
-    req.params = {
-      id: uuid.v1(),
-    };
+  const timeStamp = moment().format('YYYYMMDDHHmmss');
+  const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
+  const params = {
+    transactionID: uuid.v1(),
+    timeStamp,
+    encryptedPassword,
+  };
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub();
+  const req = {};
+  req.timeStamp = timeStamp;
+  req.encryptedPassword = encryptedPassword;
+  req.params = {
+    id: uuid.v1(),
+  };
 
-    confirmPayment.parser = sinon.stub().returnsThis();
-    confirmPayment.soapRequest.construct = sinon.stub().returnsThis();
-    confirmPayment.soapRequest.post = sinon.stub().returns(promise);
+  const res = {};
+  res.status = sinon.stub().returns(res);
+  res.json = sinon.stub();
+
+  const response = { status_code: 200 };
+  const promise = new Promise((resolve) => {
+    resolve(response);
   });
+
+  sinon.stub(promise, 'then', (callback) => {
+    callback(response);
+    return promise;
+  });
+
+  sinon.stub(promise, 'catch', (callback) => {
+    callback(new Error('threw an error'));
+    return promise;
+  });
+
+  confirmPayment.parser = sinon.stub().returnsThis();
+  confirmPayment.soapRequest.construct = sinon.stub().returnsThis();
+  confirmPayment.soapRequest.post = sinon.stub().returns(promise);
 
   it('BuildSoapBody builds the soap body string with transactionID', () => {
     confirmPayment.buildSoapBody(params);

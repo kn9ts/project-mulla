@@ -6,11 +6,11 @@ const sinon = require('sinon');
 
 const checkForRequiredParams = require('../../server/validators/checkForRequiredParams');
 
-const res = {};
-const req = {};
-let next = sinon.stub();
-
 describe('checkForRequiredParams', () => {
+  const res = {};
+  const req = {};
+  let next = sinon.stub();
+
   beforeEach(() => {
     res.status = sinon.stub().returns(res);
     res.send = sinon.stub();

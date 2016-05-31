@@ -12,34 +12,34 @@ const ParseResponse = require('../../server/utils/ParseResponse');
 const paymentRequest = require('../../server/controllers/PaymentRequest');
 const GenEncryptedPassword = require('../../server/utils/GenEncryptedPassword');
 
-const timeStamp = moment().format('YYYYMMDDHHmmss');
-const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
-const paymentDetails = {
-  referenceID: uuid.v4(),
-  merchantTransactionID: uuid.v1(),
-  amountInDoubleFloat: '100.00',
-  clientPhoneNumber: '254723001575',
-  extraPayload: {},
-  timeStamp,
-  encryptedPassword,
-};
-
-const parser = new ParseResponse('bodyTagName');
-parser.parse = sinon.stub().returns(parser);
-parser.toJSON = sinon.stub();
-parser.toJSON.onFirstCall().returns({ status_code: 200 });
-parser.toJSON.onSecondCall().returns({ status_code: 400 });
-
-const soapRequest = new SOAPRequest();
-paymentRequest.buildSoapBody(paymentDetails);
-soapRequest.construct(paymentRequest, parser);
-
-let requestError = undefined;
-sinon.stub(soapRequest, 'request', (params, callback) => {
-  callback(requestError, null, 'a soap dom tree string');
-});
-
 describe('SOAPRequest', () => {
+  const timeStamp = moment().format('YYYYMMDDHHmmss');
+  const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
+  const paymentDetails = {
+    referenceID: uuid.v4(),
+    merchantTransactionID: uuid.v1(),
+    amountInDoubleFloat: '100.00',
+    clientPhoneNumber: '254723001575',
+    extraPayload: {},
+    timeStamp,
+    encryptedPassword,
+  };
+
+  const parser = new ParseResponse('bodyTagName');
+  parser.parse = sinon.stub().returns(parser);
+  parser.toJSON = sinon.stub();
+  parser.toJSON.onFirstCall().returns({ status_code: 200 });
+  parser.toJSON.onSecondCall().returns({ status_code: 400 });
+
+  const soapRequest = new SOAPRequest();
+  paymentRequest.buildSoapBody(paymentDetails);
+  soapRequest.construct(paymentRequest, parser);
+
+  let requestError = undefined;
+  sinon.stub(soapRequest, 'request', (params, callback) => {
+    callback(requestError, null, 'a soap dom tree string');
+  });
+
   afterEach(() => {
     requestError = undefined;
   });
