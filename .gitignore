@@ -11,6 +11,7 @@ server/config/local.env.js
 npm-debug.log
 .sass-cache
 _site
+app.yaml
 
 ### Added by loopback framework
 *.csv
