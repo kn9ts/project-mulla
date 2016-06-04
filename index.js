@@ -14,10 +14,12 @@ const routes = require('./server/routes');
 const genTransactionPassword = require('./server/utils/genTransactionPassword');
 const apiVersion = process.env.API_VERSION;
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// trust proxy if it's being served in GoogleAppEngine
+if ('GAE_APPENGINE_HOSTNAME' in process.env) app.set('trust_proxy', 1);
 
 // Uncomment this for Morgan to intercept all Error instantiations
 // For now, they churned out via a JSON response
