@@ -8,7 +8,7 @@
     "test": "gulp test",
     "develop": "nodemon -w ./server --exec npm start",
     "lint": "eslint --fix ./server ./test",
-    "monitor": "nodemon app.js",
+    "monitor": "nodemon index.js",
     "start": "node index.js"
   },
   "repository": {

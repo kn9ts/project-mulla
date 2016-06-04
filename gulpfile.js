@@ -9,7 +9,9 @@ const coveralls = require('gulp-coveralls');
 const eslint = require('gulp-eslint');
 const runSequence = require('run-sequence');
 
-process.env.COVERALLS_SERVICE_NAME = `${os.hostname()}.${os.platform()}-${os.release()}`;
+if (!('COVERALLS_SERVICE_NAME' in process.env)) {
+  process.env.COVERALLS_SERVICE_NAME = `${os.hostname()}.${os.platform()}-${os.release()}`;
+}
 process.env.COVERALLS_REPO_TOKEN = 'EI2vRz1HRhJ3pGi7g3J6sMxI4dsnrWxtb';
 
 const filesToLint = [
