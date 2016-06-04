@@ -4,8 +4,6 @@ require('./environment');
 const express = require('express');
 const app = express();
 const path = require('path');
-const config = require('./server/config')(process.env.NODE_ENV);
-// const favicon = require('serve-favicon');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -35,7 +33,7 @@ app.use(express.static(path.join(__dirname, './server/public')));
 
 // memory based session
 app.use(session({
-  secret: config.expressSessionKey,
+  secret: process.env.SESSION_SECRET_KEY,
   resave: false,
   saveUninitialized: true,
 }));

@@ -15,6 +15,7 @@ process.env.COVERALLS_REPO_TOKEN = 'EI2vRz1HRhJ3pGi7g3J6sMxI4dsnrWxtb';
 const filesToLint = [
   'gulpfile.js',
   'index.js',
+  'environment.js',
   './server/**/*.js',
   '!node_modules/**',
 ];
