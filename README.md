@@ -5,15 +5,15 @@
 
 > **What MPESA G2 API should have been in the 21st century.**
 
-> **PLEASE NOTE: RESTifys C2B portion only for now.**
+> **PLEASE NOTE: Mediates only C2B portion for now.**
 
-**MPESA API RESTful mediator**. Basically converts all merchant requests to the dreaded ancient SOAP/XML
-requests. It then mediates all communications to and from the Safaricom MPESA gateway frictionlessly.
-Responding to the merchant via a beautiful and soothing 21st century REST API.
+**MPESA API RESTful mediator**. It transforms all merchant REST requests to the dreaded ancient SOAP/XML
+requests. And transforms Safaricom MPESA G2 API gateway SOAP responses to JSON. 
+Responding back to the merchant via a beautiful and soothing REST API.
 
-In short, it'll deal with all of the SOAP shenanigans while you REST. 
+In short, it'll deal with all of the SOAP shenanigans while you REST.
 
-The aim of **Project Mulla** is to create a REST API that interfaces with the **ugly MPESA G2 API.**
+The aim of **Project Mulla** is to create a REST API middleman that interfaces with the **MPESA G2 API** for you.
 
 ### Yes We Know! SOAP! Yuck!
 
@@ -21,13 +21,13 @@ Developers should not go through the **trauma** involved with dealing with SOAP/
 
 # Example of how it works
 
-Once **Project Mulla** is set up in whichever cloud platform you prefer(we recommend [Heroku.com](https://heroku.com) or [Google App Engine](https://cloud.google.com/appengine/)) it is ready to mediate your MPESA G2 API requests.
+Let's go ahead and make the 1st call, **ProcessCheckoutRequest**. This is initial step is to tell the SAG to 
+initialise a payment request you want to transact. After initialisation, you then make another POST request to 
+the SAG as a confirmation signal to carry out the actual payment/transaction request prior.
 
-Let's go ahead and make the 1st call, **ProcessCheckoutRequest**. Basically, this is telling the SAG to initialise a payment request you want to transact. After initialisation, you then confirm with SAG via another POST request to do the actual payment/transaction.
+Assuming **Project Mulla** is now your mediator, you'd now make a **POST request to Project Mulla**. _Not Safaricom_. 
 
-Make the initialisation request by making a **POST request to Project Mulla**. _Not Safaricom_. Project Mulla's mission, remember!!!
-
-See below on how you'd make the 1st request:
+See below how you'd make this initial request:
 
 ##### Initiate Payment Request:
 
@@ -42,11 +42,12 @@ _Body Parameters_:
 - **`referenceID`** - The reference ID of the order or service **[optional]**
 - **`merchantTransactionID`** - This specific order's or service's transaction ID **[optional]**
 
-__NOTE:__ If `merchantTransactionID` or `referenceID` are not provided a time-based and random 
-UUID is generated for each respectively.
+_**NOTE:** If `merchantTransactionID` or `referenceID` are not provided a time-based and random 
+UUID is generated for each respectively._
 
 _The response you get:_
 
+_**`HTTP HEADER META DATA`**_
 ```http
 HTTP/1.1 200 OK
 Connection: keep-alive
@@ -58,6 +59,7 @@ X-Powered-By: Express
 set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
 ```
 
+_**`The JSON response in the BODY`**_
 ```json
 {
   "response": {
@@ -69,7 +71,7 @@ set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7Gd
     "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
     "reference_id": "3e3beff0-fc05-417a-bbf2-190ee19a5e58",
     "merchant_transaction_id": "95d64500-2514-11e6-bcb8-a7f8e1c786c4",
-    "amount_in_double_float": "450.00",
+    "amount_in_double_float": "10.00",
     "client_phone_number": "254723001575",
     "extra_payload": {},
     "time_stamp": "20160528234142"
@@ -77,7 +79,7 @@ set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7Gd
 }
 ```
 
-# Installation
+# Installation & Testing
 
 ## Dependencies
 
@@ -91,7 +93,7 @@ You will need to install some stuff, if they are not yet installed in your machi
 
 * **NPM (v3.5+; bundled with node.js installation package)**
 
-You may need to update it to the latest version:
+If already installed you may need to only update it to the latest version:
 
 ```bash
 $ npm update -g npm
@@ -99,9 +101,9 @@ $ npm update -g npm
 
 ## Getting Started
 
-Once you have **Node.js** installed, run _(type or copy & paste; pick your poison)_:
+Once you have **Node.js (and NPM)** installed, run _(type or copy & paste; pick your poison)_:
 
-**To download the boilerplate**
+**To clone/download the boilerplate**
 
 ```bash
 $ git clone https://github.com/kn9ts/project-mulla
@@ -113,38 +115,45 @@ After cloning, get into your project mulla's directory/folder:
 $ cd project-mulla
 ```
 
-**Install all of the projects dependecies with:**
+**Install all of the projects dependencies with:**
 
 ```bash
 $ npm install
 ```
 
-**Create .env configurations file**
+**Create `app.yaml` configurations file**
 
-The last but not least step is creating a `.env` file with your configurations in the root directory of `project mulla`.
+The last but not least step is creating a `app.yaml` file with your configurations in the root directory of `project-mulla`.
 
-Should be in the same location as `index.js`
+This is the same folder estate where `index.js` can be found.
 
 It should look like the example below, only with your specific config values:
 
-```js
-API_VERSION = 1
-HOST = localhost
-PORT = 3000
-EXPRESS_SESSION_KEY = '88186735405ab8d59f968ed4dab89da5515' // for security purposes
-WEB_TOKEN_SECRET = 'a7f3f061-197f-4d94-bcfc-0fa72fc2d897' // this too
-PAYBILL_NUMBER = '123456'
-PASSKEY = 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8' // this a pure giberish string, don't bother
-ENDPOINT = 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
-CALLBACK_URL = 'http://awesome-service.com/mpesa/confirm-checkout.php'
-CALLBACK_METHOD = 'POST'
+```yaml
+env_variables:
+  SESSION_SECRET_KEY: '88735405ab8d9f968ed4dab89da5515KadjaklJK238adnkLD32'
+  PAYBILL_NUMBER: '898998'
+  PASSKEY: 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
+  ENDPOINT: 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
+  CALLBACK_URL: 'http://awesome-service.com/mpesa/confirm-checkout.php'
+  CALLBACK_METHOD: 'POST'
+
+# Everything below from this point onwards are only relevant 
+# if you are looking to deploy Project Mulla to Google App Engine.
+runtime: nodejs
+vm: true
+
+skip_files:
+  - ^(.*/)?.*/node_modules/.*$
 ```
 
-__The `PAYBILL_NUMBER` and `PASSKEY` are provided by Safaricom once you have registered for the MPESA G2 API.__
+*__PLEASE NOTE:__ The __`PAYBILL_NUMBER`__ and __`PASSKEY`__ are provided by Safaricom once you have registered for the MPESA G2 API.*
 
-*__PLEASE NOTE__: The details above only serve as examples*
+*__PLEASE NOTE:__ The details above only serve as examples*
 
 #### It's now ready to launch
+
+1st run the command `npm test` in the console and see if everything is all good. Then run:
 
 ```bash
 $ npm start
@@ -152,7 +161,7 @@ $ npm start
 > project-mulla@0.1.1 start ../project-mulla
 > node index.js
 
-Express server listening on 3000, in development mode
+Express server listening on 8080, in development mode
 ```
 
 #### Do a test run
@@ -161,9 +170,9 @@ Now make a test run using **CURL**:
 
 ```bash
 $ curl -i -X POST \
-  --url http://localhost:3000/api/v1/payment/request \
+  --url http://localhost:8080/api/v1/payment/request \
   --data 'phoneNumber=254723001575' \
-  --data 'totalAmount=450.00' \
+  --data 'totalAmount=10.00' \
   --data 'clientName="Eugene Mutai"' \
   --data 'clientLocation=Kilimani' \
 ```
@@ -171,9 +180,9 @@ $ curl -i -X POST \
 Or if you have [httpie](https://github.com/jkbrzt/httpie) installed:
 
 ```bash
-$ http POST localhost:3000/api/v1/payment/request \
+$ http POST localhost:8080/api/v1/payment/request \
   phoneNumber=254723001575 \
-  totalAmount=450.00 \
+  totalAmount=10.00 \
   clientName='Eugene Mutai' \
   clientLocation='Kilimani'
 ```
@@ -200,7 +209,7 @@ set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
     "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
     "reference_id": "3e3beff0-fc05-417a-bbf2-190ee19a5e58",
     "merchant_transaction_id": "95d64500-2514-11e6-bcb8-a7f8e1c786c4",
-    "amount_in_double_float": "450.00",
+    "amount_in_double_float": "10.00",
     "client_phone_number": "254723001575",
     "extra_payload": {},
     "time_stamp": "20160528234142"
