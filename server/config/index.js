@@ -2,7 +2,6 @@
 
 module.exports = (value) => {
   const envVariables = {
-    host: process.env.HOST,
     expressSessionKey: process.env.EXPRESS_SESSION_KEY,
   };
 

@@ -10,52 +10,50 @@ const uuid = require('node-uuid');
 const paymentRequest = require('../../server/controllers/PaymentRequest');
 const GenEncryptedPassword = require('../../server/utils/GenEncryptedPassword');
 
-const timeStamp = moment().format('YYYYMMDDHHmmss');
-const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
-const params = {
-  referenceID: uuid.v4(),
-  merchantTransactionID: uuid.v1(),
-  amountInDoubleFloat: '100.00',
-  clientPhoneNumber: '254723001575',
-  extraPayload: {},
-  timeStamp,
-  encryptedPassword,
-};
-
-const req = {};
-const res = {};
-const response = { status_code: 200 };
-const promise = new Promise((resolve) => {
-  resolve(response);
-});
-
-sinon.stub(promise, 'then', (callback) => {
-  callback(response);
-  return promise;
-});
-
-sinon.stub(promise, 'catch', (callback) => {
-  callback(new Error('threw an error'));
-  return promise;
-});
-
 describe('paymentRequest', () => {
-  beforeEach(() => {
-    req.timeStamp = timeStamp;
-    req.encryptedPassword = encryptedPassword;
-    req.body = {
-      totalAmount: '100.00',
-      phoneNumber: '254723001575',
-      extraPayload: {},
-    };
+  const timeStamp = moment().format('YYYYMMDDHHmmss');
+  const encryptedPassword = new GenEncryptedPassword(timeStamp).hashedPassword;
+  const params = {
+    referenceID: uuid.v4(),
+    merchantTransactionID: uuid.v1(),
+    amountInDoubleFloat: '100.00',
+    clientPhoneNumber: '254723001575',
+    extraPayload: {},
+    timeStamp,
+    encryptedPassword,
+  };
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub();
+  const req = {};
+  req.timeStamp = timeStamp;
+  req.encryptedPassword = encryptedPassword;
+  req.body = {
+    totalAmount: '100.00',
+    phoneNumber: '254723001575',
+    extraPayload: {},
+  };
 
-    paymentRequest.parser = sinon.stub().returnsThis();
-    paymentRequest.soapRequest.construct = sinon.stub().returnsThis();
-    paymentRequest.soapRequest.post = sinon.stub().returns(promise);
+  const res = {};
+  res.status = sinon.stub().returns(res);
+  res.json = sinon.stub();
+
+  const response = { status_code: 200 };
+  const promise = new Promise((resolve) => {
+    resolve(response);
   });
+
+  sinon.stub(promise, 'then', (callback) => {
+    callback(response);
+    return promise;
+  });
+
+  sinon.stub(promise, 'catch', (callback) => {
+    callback(new Error('threw an error'));
+    return promise;
+  });
+
+  paymentRequest.parser = sinon.stub().returnsThis();
+  paymentRequest.soapRequest.construct = sinon.stub().returnsThis();
+  paymentRequest.soapRequest.post = sinon.stub().returns(promise);
 
   it('BuildSoapBody builds the soap body string', () => {
     paymentRequest.buildSoapBody(params);
