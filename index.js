@@ -46,31 +46,34 @@ app.use(`/api/v${apiVersion}/payment*`, genTransactionPassword);
 const apiRouter = express.Router;
 app.use(`/api/v${apiVersion}`, routes(apiRouter()));
 
+// use this prettify the error stack string into an array of stack traces
+const prettifyStackTrace = stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim();
+
 // catch 404 and forward to error handler
 app.use((req, res) => {
+  const notFoundStatusCode = 404;
   const err = new Error('Not Found');
-  err.status = 404;
-  res.status(err.status).json({
-    status: err.status,
+  const stack = err.stack.split(/\n/).map(prettifyStackTrace);
+
+  // send out the error as json
+  res.status(notFoundStatusCode).json({
+    status_code: notFoundStatusCode,
     request_url: req.originalUrl,
     message: err.message,
-    stack_trace: err.stack.split(/\n/).map(stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim()),
+    stack_trace: stack,
   });
 });
 
 // error handlers
 app.use((err, req, res) => {
-  console.log('ERROR PASSING THROUGH', err.message);
-  // get the error stack
-  const stack = err.stack.split(/\n/)
-    .map(stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim());
+  console.log('An error occured: ', err.message);
+  const stack = err.stack.split(/\n/).map(prettifyStackTrace);
 
-  // send out the error as json
-  res.status(err.status || 500).json({
-    api: err,
-    url: req.originalUrl,
-    error: err.message,
-    stack,
+  res.status(err.statusCode || 500).json({
+    status_code: err.statusCode,
+    request_url: req.originalUrl,
+    message: err.message,
+    stack_trace: stack,
   });
 });
 
