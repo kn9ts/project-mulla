@@ -47,11 +47,15 @@ const apiRouter = express.Router;
 app.use(`/api/v${apiVersion}`, routes(apiRouter()));
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((req, res) => {
   const err = new Error('Not Found');
-  err.request = req.originalUrl;
   err.status = 404;
-  next(err);
+  res.status(err.status).json({
+    status: err.status,
+    request_url: req.originalUrl,
+    message: err.message,
+    stack_trace: err.stack.split(/\n/).map(stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim()),
+  });
 });
 
 // error handlers
@@ -59,7 +63,7 @@ app.use((err, req, res) => {
   console.log('ERROR PASSING THROUGH', err.message);
   // get the error stack
   const stack = err.stack.split(/\n/)
-    .map(error => error.replace(/\s{2,}/g, ' ').trim());
+    .map(stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim());
 
   // send out the error as json
   res.status(err.status || 500).json({
@@ -76,4 +80,4 @@ const server = app.listen(process.env.PORT || 8080, () => {
 });
 
 // expose app
-exports.default = app;
+module.exports = app;
