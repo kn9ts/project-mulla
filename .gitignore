@@ -4,6 +4,8 @@
 _site
 .sass-cache
 .jekyll-metadata
+app.yaml
+.vscode/
 
 ### Node ###
 # Logs

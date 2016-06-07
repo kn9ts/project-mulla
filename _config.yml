@@ -1,5 +1,4 @@
 # Site settings
-project_name: Project Mulla
 title: Project Mulla
 description: > # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -12,10 +11,9 @@ baseurl: "/project-mulla"
 # the base hostname & protocol for your site
 url: http://kn9ts.github.io/project-mulla/
 
-
 # Build settings
 markdown: kramdown
-highlighter: pygments
+# highlighter: pygments
 github: [Repository metadata]
 
 # Permalinks
