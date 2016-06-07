@@ -1,10 +1,9 @@
 @import url(colors.css);
-@import url(https://fonts.googleapis.com/css?family=Telex);
-@import url(https://fonts.googleapis.com/css?family=Monda:400,700);
+@import url(https://fonts.googleapis.com/css?family=Asap:400,700);
 @charset "utf-8";
 html {
     cursor: default;
-    font-family: 'Telex', sans-serif;
+    font-family: 'Asap', sans-serif;
     margin: 0;
     overflow-x: hidden;
     padding: 0;
@@ -12,7 +11,7 @@ html {
 
 body {
     cursor: default;
-    font-family: 'Telex', sans-serif;
+    font-family: 'Asap', sans-serif;
     font-size: 1.5em;
     margin: 0;
     overflow-x: hidden;
@@ -24,12 +23,22 @@ body {
 h1,
 h2,
 h3 {
-    font-family: "Monda", "Helvetica", san-serif;
+    font-family: "Asap", "Helvetica", san-serif;
     font-weight: bolder;
 }
 
+p,
+span,
+i,
+b,
+strong,
+blockquote {
+    font-family: "Asap", "Helvetica", san-serif;
+}
+
 nav {
-    font-family: "Monda", "Helvetica", san-serif;
+    font-weight: bold;
+    font-family: "Asap", "Helvetica", san-serif;
 }
 
 .btn {
@@ -50,6 +59,7 @@ nav {
 
 .jumbotron {
     min-height: 350px;
+    margin-bottom: 0;
     background: url(http://res.cloudinary.com/dpmk2cnpi/image/upload/c_fill,h_612,w_1600/v1463949031/039_www.cute-pictures.blogspot.com_hxe9lt.jpg);
     background-position: cover;
 }
@@ -74,6 +84,14 @@ section {
     background: #DE1335;
 }
 
+.bg-green {
+    background: #5FAD24;
+}
+
+.demo {
+    // background: #f6f6f6;
+}
+
 .pale-grey-bg {
     background: #EDEDED;
     color: #777777;
@@ -88,5 +106,6 @@ pre {
 }
 
 code .nv {
+    padding: 0 1em;
     color: #5FAD24;
 }
