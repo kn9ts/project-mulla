@@ -88,8 +88,8 @@ section {
     background: #5FAD24;
 }
 
-.demo {
-    // background: #f6f6f6;
+.demo h2{
+	font-size: 1.5em;
 }
 
 .pale-grey-bg {
