@@ -1,7 +1,22 @@
 ---
 layout: master
 ---
-<div class="col-xs-12 col-md-12 padding">
+
+<div class="sidebar col-xs-12 col-md-4">
+    <div class="affix-top">
+        <h4 class="text-right">
+            <ul>
+                {% for page in site.pages %}
+                <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+                {% endfor %}
+            </ul>
+            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+            <div class="addthis_sharing_toolbox text-right"></div>
+        </h4>
+    </div>
+</div>
+
+<div class="col-xs-12 col-md-8 padding">
     <div class="container text-center">
         {{ content }}
     </div>

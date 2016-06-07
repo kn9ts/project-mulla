@@ -13,7 +13,7 @@ url: http://kn9ts.github.io/project-mulla/
 
 # Build settings
 markdown: kramdown
-# highlighter: pygments
+highlighter: rouge
 github: [Repository metadata]
 
 # Permalinks

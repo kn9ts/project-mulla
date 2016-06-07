@@ -1,6 +1,6 @@
 @import url(colors.css);
-@import url(https://fonts.googleapis.com/css?family=Asap);
 @import url(https://fonts.googleapis.com/css?family=Telex);
+@import url(https://fonts.googleapis.com/css?family=Monda:400,700);
 @charset "utf-8";
 html {
     cursor: default;
@@ -18,19 +18,29 @@ body {
     overflow-x: hidden;
     padding: 0;
     color: #3a3a3a;
-    background: #FEFEFE;
+    background: #fefefe;
 }
 
 h1,
 h2,
 h3 {
+    font-family: "Monda", "Helvetica", san-serif;
     font-weight: bolder;
 }
 
+nav {
+    font-family: "Monda", "Helvetica", san-serif;
+}
+
 .btn {
+    padding: 0.5em 2em;
     border-radius: 0;
     border-width: 2px;
     // border-color: #000000;
+}
+
+.padding {
+    padding: 1em;
 }
 
 .site-header nav.navbar {
@@ -39,6 +49,7 @@ h3 {
 }
 
 .jumbotron {
+    min-height: 350px;
     background: url(http://res.cloudinary.com/dpmk2cnpi/image/upload/c_fill,h_612,w_1600/v1463949031/039_www.cute-pictures.blogspot.com_hxe9lt.jpg);
     background-position: cover;
 }
@@ -48,9 +59,15 @@ h3 {
     color: #000000;
 }
 
-.content {
-    margin: 1em auto;
-    font-size: 1.75em;
+.bg-black h1,
+.bg-black h2,
+.bg-black h3 {
+    color: #5FAD24
+}
+
+p.lead,
+section {
+    font-size: 1.5em;
 }
 
 .red-bg {
@@ -62,10 +79,14 @@ h3 {
     color: #777777;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 99;
+.highlight,
+pre {
+    background: #1D2328 !important;
+    color: #fefefe;
+    border: none;
+    border-radius: 3px;
+}
+
+code .nv {
+    color: #5FAD24;
 }
