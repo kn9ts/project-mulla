@@ -88,8 +88,8 @@ section {
     background: #5FAD24;
 }
 
-.demo h2{
-	font-size: 1.5em;
+.demo h2 {
+    font-size: 1.5em;
 }
 
 .pale-grey-bg {
@@ -105,7 +105,36 @@ pre {
     border-radius: 3px;
 }
 
+pre, code, code > span {
+    font-size: 15px !important;
+}
+
 code .nv {
-    padding: 0 1em;
+    padding: 0 .5em;
     color: #5FAD24;
+}
+
+code .nv:not(:first-child) {
+    padding: 0;
+}
+
+code .s1 {
+    padding: 0 .5em;
+}
+
+section.config-settings code > span {
+    text-align: left;
+    float: left;
+}
+
+section.config-settings code span:nth-child(2) {
+    float: initial !important;
+}
+
+section.config-settings code .nv , section.config-settings code .s1{
+    padding: 0;
+}
+
+section.config-settings figure pre {
+    padding-left: 1.6em;
 }

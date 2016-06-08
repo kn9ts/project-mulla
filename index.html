@@ -11,30 +11,43 @@ title: Project Mulla
 </section>
 
 <section class="content col-xs-12 bg-green white padding">
-    <div class="container text-left padding">
-        <p class="lead"><strong>Project Mulla is a MPESA API RESTful mediator</strong>. It lets you make familiar HTTP REST requests, <strong>transforming your requests</strong> to the fiddling dreaded SOAP/XML requests. It then communicates with the Safaricom MPESA G2 API gateway, transforming all SOAP responses from the SAG to <strong>RESTful JSON responses</strong> that you then consume effortlessly.</p>
-        <blockquote>In short, it’ll deal with all of the SOAP shenanigans while you REST. Everybody wins!</blockquote>
-    </div>
+	<div class="container text-left padding">
+		<p class="lead"><strong>Project Mulla is a MPESA API RESTful mediator</strong>. It lets you make familiar HTTP REST requests, <strong>transforming your requests</strong> to the fiddling dreaded SOAP/XML requests that the Safaricom MPESA G2 API only understands. It then communicates with the MPESA API gateway, transforming all SOAP responses from the SAG to <strong>RESTful JSON responses</strong> that
+		you then consume effortlessly.
+		</p>
+		<blockquote>In short, it’ll deal with all of the SOAP shenanigans while you REST. Everybody wins!</blockquote>
+	</div>
 </section>
 
 <section class="col-xs-12 bg-black white padding">
-    <div class="container text-left">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>Time is Money! Get up and running in 1 minute</h2>
-                <div class="col-xs-12 col-md-6 padding">
-                    {% highlight bash %} $ gcloud preview app deploy {% endhighlight %}
-                </div>
-                <div class="col-xs-12 col-md-6 padding">
-                    {% highlight bash %} $ git push heroku master {% endhighlight %}
-                </div>
-                <p>Project Mulla is easily deployable to Heroku or Google App Engine in less than a minute.</p>
-                <p>Please refer to <a href="">installation</a> documentation</p>
-            </div>
-            <div class="col-xs-12">
-                <h2>The Middleman</h2>
-                <p>After installing and starting Project Mulla, it will route every incoming request from your server/client with the specified public DNS to the Safaricom SAG. And every response, after processing the the SOAP body, to your server/client.</p>
-            </div>
-        </div>
-    </div>
+	<div class="container text-left">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>Time is Money! Get up and running in 1 minute</h2>
+				 <div class="col-xs-12 col-md-12 padding text-left">
+					{% highlight bash %} $ git clone https://github.com/kn9ts/project-mulla.git {% endhighlight %}
+					{% highlight bash %} $ heroku create project-mulla-companyname {% endhighlight %}
+					{% highlight bash %} $ git push heroku master {% endhighlight %}
+					{% highlight bash %} $ heroku ps:scale web=1 {% endhighlight %}
+					<section class="config-settings">
+					{% highlight bash %} $ heroku config:set \
+				    SESSION_SECRET_KEY='YourWebAppSillySessionSecretKey' \
+				    PAYBILL_NUMBER='000000' \
+				    PASSKEY='ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8' \
+				    ENDPOINT='https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl' \
+				    CALLBACK_URL='http://awesome-service.com/mpesa/confirm-checkout.php' \
+				    CALLBACK_METHOD='POST'
+					{% endhighlight %}
+					</section>
+					{% highlight bash %} $ git push heroku master {% endhighlight %}
+				</div>
+				<p>Project Mulla is easily deployable to Heroku or Google App Engine in less than a minute.</p>
+				<p>Please refer to <a href="">installation and deploying</a> documentation for a complete guide to deploying it.</p>
+			</div>
+			<div class="col-xs-12">
+				<h2>The Middleman</h2>
+				<p>After installing and starting Project Mulla, it will route every incoming request from your server/client with the specified public DNS to the Safaricom SAG. And every response, after processing the the SOAP body, to your server/client.</p>
+			</div>
+		</div>
+	</div>
 </section>

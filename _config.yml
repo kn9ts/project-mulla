@@ -1,9 +1,10 @@
 # Site settings
 title: Project Mulla
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Project Mulla is a MPESA API RESTful mediator. It lets you make familiar HTTP REST requests,
+  transforming your requests to the fiddling dreaded SOAP/XML requests that the Safaricom MPESA
+  G2 API only understands. It then communicates with the MPESA API gateway, transforming all
+  SOAP responses from the MPESA API to RESTful JSON responses that you then can consume effortlessly.
 
 # the subpath of your site, e.g. /blog/
 baseurl: "/project-mulla"
