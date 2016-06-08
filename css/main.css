@@ -52,6 +52,10 @@ nav {
     padding: 1em;
 }
 
+.padding-tb {
+    padding: 1em .5em;
+}
+
 .site-header nav.navbar {
     padding-bottom: 0 !important;
     margin-bottom: 0;
@@ -75,6 +79,10 @@ nav {
     color: #5FAD24
 }
 
+.demo h2 {
+    font-size: 1.5em;
+}
+
 p.lead,
 section {
     font-size: 1.5em;
@@ -88,8 +96,8 @@ section {
     background: #5FAD24;
 }
 
-.demo h2 {
-    font-size: 1.5em;
+.bg-black {
+    color: #f7f7f7;
 }
 
 .pale-grey-bg {
@@ -105,12 +113,18 @@ pre {
     border-radius: 3px;
 }
 
-pre, code, code > span {
+pre,
+code,
+code > span {
     font-size: 15px !important;
 }
 
 code .nv {
     padding: 0 .5em;
+}
+
+code .nb,
+code .nv {
     color: #5FAD24;
 }
 
@@ -122,19 +136,24 @@ code .s1 {
     padding: 0 .5em;
 }
 
-section.config-settings code > span {
+section.config-vars-command code > span {
     text-align: left;
     float: left;
 }
 
-section.config-settings code span:nth-child(2) {
+section.config-vars-command code span:nth-child(2) {
     float: initial !important;
 }
 
-section.config-settings code .nv , section.config-settings code .s1{
+section.config-vars-command code .nv,
+section.config-vars-command code .s1 {
     padding: 0;
 }
 
-section.config-settings figure pre {
+section.config-vars-command code .se {
+    padding: 0 .5em;
+}
+
+section.config-vars-command figure pre {
     padding-left: 1.6em;
 }
