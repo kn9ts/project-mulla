@@ -50,26 +50,19 @@ app.use(`/api/v${apiVersion}`, routes(apiRouter()));
 const prettifyStackTrace = stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim();
 
 // catch 404 and forward to error handler
-app.use((req, res) => {
-  const notFoundStatusCode = 404;
+app.use((req, res, next) => {
   const err = new Error('Not Found');
-  const stack = err.stack.split(/\n/).map(prettifyStackTrace);
-
-  // send out the error as json
-  res.status(notFoundStatusCode).json({
-    status_code: notFoundStatusCode,
-    request_url: req.originalUrl,
-    message: err.message,
-    stack_trace: stack,
-  });
+  err.statusCode = 404;
+  next(err);
 });
 
 // error handlers
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
+  if (typeof err === 'undefined') next();
   console.log('An error occured: ', err.message);
   const stack = err.stack.split(/\n/).map(prettifyStackTrace);
 
-  res.status(err.statusCode || 500).json({
+  return res.status(err.statusCode || 500).json({
     status_code: err.statusCode,
     request_url: req.originalUrl,
     message: err.message,
