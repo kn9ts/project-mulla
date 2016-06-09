@@ -1,4 +1,5 @@
 # Site settings
+project_name: Project Mulla
 title: Project Mulla
 description: > # this means to ignore newlines until "baseurl:"
   Project Mulla is a MPESA API RESTful mediator. It lets you make familiar HTTP REST requests,
@@ -17,6 +18,11 @@ markdown: kramdown
 highlighter: rouge
 github: [Repository metadata]
 
+# Collections
+collections:
+  docs:
+    output: true
+
 # Permalinks
 # permalink: pretty
 # relative_permalinks: true
@@ -26,4 +32,4 @@ author_name: Eugene Mutai
 email: eugenemutai@gmail.com
 twitter_username: kn9ts
 github_username:  kn9ts
-project_url: "https://github.com/kn9ts/project-mulla/"
+project_url: "https://github.com/kn9ts/project-mulla"

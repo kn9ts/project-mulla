@@ -37,8 +37,23 @@ blockquote {
 }
 
 nav {
+    color: #fefefe;
     font-weight: bold;
     font-family: "Asap", "Helvetica", san-serif;
+}
+
+.navbar-nav li a {
+    color: #fefefe;
+}
+
+.navbar-nav li a:hover {
+    color: #5FAD24
+}
+
+.content hr {
+    color: #777777;
+    border-top: 1px solid #777777;
+    margin: 5% 0;
 }
 
 .btn {
@@ -128,6 +143,10 @@ code .nv {
     color: #5FAD24;
 }
 
+code .nb {
+    padding-right: .5em;
+}
+
 code .nv:not(:first-child) {
     padding: 0;
 }
@@ -156,4 +175,64 @@ section.config-vars-command code .se {
 
 section.config-vars-command figure pre {
     padding-left: 1.6em;
+}
+
+.documentation .highlighter-rouge {
+    margin: 1em auto;
+}
+
+.highlighter-rouge,
+.highlight,
+code,
+code span {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+code.highlighter-rouge {
+    background-color: #1D2328;
+    color: #5FAD24;
+}
+
+.documentation code .pi {
+    padding: 0 .25em;
+}
+
+.documentation code .s1 {
+    padding: 0;
+}
+
+.sidebar ul li {
+    list-style-type: none;
+    list-style: none;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: 'Asap', sans-serif;
+}
+
+.sidebar ul li a {
+    color: #5FAD24;
+    text-decoration: none;
+    padding: 5%;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background: #5FAD24;
+    color: white;
+    text-decoration: none;
+}
+
+.content,
+.content-fluid {
+    font-size: 1.5em !important;
+    padding: 0 5% 5%;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+footer {
+    font-family: 'Asap', sans-serif;
+    color: #5FAD24;
 }

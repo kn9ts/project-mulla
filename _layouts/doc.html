@@ -2,11 +2,27 @@
 layout: master
 ---
 
-<div class="sidebar col-xs-12 col-md-4">
+<style type="text/css">
+html,
+body {
+    background: #000 !important;
+}
+</style>
+
+<div class="row">
+    <div class="col-xs-12" style="height: 150px; overflow-y: hidden">
+        <div class="jumbotron">
+        	<h1 class="text-center">Documentation</h1>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar col-xs-12 col-md-3">
     <div class="affix-top">
         <h4 class="text-right">
             <ul>
-                {% for page in site.pages %}
+            	{% assign docs = site.docs | sort:"navigation_weight" %}
+                {% for page in docs %}
                 <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
                 {% endfor %}
             </ul>
@@ -16,9 +32,8 @@ layout: master
     </div>
 </div>
 
-<div class="col-xs-12 col-md-8 padding">
-    <div class="container text-center">
+<div class="documentation col-xs-12 col-md-8 bg-black padding">
+    <div class="content text-left">
         {{ content }}
     </div>
 </div>
-
