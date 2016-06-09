@@ -22,7 +22,7 @@ applications locally.
 
 {% assign config = site.docs | where:"navigation_weight", 2 %}
 To be able to run the application locally you also need to create an `app.yaml` file with the
-basic [custom configurations]({{ config[0].url }}) variables specific to you.
+basic [custom configurations]({{ config[0].url | prepend: site.baseurl }}) variables specific to you.
 
 ```yaml
 env_variables:
