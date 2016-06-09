@@ -1,7 +1,7 @@
 {
   "name": "project-mulla",
   "description": "Safaricom Mpesa SOAP API transpiler to REST API",
-  "repository": "git+https://github.com/kn9ts/project-mulla.git",
+  "repository": "https://github.com/bomb1e/project-mulla.git",
   "logo": "http://cdn.javascript.co.ke/images/banner.png",
   "keywords": ["node", "express", "MPESA", "REST", "SOAP", "Kenya", "Nairobi", "Javascript", "Mobile", "Money"]
 }
