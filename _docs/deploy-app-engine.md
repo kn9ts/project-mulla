@@ -18,7 +18,8 @@ with the deployment.
 
 ## Add deployment configurations in app.yaml
 
-In [Configurations](./configuration.html) step, I stated only add the block of code below in
+{% assign config = site.docs | where:"navigation_weight", 2 %}
+In [Configurations]({{ config[0].url }}) step, I stated only add the block of code below in
 your `app.yaml` config file if you plan to deploy the application to Google App Engine.
 
 ```yaml

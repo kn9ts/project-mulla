@@ -15,7 +15,8 @@
             </div>
             <div id="header-1" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/docs">Documentation</a></li>
+                	{% assign docs = site.docs | sort:"navigation_weight" %}
+                    <li><a href="{{ docs.first.url }}">Documentation</a></li>
                     <li><a href="{{ site.project_url }}">Github Repo</a></li>
                 </ul>
             </div>
