@@ -13,8 +13,7 @@ describe('environment.js', () => {
       'PAYBILL_NUMBER',
       'PASSKEY',
       'ENDPOINT',
-      'CALLBACK_URL',
-      'CALLBACK_METHOD',
+      'MERCHANT_ENDPOINT',
     ]);
   });
 });

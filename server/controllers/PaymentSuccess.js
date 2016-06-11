@@ -7,13 +7,18 @@ class PaymentSuccess {
     this.request = request;
   }
 
-  handler(req, res) {
+  handler(req, res, next) {
     const keys = Object.keys(req.body);
     const response = {};
     const baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT}`;
-    const testEndpoint = `${baseURL}/api/v1/thumbs/up`;
-    const endpoint = 'MERCHANT_ENDPOINT' in process.env ?
-      process.env.MERCHANT_ENDPOINT : testEndpoint;
+    let endpoint = `${baseURL}/api/v1/thumbs/up`;
+
+    if ('MERCHANT_ENDPOINT' in process.env) {
+      endpoint = process.env.MERCHANT_ENDPOINT;
+    } else if (process.env.NODE_ENV === 'development') {
+      next(new Error('MERCHANT_ENDPOINT has not been provided in environment configuration'));
+      return;
+    }
 
     for (const x of keys) {
       const prop = x.toLowerCase().replace(/\-/g, '');

@@ -2,7 +2,7 @@
 
 const uuid = require('node-uuid');
 const ParseResponse = require('../utils/ParseResponse');
-const SOAPRequest = require('../controllers/SOAPRequest');
+const SOAPRequest = require('../utils/SOAPRequest');
 const responseError = require('../utils/errors/responseError');
 
 const parseResponse = new ParseResponse('processcheckoutresponse');

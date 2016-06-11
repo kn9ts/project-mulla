@@ -28,6 +28,7 @@ describe('paymentSuccess', () => {
   };
   const res = {};
   res.sendStatus = sinon.stub();
+  const next = sinon.stub();
 
   const response = {};
   for (const x of Object.keys(req.body)) {
@@ -41,21 +42,33 @@ describe('paymentSuccess', () => {
   });
 
   it('Make a request to MERCHANT_ENDPOINT and respond to SAG with OK', () => {
-    process.env.MERCHANT_ENDPOINT = process.env.ENDPOINT;
-    paymentSuccess.handler(req, res);
+    process.env.MERCHANT_ENDPOINT = 'https://awesome-service.com/mpesa/callback';
+    paymentSuccess.handler(req, res, next);
 
     const spyCall = paymentSuccess.request.getCall(0);
     const args = spyCall.args[0];
 
     assert.isTrue(res.sendStatus.calledWithExactly(200));
     assert.isTrue(paymentSuccess.request.called);
+    assert.isFalse(next.called);
     expect(response).to.deep.equal(JSON.parse(args.body));
   });
 
-  it('If ENDPOINT is not reachable, an error reponse is sent back', () => {
+  it('If MERCHANT_ENDPOINT is not provided, next is passed an error', () => {
     delete process.env.MERCHANT_ENDPOINT;
+    paymentSuccess.handler(req, res, next);
+
+    const spyCall = next.getCall(0);
+    const args = spyCall.args[0];
+
+    assert.isTrue(next.called);
+    assert.isTrue(args instanceof Error);
+  });
+
+  it('If ENDPOINT is not reachable, an error reponse is sent back', () => {
+    process.env.MERCHANT_ENDPOINT = 'https://undefined-url';
     error = new Error('ENDPOINT not reachable');
-    paymentSuccess.handler(req, res);
+    paymentSuccess.handler(req, res, next);
 
     assert.isTrue(res.sendStatus.calledWithExactly(500));
   });
