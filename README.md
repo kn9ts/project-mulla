@@ -48,7 +48,7 @@ UUID is generated for each respectively.
 ```bash
 $ curl -i -X POST \
 --url http://project-mulla-companyname.herokuapp.com/api/v1/payment/request \
---data 'phoneNumber=254723001575' \
+--data 'phoneNumber=254723000000' \
 --data 'totalAmount=45.00' \
 --data 'clientName="Eugene Mutai"' \
 --data 'clientLocation=Kilimani' \
@@ -141,8 +141,8 @@ It should look like the example below, only with your specific config values:
 ```yaml
 env_variables:
   PAYBILL_NUMBER: '898998'
-  PASSKEY: 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
-  MERCHANT_ENDPOINT: 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
+  PASSKEY: 'a8eac82d7ac1461ba0348b0cb24d3f8140d3afb9be864e56a10d7e8026eaed66'
+  MERCHANT_ENDPOINT: 'http://merchant-endpoint.com/mpesa/payment/complete'
 
 # Everything below is only relevant if you are looking
 # to deploy Project Mulla to Google App Engine.
@@ -178,7 +178,7 @@ Now make a test run using **CURL**:
 ```bash
 $ curl -i -X POST \
   --url http://localhost:8080/api/v1/payment/request \
-  --data 'phoneNumber=254723001575' \
+  --data 'phoneNumber=254723000000' \
   --data 'totalAmount=10.00' \
   --data 'clientName="Eugene Mutai"' \
   --data 'clientLocation=Kilimani' \
@@ -188,7 +188,7 @@ Or if you have [httpie](https://github.com/jkbrzt/httpie) installed:
 
 ```bash
 $ http POST localhost:8080/api/v1/payment/request \
-  phoneNumber=254723001575 \
+  phoneNumber=254723000000 \
   totalAmount=10.00 \
   clientName='Eugene Mutai' \
   clientLocation='Kilimani'
