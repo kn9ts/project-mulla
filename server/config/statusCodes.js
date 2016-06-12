@@ -96,4 +96,4 @@ module.exports = [{
   return_code: 5,
   status_code: 504,
   message: 'Duration provided to complete the transaction has expired',
-}]
+}];
