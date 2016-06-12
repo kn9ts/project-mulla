@@ -10,7 +10,7 @@ class PaymentSuccess {
   handler(req, res, next) {
     const keys = Object.keys(req.body);
     const response = {};
-    const baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT}`;
+    const baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT || 8080}`;
     let endpoint = `${baseURL}/api/v1/thumbs/up`;
 
     if ('MERCHANT_ENDPOINT' in process.env) {
