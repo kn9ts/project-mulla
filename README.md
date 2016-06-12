@@ -3,15 +3,12 @@
 
 ![](http://cdn.javascript.co.ke/images/banner.png)
 
-> **What MPESA G2 API should have been in the 21st century.**
+> __What MPESA G2 API should have been in the 21st century.__
 
-> **PLEASE NOTE: Mediates only C2B portion for now.**
+> __PLEASE NOTE: Mediates only C2B portion for now.__
 
-**MPESA API RESTful mediator**. It transforms all merchant REST requests to the dreaded ancient SOAP/XML
-requests. And transforms Safaricom MPESA G2 API gateway SOAP responses to JSON. 
-Responding back to the merchant via a beautiful and soothing REST API.
-
-In short, it'll deal with all of the SOAP shenanigans while you REST.
+<p class="lead"><strong>Project Mulla is a MPESA API RESTful mediator</strong>. It lets you make familiar HTTP REST requests, <strong>transforming your requests</strong> to the fiddling dreaded SOAP/XML requests that the Safaricom MPESA G2 API only understands. It then communicates with the MPESA API gateway, transforming all SOAP responses from the SAG to <strong>RESTful JSON responses</strong> that you then consume effortlessly.</p>
+<blockquote>In short, it’ll deal with all of the SOAP shenanigans while you REST. Everybody wins!</blockquote>
 
 The aim of **Project Mulla** is to create a REST API middleman that interfaces with the **MPESA G2 API** for you.
 
@@ -21,45 +18,46 @@ Developers should not go through the **trauma** involved with dealing with SOAP/
 
 # Example of how it works
 
-Let's go ahead and make the 1st call, **ProcessCheckoutRequest**. This is initial step is to tell the SAG to 
-initialise a payment request you want to transact. After initialisation, you then make another POST request to 
-the SAG as a confirmation signal to carry out the actual payment/transaction request prior.
+## Request Payment
 
-Assuming **Project Mulla** is now your mediator, you'd now make a **POST request to Project Mulla**. _Not Safaricom_. 
+This is initial step is to tell the SAG to initialise a payment you want to transact. After
+initialisation, you then make another request to the SAG as a confirmation signaling the SAG to
+process the payment request requested.
+
+Assuming __Project Mulla__ is now your mediator, you'd now make a __POST__ request to
+__Project Mulla__. _Not the Safaricom Access Gateway_.
 
 See below how you'd make this initial request:
 
-##### Initiate Payment Request:
+### Initiate Payment Request:
 
-_Method_: **`POST`** 
-
-_Endpoint_: **`https://your-project-mulla-endpoint.herokuapp.com/api/v1/payment/request`**
+__`POST`__ __`https://project-mulla-companyname.herokuapp.com/api/v1/payment/request`__
 
 _Body Parameters_:
 
-- **`phoneNumber`** - The phone number of your client
-- **`totalAmount`** - The total amount you are charging the client
-- **`referenceID`** - The reference ID of the order or service **[optional]**
-- **`merchantTransactionID`** - This specific order's or service's transaction ID **[optional]**
+- `phoneNumber` - The phone number of your client
+- `totalAmount` - The total amount you are charging the client
+- `referenceID` [optional] - The reference ID of the order or service
+- `merchantTransactionID` [optional] - This specific order's or service's transaction ID
 
-_**NOTE:** If `merchantTransactionID` or `referenceID` are not provided a time-based and random 
-UUID is generated for each respectively._
+> __NOTE:__ If `merchantTransactionID` or `referenceID` are not provided a time-based and random
+UUID is generated for each respectively.
 
-_The response you get:_
+### Sample request using CURL in the command line/terminal:
 
-_**`HTTP HEADER META DATA`**_
-```http
-HTTP/1.1 200 OK
-Connection: keep-alive
-Content-Length: 510
-Content-Type: application/json; charset=utf-8
-Date: Sat, 21 May 2016 10:03:37 GMT
-ETag: W/"1fe-jy66YehfhiFHWoyTNHpSnA"
-X-Powered-By: Express
-set-cookie: connect.sid=s:nc8L7qNbCJRKILyn7XLYf4IIg7_QuJIV.wuWGgb3r7XdQrkOF4P7GdzAY1HRZ0utmIfC6yW8%2BMuY; Path=/; HttpOnly
+```bash
+$ curl -i -X POST \
+--url http://project-mulla-companyname.herokuapp.com/api/v1/payment/request \
+--data 'phoneNumber=254723001575' \
+--data 'totalAmount=45.00' \
+--data 'clientName="Eugene Mutai"' \
+--data 'clientLocation=Kilimani' \
 ```
 
-_**`The JSON response in the BODY`**_
+### Expected Response
+
+If all goes well you get HTTP status code __`200`__ accompanied with the a similar structured JSON response:
+
 ```json
 {
   "response": {
@@ -71,7 +69,7 @@ _**`The JSON response in the BODY`**_
     "cust_msg": "to complete this transaction, enter your bonga pin on your handset. if you don't have one dial *126*5# for instructions",
     "reference_id": "3e3beff0-fc05-417a-bbf2-190ee19a5e58",
     "merchant_transaction_id": "95d64500-2514-11e6-bcb8-a7f8e1c786c4",
-    "amount_in_double_float": "10.00",
+    "amount_in_double_float": "45.00",
     "client_phone_number": "254723001575",
     "extra_payload": {},
     "time_stamp": "20160528234142"
@@ -79,37 +77,47 @@ _**`The JSON response in the BODY`**_
 }
 ```
 
+## Next step: confirmation
+
+You are to use `trx_id` or `merchant_transaction_id` to make the confirmation payment
+request. The confirmation request is the request the payment requested above to be processed and
+triggers a pop up on the your client's mobile phone.
+
+[Find the complete documentation here](http://kn9ts.github.io/project-mulla/docs)
+
 # Installation & Testing
 
-## Dependencies
+# Installation
+
+Installing Project Mulla is easy and straight-forward, but there are a few requirements you’ll need
+to make sure your system has before you start.
+
+## Requirements
 
 You will need to install some stuff, if they are not yet installed in your machine:
 
-##### Majors:
+* [Node.js (v4.3.2 or higher; LTS)](http://nodejs.org)
+* [NPM (v3.5+; bundled with node.js installation package)](https://docs.npmjs.com/getting-started/installing-node#updating-npm)
 
-* **Node.js (v4.3.2 or higher; LTS)** - [Click here](http://nodejs.org) to install
-
-##### Secondaries(click for further information):
-
-* **NPM (v3.5+; bundled with node.js installation package)**
-
-If already installed you may need to only update it to the latest version:
+If you've already installed the above you may need to only update **npm** to the latest version:
 
 ```bash
-$ npm update -g npm
+$ sudo npm update -g npm
 ```
 
-## Getting Started
+---
 
-Once you have **Node.js (and NPM)** installed, run _(type or copy & paste; pick your poison)_:
+## Install with Github
+
+Best way to install Project Mulla is to clone it from Github
 
 **To clone/download the boilerplate**
 
 ```bash
-$ git clone https://github.com/kn9ts/project-mulla
+$ git clone https://github.com/kn9ts/project-mulla.git
 ```
 
-After cloning, get into your project mulla's directory/folder:
+**After cloning, get into your cloned Project Mulla's directory/folder**
 
 ```bash
 $ cd project-mulla
@@ -121,9 +129,10 @@ $ cd project-mulla
 $ npm install
 ```
 
-**Create `app.yaml` configurations file**
+__Create `app.yaml` configurations file__
 
-The last but not least step is creating a `app.yaml` file with your configurations in the root directory of `project-mulla`.
+The last but not least step is creating a `app.yaml` file with your configurations in the root 
+directory of `project-mulla`.
 
 This is the same folder estate where `index.js` can be found.
 
@@ -131,15 +140,12 @@ It should look like the example below, only with your specific config values:
 
 ```yaml
 env_variables:
-  SESSION_SECRET_KEY: '88735405ab8d9f968ed4dab89da5515KadjaklJK238adnkLD32'
   PAYBILL_NUMBER: '898998'
   PASSKEY: 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
-  ENDPOINT: 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
-  CALLBACK_URL: 'http://awesome-service.com/mpesa/confirm-checkout.php'
-  CALLBACK_METHOD: 'POST'
+  MERCHANT_ENDPOINT: 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
 
-# Everything below from this point onwards are only relevant 
-# if you are looking to deploy Project Mulla to Google App Engine.
+# Everything below is only relevant if you are looking
+# to deploy Project Mulla to Google App Engine.
 runtime: nodejs
 vm: true
 
@@ -147,11 +153,11 @@ skip_files:
   - ^(.*/)?.*/node_modules/.*$
 ```
 
-*__PLEASE NOTE:__ The __`PAYBILL_NUMBER`__ and __`PASSKEY`__ are provided by Safaricom once you have registered for the MPESA G2 API.*
+*__NOTE:__ The `PAYBILL_NUMBER` and `PASSKEY` are provided by Safaricom once you have registered for the MPESA G2 API.*
 
-*__PLEASE NOTE:__ The details above only serve as examples*
+*__NOTE:__ The details above only serve as examples*
 
-#### It's now ready to launch
+## It's now ready to launch
 
 1st run the command `npm test` in the console and see if everything is all good. Then run:
 
@@ -161,10 +167,11 @@ $ npm start
 > project-mulla@0.1.1 start ../project-mulla
 > node index.js
 
+Your secret session key is: 5f06b1f1-1bff-470d-8198-9ca2f18919c5
 Express server listening on 8080, in development mode
 ```
 
-#### Do a test run
+## Do a test run
 
 Now make a test run using **CURL**:
 
@@ -217,9 +224,10 @@ set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 }
 ```
 
+
 # This project uses GPLv3 LICENSE
 
-**_TL;DR_*** Here's what the license entails:
+__TL;DR__ Here's what the license entails:
 
 ```markdown
 1. Anyone can copy, modify and distribute this software.
@@ -235,4 +243,4 @@ set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
 
 More information on the [LICENSE can be found here](http://choosealicense.com/licenses/gpl-3.0/)
 
-**_DISCLAIMER:_** _All opinions aired in this repo are ours and do not reflect any company or organisation any contributor is involved with._
+*__DISCLAIMER:__* _All opinions aired in this repo are ours and do not reflect any company or organisation any contributor is involved with._

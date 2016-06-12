@@ -33,6 +33,14 @@ module.exports = [{
   status_code: 400,
   message: 'MSISDN(phone number) is in incorrect format',
 }, {
+  return_code: 42,
+  status_code: 400,
+  message: 'Your PASSKEY, PAYBILL_NUMBER or environment variables may be incorrect',
+}, {
+  return_code: 99,
+  status_code: 400,
+  message: 'There\'s no recorded transaction associated with the transaction ID provided',
+}, {
   return_code: 32,
   status_code: 401,
   message: 'The merchant/paybill account in the request hasn’t been activated',

@@ -85,6 +85,7 @@ describe('paymentRequest', () => {
       'client_phone_number',
       'extra_payload',
       'time_stamp',
+      'callback_url',
     ]);
   });
 });

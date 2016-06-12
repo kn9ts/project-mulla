@@ -7,7 +7,7 @@ const sinon = require('sinon');
 const moment = require('moment');
 const uuid = require('node-uuid');
 
-const SOAPRequest = require('../../server/controllers/SOAPRequest');
+const SOAPRequest = require('../../server/utils/SOAPRequest');
 const ParseResponse = require('../../server/utils/ParseResponse');
 const paymentRequest = require('../../server/controllers/PaymentRequest');
 const GenEncryptedPassword = require('../../server/utils/GenEncryptedPassword');

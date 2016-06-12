@@ -60,17 +60,23 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   if (typeof err === 'undefined') next();
   console.log('An error occured: ', err.message);
-  const stack = err.stack.split(/\n/).map(prettifyStackTrace);
-
-  return res.status(err.statusCode || 500).json({
+  const errorResponse = {
     status_code: err.statusCode,
     request_url: req.originalUrl,
     message: err.message,
-    stack_trace: stack,
-  });
+  };
+
+  // Only send back the error stack if it's on development mode
+  if (process.env.NODE_ENV === 'development') {
+    const stack = err.stack.split(/\n/).map(prettifyStackTrace);
+    errorResponse.stack_trace = stack;
+  }
+
+  return res.status(err.statusCode || 500).json();
 });
 
 const server = app.listen(process.env.PORT || 8080, () => {
+  console.log('Your secret session key is: ' + process.env.SESSION_SECRET_KEY);
   console.log('Express server listening on %d, in %s' +
     ' mode', server.address().port, app.get('env'));
 });

@@ -2,7 +2,7 @@
 
 const uuid = require('node-uuid');
 const ParseResponse = require('../utils/ParseResponse');
-const SOAPRequest = require('../controllers/SOAPRequest');
+const SOAPRequest = require('../utils/SOAPRequest');
 const responseError = require('../utils/errors/responseError');
 
 const parseResponse = new ParseResponse('processcheckoutresponse');
@@ -12,6 +12,7 @@ class PaymentRequest {
   constructor(request, parser) {
     this.parser = parser;
     this.soapRequest = request;
+    this.callbackMethod = 'POST';
   }
 
   buildSoapBody(data) {
@@ -31,8 +32,8 @@ class PaymentRequest {
           <AMOUNT>${data.amountInDoubleFloat}</AMOUNT>
           <MSISDN>${data.clientPhoneNumber}</MSISDN>
           <ENC_PARAMS>${JSON.stringify(data.extraPayload)}</ENC_PARAMS>
-          <CALL_BACK_URL>${process.env.CALLBACK_URL}</CALL_BACK_URL>
-          <CALL_BACK_METHOD>${process.env.CALLBACK_METHOD}</CALL_BACK_METHOD>
+          <CALL_BACK_URL>${data.callbackURL}</CALL_BACK_URL>
+          <CALL_BACK_METHOD>${this.callbackMethod}</CALL_BACK_METHOD>
           <TIMESTAMP>${data.timeStamp}</TIMESTAMP>
         </tns:processCheckOutRequest>
       </soapenv:Body>
@@ -52,6 +53,7 @@ class PaymentRequest {
       extraPayload: req.body.extraPayload,
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword,
+      callbackURL: `${req.protocol}://${req.hostname}/api/v${process.env.API_VERSION}/payment/success`,
     };
 
     const payment = this.buildSoapBody(paymentDetails);

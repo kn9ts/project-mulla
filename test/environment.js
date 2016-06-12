@@ -9,12 +9,11 @@ describe('environment.js', () => {
     // console.log(Object.keys(process.env));
     expect(Object.keys(process.env)).to.include.members([
       'API_VERSION',
+      'ENDPOINT',
       'SESSION_SECRET_KEY',
       'PAYBILL_NUMBER',
       'PASSKEY',
-      'ENDPOINT',
-      'CALLBACK_URL',
-      'CALLBACK_METHOD',
+      'MERCHANT_ENDPOINT',
     ]);
   });
 });
