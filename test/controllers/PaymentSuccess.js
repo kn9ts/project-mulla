@@ -56,8 +56,10 @@ describe('paymentSuccess', () => {
 
   it('If MERCHANT_ENDPOINT is not provided, next is passed an error', () => {
     delete process.env.MERCHANT_ENDPOINT;
+    process.env.NODE_ENV = 'production';
     paymentSuccess.handler(req, res, next);
 
+    console.log(next.args);
     const spyCall = next.getCall(0);
     const args = spyCall.args[0];
 

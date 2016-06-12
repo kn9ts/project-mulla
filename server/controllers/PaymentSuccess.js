@@ -15,9 +15,11 @@ class PaymentSuccess {
 
     if ('MERCHANT_ENDPOINT' in process.env) {
       endpoint = process.env.MERCHANT_ENDPOINT;
-    } else if (process.env.NODE_ENV === 'development') {
-      next(new Error('MERCHANT_ENDPOINT has not been provided in environment configuration'));
-      return;
+    } else {
+      if (process.env.NODE_ENV !== 'development') {
+        next(new Error('MERCHANT_ENDPOINT has not been provided in environment configuration'));
+        return;
+      }
     }
 
     for (const x of keys) {
