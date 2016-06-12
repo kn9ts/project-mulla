@@ -14,14 +14,26 @@ process.env.SESSION_SECRET_KEY = uuid.v4();
 if (!('NODE_ENV' in process.env)) process.env.NODE_ENV = 'development';
 
 if (process.env.NODE_ENV === 'development') {
-  if (fs.existsSync(yamlConfigFile)) {
-    // Get the rest of the config from app.yaml config file
-    const config = yaml.safeLoad(fs.readFileSync(yamlConfigFile, 'utf8'));
-    Object.keys(config.env_variables).forEach(key => {
-      process.env[key] = config.env_variables[key];
-    });
-  } else {
-    throw new Error(`
+  const requiredEnvVariables = [
+    'PAYBILL_NUMBER',
+    'PASSKEY',
+    'MERCHANT_ENDPOINT',
+  ];
+  const envKeys = Object.keys(process.env);
+  const requiredEnvVariablesExist = requiredEnvVariables
+    .every(variable => envKeys.indexOf(variable) !== -1);
+
+  // if the requiredEnvVariables have not been added
+  // maybe by GAE or Heroku ENV settings
+  if (!requiredEnvVariablesExist) {
+    if (fs.existsSync(yamlConfigFile)) {
+      // Get the rest of the config from app.yaml config file
+      const config = yaml.safeLoad(fs.readFileSync(yamlConfigFile, 'utf8'));
+      Object.keys(config.env_variables).forEach(key => {
+        process.env[key] = config.env_variables[key];
+      });
+    } else {
+      throw new Error(`
       Missing app.yaml config file used while in development mode
 
       It should have contents similar to the example below:
@@ -42,5 +54,6 @@ if (process.env.NODE_ENV === 'development') {
         - ^(.*/)?.*/node_modules/.*$
       -------------------------
     `);
+    }
   }
 }
