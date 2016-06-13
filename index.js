@@ -13,7 +13,7 @@ const genTransactionPassword = require('./server/utils/genTransactionPassword');
 const apiVersion = process.env.API_VERSION;
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'jade');
 
 // trust proxy if it's being served in GoogleAppEngine
@@ -45,6 +45,10 @@ app.use(`/api/v${apiVersion}/payment*`, genTransactionPassword);
 // get an instance of the router for api routes
 const apiRouter = express.Router;
 app.use(`/api/v${apiVersion}`, routes(apiRouter()));
+
+app.all('/*', (req, res) => {
+  res.render('index', { title: 'Project Mulla' });
+});
 
 // use this prettify the error stack string into an array of stack traces
 const prettifyStackTrace = stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim();

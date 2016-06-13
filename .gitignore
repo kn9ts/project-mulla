@@ -5,7 +5,7 @@
 .idea
 .vscode
 node_modules
-public
+./public
 dist
 server/config/local.env.js
 npm-debug.log
