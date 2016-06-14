@@ -31,7 +31,7 @@ class PaymentSuccess {
       method: 'POST',
       uri: endpoint,
       rejectUnauthorized: false,
-      body: JSON.stringify({response}),
+      body: JSON.stringify({ response }),
       headers: {
         'content-type': 'application/json; charset=utf-8',
       },
