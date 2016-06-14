@@ -189,9 +189,11 @@ code span {
 }
 
 code.highlighter-rouge {
-    background-color: #4E342E;
-    color: #FBC02D;
+    background-color: #111111;
+    color: #FFEB3B;
     font-size: inherit;
+    border: 1px solid #FFEB3B;
+    border-radius: 3px;
 }
 
 .documentation code .pi {
@@ -223,16 +225,16 @@ code.highlighter-rouge {
     text-decoration: none;
 }
 
-.content,
-.content-fluid {
+.documentation .content,
+.documentation .content-fluid {
     font-size: 1.5em !important;
     padding: 0 5% 5%;
 }
 
-.content h1,
-.content h2,
-.content h3,
-.content h4,
+.documentation .content h1,
+.documentation .content h2,
+.documentation .content h3,
+.documentation .content h4,
 footer {
     font-family: 'Asap', sans-serif;
     color: #388E3C;
