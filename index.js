@@ -1,86 +1,89 @@
-import './environment';
-import express from 'express';
-import path from 'path';
-import configSetUp from './config';
-// import favicon from 'serve-favicon';
-import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
-import session from 'express-session';
-import connectMongo from 'connect-mongo';
-import models from './models';
-import routes from './routes';
+'use strict';
 
-
+require('./environment');
+const express = require('express');
 const app = express();
-const apiVersion = 1;
-const config = configSetUp(process.env.NODE_ENV);
-const MongoStore = connectMongo(session);
-
-// -- make the models available everywhere in the app --
-app.set('models', models);
-app.set('webTokenSecret', config.webTokenSecret);
+const path = require('path');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const routes = require('./server/routes');
+const genTransactionPassword = require('./server/utils/genTransactionPassword');
+const apiVersion = process.env.API_VERSION;
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'jade');
+
+// trust proxy if it's being served in GoogleAppEngine
+if ('GAE_APPENGINE_HOSTNAME' in process.env) app.set('trust_proxy', 1);
 
 // Uncomment this for Morgan to intercept all Error instantiations
 // For now, they churned out via a JSON response
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // not using express less
 // app.use(require('less-middleware')(path.join(__dirname, 'server/public')));
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, './server/public')));
+
+// memory based session
 app.use(session({
-  secret: config.expressSessionKey,
-  maxAge: new Date(Date.now() + 3600000),
-  proxy: true,
-  resave: true,
+  secret: process.env.SESSION_SECRET_KEY,
+  resave: false,
   saveUninitialized: true,
-  store: new MongoStore({
-    mongooseConnection: models.mongoose.connection
-  })
 }));
 
+// on payment transaction requests,
+// generate and password to req object
+app.use(`/api/v${apiVersion}/payment*`, genTransactionPassword);
+
 // get an instance of the router for api routes
-app.use(`/api/v${apiVersion}`, routes(express.Router()));
+const apiRouter = express.Router;
+app.use(`/api/v${apiVersion}`, routes(apiRouter()));
+
+app.all('/*', (req, res) => {
+  res.render('index', { title: 'Project Mulla' });
+});
+
+// use this prettify the error stack string into an array of stack traces
+const prettifyStackTrace = stackTrace => stackTrace.replace(/\s{2,}/g, ' ').trim();
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  let err = new Error('Not Found');
-  err.request = req.originalUrl;
-  err.status = 404;
+  const err = new Error('Not Found');
+  err.statusCode = 404;
   next(err);
 });
 
 // error handlers
-app.use((err, req, res) => {
-  res.status(err.status || 500);
-  // get the error stack
-  let stack = err.stack.split(/\n/).map((err) => {
-    return err.replace(/\s{2,}/g, ' ').trim();
-  });
-  console.log('ERROR PASSING THROUGH', err.message);
-  // send out the error as json
-  res.json({
-    api: err,
-    url: req.originalUrl,
-    error: err.message,
-    stack: stack
-  });
+app.use((err, req, res, next) => {
+  if (typeof err === 'undefined') next();
+  console.log('An error occured: ', err.message);
+  const errorResponse = {
+    status_code: err.statusCode,
+    request_url: req.originalUrl,
+    message: err.message,
+  };
+
+  // Only send back the error stack if it's on development mode
+  if (process.env.NODE_ENV === 'development') {
+    const stack = err.stack.split(/\n/).map(prettifyStackTrace);
+    errorResponse.stack_trace = stack;
+  }
+
+  return res.status(err.statusCode || 500).json();
 });
 
-var server = app.listen(process.env.PORT || 3000, () => {
+const server = app.listen(process.env.PORT || 8080, () => {
+  console.log('Your secret session key is: ' + process.env.SESSION_SECRET_KEY);
   console.log('Express server listening on %d, in %s' +
     ' mode', server.address().port, app.get('env'));
 });
 
-//expose app
-export {app as default};
+// expose app
+module.exports = app;

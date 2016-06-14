@@ -1,0 +1,16 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="tns:ns">
+    <SOAP-ENV:Body>
+        <ns1:transactionStatusResponse>
+            <MSISDN>254720471865</MSISDN>
+            <AMOUNT>54000</AMOUNT>
+            <M-PESA_TRX_DATE>2014-12-01 16:59:07</M-PESA_TRX_DATE>
+            <M-PESA_TRX_ID>ddd396509b168297141a747cd2dc1748</M-PESA_TRX_ID>
+            <TRX_STATUS>Failed</TRX_STATUS>
+            <RETURN_CODE>01</RETURN_CODE>
+            <DESCRIPTION>InsufficientFunds</DESCRIPTION>
+            <MERCHANT_TRANSACTION_ID><MERCHANT_TRANSACTION_ID/>
+            <ENC_PARAMS></ENC_PARAMS>
+            <TRX_ID>ddd396509b168297141a747cd2dc1748</TRX_ID>
+        </ns1:transactionStatusResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

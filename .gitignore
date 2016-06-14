@@ -3,11 +3,15 @@
 ## My additions
 .tmp
 .idea
+.vscode
 node_modules
-public
+./public
 dist
-./server/config/local.env.js
+server/config/local.env.js
 npm-debug.log
+.sass-cache
+_site
+app.yaml
 
 ### Added by loopback framework
 *.csv
