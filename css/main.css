@@ -47,7 +47,7 @@ nav {
 }
 
 .navbar-nav li a:hover {
-    color: #5FAD24
+    color: #388E3C
 }
 
 .content hr {
@@ -91,7 +91,7 @@ nav {
 .bg-black h1,
 .bg-black h2,
 .bg-black h3 {
-    color: #5FAD24
+    color: #388E3C
 }
 
 .demo h2 {
@@ -108,7 +108,7 @@ section {
 }
 
 .bg-green {
-    background: #5FAD24;
+    background: #388E3C;
 }
 
 .bg-black {
@@ -140,7 +140,7 @@ code .nv {
 
 code .nb,
 code .nv {
-    color: #5FAD24;
+    color: #388E3C;
 }
 
 code .nb {
@@ -189,8 +189,9 @@ code span {
 }
 
 code.highlighter-rouge {
-    background-color: #1D2328;
-    color: #5FAD24;
+    background-color: #4E342E;
+    color: #FBC02D;
+    font-size: inherit;
 }
 
 .documentation code .pi {
@@ -210,14 +211,14 @@ code.highlighter-rouge {
 }
 
 .sidebar ul li a {
-    color: #5FAD24;
+    color: #388E3C;
     text-decoration: none;
     padding: 5%;
     display: block;
 }
 
 .sidebar ul li a:hover {
-    background: #5FAD24;
+    background: #388E3C;
     color: white;
     text-decoration: none;
 }
@@ -234,7 +235,7 @@ code.highlighter-rouge {
 .content h4,
 footer {
     font-family: 'Asap', sans-serif;
-    color: #5FAD24;
+    color: #388E3C;
 }
 
 .demo h2 {

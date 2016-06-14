@@ -16,9 +16,9 @@ It should look like the example below, only with your specific config values:
 
 ```yaml
 env_variables:
-	PAYBILL_NUMBER: '898998'
-	PASSKEY: 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
-	MERCHANT_ENDPOINT: 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
+  PAYBILL_NUMBER: '898998'
+  PASSKEY: 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
+  MERCHANT_ENDPOINT: 'https://safaricom.co.ke/mpesa_online/lnmo_checkout_server.php?wsdl'
 
 # Everything below is only relevant if you are looking
 # to deploy Project Mulla to Google App Engine.
