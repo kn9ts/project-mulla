@@ -8,10 +8,15 @@ navigation_weight: 10
 
 {{ site.project_name }} uses conventional HTTP response codes to indicate the success or failure of
 an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate
-an error that failed given the information provided (e.g. a required parameter was omitted, a charge failed, etc.),
-and codes in the 5xx range indicate an error with {{ site.project_name }}'s servers (these are seldom).
+an error that failed given the information provided failed validation (e.g. a required parameter
+was omitted, a charge failed, etc.), and codes in the 5xx range indicate an error with
+{{ site.project_name }}'s servers (these are seldom).
 
-> __REFERENCE__: `HTTP status code` => `MPESA G2 API SOAP status code` => Descriptionof the error]
+__REFERENCE__:
+
+> `HTTP status code` => `MPESA G2 API SOAP status code` => Description of the error
+
+---
 
 ## 2xx - Successful
 
@@ -32,6 +37,7 @@ and codes in the 5xx range indicate an error with {{ site.project_name }}'s serv
 - __`400`__ => `36` => Response given if incorrect credentials are provided in the request (incorrent merchant info)
 - __`400`__ => `40` => Missing parameters
 - __`400`__ => `41` => MSISDN(phone no.) is in incorrect format
+- __`400`__ => `42` => Your PASSKEY, PAYBILL_NUMBER or environment variables may be incorrect
 
 ### Unauthorised
 
@@ -47,8 +53,10 @@ and codes in the 5xx range indicate an error with {{ site.project_name }}'s serv
 
 ### Conflict found
 
+- __`409`__ => `43` => Duplicate merchant transaction ID detected
 - __`409`__ => `35` => Response when a duplicate request is detected.
 - __`409`__ => `12` => Message returned when the transaction details are different from original captured request details.
+- __`409`__ => `99` => There\'s no recorded transaction associated with the transaction ID provided
 
 ---
 
