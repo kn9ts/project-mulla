@@ -37,10 +37,6 @@ module.exports = [{
   status_code: 400,
   message: 'Your PASSKEY, PAYBILL_NUMBER or environment variables may be incorrect',
 }, {
-  return_code: 99,
-  status_code: 400,
-  message: 'There\'s no recorded transaction associated with the transaction ID provided',
-}, {
   return_code: 32,
   status_code: 401,
   message: 'The merchant/paybill account in the request hasn’t been activated',
@@ -76,6 +72,10 @@ module.exports = [{
   return_code: 12,
   status_code: 409,
   message: 'The transaction details are different from original captured request details',
+}, {
+  return_code: 99,
+  status_code: 409,
+  message: 'There\'s no recorded transaction associated with the transaction ID provided',
 }, {
   return_code: 6,
   status_code: 503,
