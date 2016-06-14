@@ -23,7 +23,7 @@ This POST request from the MPESA G2 API will be processed and sent as a REST JSO
 
 ### An Example of the POST request
 
-For example, if your `MERCHANT_ENDPOINT` is `https://merchant-endpoint.com/mpesa/payment` then
+For example, if your `MERCHANT_ENDPOINT` is `https://merchant-endpoint.com/mpesa/payment/complete` then
 {{ site.project_name }} will make a `POST` request with the following JSON in the body. Since the
 body only accepts strings, the JSON has to serialized - stringified.
 
