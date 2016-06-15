@@ -1,7 +1,7 @@
 {
   "name": "project-mulla",
-  "version": "0.1.1",
-  "description": "Safaricom Mpesa SOAP API transpiler to REST API",
+  "version": "1.0.0",
+  "description": "Provides a REST interface for the Safaricom Mpesa SOAP API",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -16,8 +16,9 @@
     "url": "git+https://github.com/kn9ts/project-mulla.git"
   },
   "author": "Eugene Mutai",
-  "license": "MIT",
+  "license": "GNU LESSER GENERAL PUBLIC LICENSE",
   "bugs": {
+    "email": "eugenemutai@gmail.com",
     "url": "https://github.com/kn9ts/project-mulla/issues"
   },
   "homepage": "https://github.com/kn9ts/project-mulla#readme",

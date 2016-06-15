@@ -30,10 +30,10 @@ describe('paymentSuccess', () => {
   res.sendStatus = sinon.stub();
   const next = sinon.stub();
 
-  const response = {};
+  const response = { response: {} };
   for (const x of Object.keys(req.body)) {
     const prop = x.toLowerCase().replace(/\-/g, '');
-    response[prop] = req.body[x];
+    response.response[prop] = req.body[x];
   }
 
   let error = false;
