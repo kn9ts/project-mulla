@@ -33,7 +33,7 @@ env_variables:
 
 > __NOTE__: YAML files use `2 spaces` strictly as indentation
 
-Once you're done checking or creating the `app.yaml` file with your config, just run:
+Once you're done checking or creating the `app.yaml` file, just run:
 
 ```bash
 $ heroku local
@@ -44,18 +44,23 @@ $ heroku local
 
 ## Everything is good, push to Heroku
 
-Create an application instance in heroku:
+If your local testing went well, we can now move on to deploying to Heroku.
+
+Start by creating an application instance in heroku:
 
 ```bash
 $ heroku create [project-mulla-companyname]
 ```
 
-The `app.yaml` is only used locally. If {{ site.project_name }} fails to find it's required
-configurations in your app's Heroku global config vars it will crash. {{ site.project_name }}
-requires you to set this in Heroku since it treats Heroku's environment as a `production` one.
+> __PLEASE NOTE:__ The `app.yaml` is only used locally since you can not use the `heroku config` command to
+set local environment variables.
 
-Modify where required in the command below, then copy, paste and run in your command line/terminal
-to set the required environment variables in Heroku.
+If {{ site.project_name }} fails to find it's required configurations in your app's Heroku global
+config vars it will crash. {{ site.project_name }} requires you to set this in Heroku since it
+treats Heroku's environment as a `production` one thus an `app.yaml` file is not visible.
+
+Modify where required in the command below, then copy, paste and run the following command in your
+terminal to set the required environment variables in your Heroku server instance.
 
 ```bash
 # set required env config vars
@@ -91,7 +96,7 @@ checking the log trail consoled by your app in Heroku.
 $ heroku logs --tail
 ```
 
-Or running:
+Or by running and expecting back a JSON response consoled in the terminal:
 
 ```bash
 $ curl -i -X POST \

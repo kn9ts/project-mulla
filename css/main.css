@@ -16,8 +16,8 @@ body {
     margin: 0;
     overflow-x: hidden;
     padding: 0;
-    color: #3a3a3a;
-    background: #fefefe;
+    color: #BDBDBD;
+    background: #BDBDBD;
 }
 
 h1,
@@ -36,29 +36,29 @@ blockquote {
     font-family: "Asap", "Helvetica", san-serif;
 }
 
-nav {
-    color: #fefefe;
+nav.navbar {
+    color: #BDBDBD;
     font-weight: bold;
     font-family: "Asap", "Helvetica", san-serif;
     border-radius: 0;
 }
 
-nav li a {
-    color: #fefefe;
+nav.navbar li a {
+    color: #BDBDBD;
 }
 
-nav li a:hover {
-    color: #fefefe;
+nav.navbar li a:hover {
+    color: #F5F5F5;
     background-color: #388E3C !important;
 }
 
-nav .navbar-toggle {
-    border: 2px solid #fefefe;
+nav.navbar .navbar-toggle {
+    border: 2px solid #BDBDBD;
 }
 
-nav .navbar-toggle > span {
-    color: #fefefe;
-    background-color: #fefefe;
+nav.navbar .navbar-toggle > span {
+    color: #BDBDBD;
+    background-color: #BDBDBD;
 }
 
 .content hr {
@@ -125,10 +125,11 @@ section {
 
 .bg-green {
     background: #388E3C;
+    color: #F5F5F5;
 }
 
 .bg-black {
-    color: #f7f7f7;
+    color: #BDBDBD;
 }
 
 .pale-grey-bg {
@@ -139,7 +140,7 @@ section {
 .highlight,
 pre {
     background: #1D2328 !important;
-    color: #fefefe;
+    color: #BDBDBD;
     border: none;
     border-radius: 3px;
 }

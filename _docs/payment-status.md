@@ -6,12 +6,14 @@ navigation_weight: 8
 
 ## Check Payment Status
 
-To check the status of the payment transaction, you can make a `GET` request to the end point
+This step is to check where the payment process is at.
+
+To check the status of the payment, you can make a `GET` request to the end point
 `api/v1/payment/status/:trx_id` as follows:
 
 __`GET`__ __`https://project-mulla-companyname.herokuapp.com/api/v1/payment/status/:trx_id`__
 
-### Sample request using CURL in the command line/terminal:
+### Sample request using CURL:
 
 ```bash
 $ curl -i https://project-mulla-companyname.herokuapp.com/api/v1/payment/status/453c70c4b2434bd94bcbafb17518dc8e

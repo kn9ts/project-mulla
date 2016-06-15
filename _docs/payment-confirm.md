@@ -6,9 +6,12 @@ navigation_weight: 7
 
 ## Confirm Payment
 
-Once you have requested a payment, and recieved a response, you now are required to confirm to SAG
-to process and trigger a pop on your client's phone. You client will be required to key in his
-BONGA POINTS pin to complete the payment process.
+Once you have requested a payment, and recieved a response that it has been created, you now are
+required to confirm to SAG to process the payment requested. On confirmation it will trigger a pop
+on your client's phone. You client will be required to key in his __BONGA POINTS PIN__ to complete
+the payment process.
+
+> Yes! I'm also wondering why not just his/her MPESA PIN
 
 ### Confirm your payment request:
 
@@ -36,8 +39,8 @@ If all goes well you get HTTP status code **`200`** accompanied with the a simil
 }
 ```
 
-This accertains that the pop up has been triggered/pushed to the client's phone to complete his/her
-owed payment to you/the merchant.
+This response accertains that the pop up has been triggered/pushed to the client's phone to complete
+his/her owed payment to you/the merchant.
 
 <br />
 <img class="img-responsive" src="http://res.cloudinary.com/dpmk2cnpi/image/upload/c_scale,q_97,w_320/v1465975912/mpesa-api-ussd-pop-up_tcjsmi.jpg">

@@ -33,12 +33,12 @@ $ curl -i -X POST \
   --data 'clientLocation=Kilimani' \
 ```
 
-Or if you have [httpie](https://github.com/jkbrzt/httpie) installed:
+Or if you have [httpie](https://github.com/jkbrzt/httpie) installed, run:
 
 ```bash
 $ http POST localhost:8080/api/v1/payment/request \
-  phoneNumber=254723001575 \
-  totalAmount=10.00 \
+  phoneNumber='254723001575' \
+  totalAmount='10.00' \
   clientName='Eugene Mutai' \
   clientLocation='Kilimani'
 ```
@@ -72,3 +72,6 @@ set-cookie: connect.sid=s:iWfXH7rbAvXz7cYgmurhGTHDn0LNBmNt; Path=/; HttpOnly
   }
 }
 ```
+
+> __NOTE:__ [httpie](https://github.com/jkbrzt/httpie) returns a nice prettified response as the
+above

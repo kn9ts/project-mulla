@@ -9,11 +9,11 @@ navigation_weight: 6
 ## Request Payment
 
 This is initial step is to tell the SAG to initialise a payment you want to transact. After
-initialisation, you then make another request to the SAG as a confirmation signaling the SAG to
-process the payment request requested.
+initialisation, you then make another request to the SAG as a confirmation prompt signaling the
+SAG to process the payment request requested.
 
-Assuming **{{ site.project_name }}** is now your mediator, you'd now make a **POST request to
-{{ site.project_name }}**. _Not Safaricom_.
+Assuming __{{ site.project_name }}__ is now your mediator, you'd now make a __POST__ request to
+{{ site.project_name }}. _Not Safaricom_.
 
 See below how you'd make this initial request:
 
