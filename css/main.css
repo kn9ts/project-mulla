@@ -1,9 +1,9 @@
 @import url(colors.css);
-@import url(https://fonts.googleapis.com/css?family=Asap:400,700);
+@import url(https://fonts.googleapis.com/css?family=Amiko|Asap:400,700);
 @charset "utf-8";
 html {
     cursor: default;
-    font-family: 'Asap', sans-serif;
+    font-family: 'Amiko', sans-serif;
     margin: 0;
     overflow-x: hidden;
     padding: 0;
@@ -11,8 +11,8 @@ html {
 
 body {
     cursor: default;
-    font-family: 'Asap', sans-serif;
-    font-size: 1.5em;
+    font-family: 'Amiko', sans-serif;
+    font-size: 1.35em;
     margin: 0;
     overflow-x: hidden;
     padding: 0;
@@ -33,7 +33,7 @@ i,
 b,
 strong,
 blockquote {
-    font-family: "Asap", "Helvetica", san-serif;
+    font-family: "Amiko", "Helvetica", san-serif;
 }
 
 nav.navbar {
@@ -251,9 +251,13 @@ code.highlighter-rouge {
 .documentation .content h1,
 .documentation .content h2,
 .documentation .content h3,
-.documentation .content h4,
-footer {
+.documentation .content h4 {
     font-family: 'Asap', sans-serif;
+    color: #388E3C;
+}
+
+footer {
+    font-family: 'Amiko', sans-serif;
     color: #388E3C;
 }
 
