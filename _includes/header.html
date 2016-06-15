@@ -1,21 +1,20 @@
 <header class="site-header">
-    <nav style="border-radius: 0" class="navbar navbar-inverse">
+    <nav class="navbar bg-black">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" datta-toggle="collapsed" data-target="#header-1" aria-expanded="false" class="navbar-toggle collapsed">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-1" aria-expanded="false">
                     <span class="sr-only">Toggle Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="{{ site.url }}" class="navbar-brand">
-                    <!-- <img alt="Site logo" style="height: 100%; width: auto; vertical-align: middle" src="./public/images/logo.png"> -->
-                    {{ site.project_name }}
-                </a>
+                <a href="{{ site.baseurl }}" class="navbar-brand white">
+					{{ site.project_name }}
+				</a>
             </div>
             <div id="header-1" class="collapse navbar-collapse">
+                {% assign docs = site.docs | sort:"navigation_weight" %}
                 <ul class="nav navbar-nav navbar-right">
-                	{% assign docs = site.docs | sort:"navigation_weight" %}
                     <li><a href="{{ docs.first.url | prepend: site.baseurl }}">Documentation</a></li>
                     <li><a href="{{ site.project_url }}">Github Repo</a></li>
                 </ul>

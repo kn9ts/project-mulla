@@ -38,9 +38,8 @@ Your final `app.yaml` file should look something similar to this:
 ```yaml
 env_variables:
   PAYBILL_NUMBER: '898998'
-  PASSKEY: 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
-  CALLBACK_URL: 'http://awesome-service.com/mpesa/confirm-checkout.php'
-  CALLBACK_METHOD: 'POST'
+  PASSKEY: 'a8eac82d7ac1461ba0348b0cb24d3f8140d3afb9be864e56a10d7e8026eaed66'
+  MERCHANT_ENDPOINT: 'http://merchant-endpoint.com/mpesa/payment/complete'
 
 runtime: nodejs
 vm: true

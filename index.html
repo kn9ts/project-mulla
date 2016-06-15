@@ -3,20 +3,20 @@ layout: home
 title: Project Mulla
 ---
 
-<section class="content col-xs-12 text-center bg-white demo padding">
+<section class="demo diagram content col-xs-12 text-center bg-white padding">
     <div class="container">
         <h2><b>{{ site.project_name }}</b> as a solution to your SOAP problems.</h2>
     </div>
     <img class="img-responsive padding" src="./public/images/demo-wide.png">
 </section>
-<section class="content col-xs-12 bg-green white padding">
+<section class="summary content col-xs-12 bg-green white padding">
     <div class="container text-left padding">
         <p class="lead"><strong>{{ site.project_name }} is a MPESA API RESTful mediator</strong>. It lets you make familiar HTTP REST requests, <strong>transforming your requests</strong> to the fiddling dreaded SOAP/XML requests that the Safaricom MPESA G2 API only understands. It then communicates with the MPESA API gateway, transforming all SOAP responses from the SAG to <strong>RESTful JSON responses</strong> that you then consume effortlessly.
         </p>
         <blockquote>In short, it’ll deal with all of the SOAP shenanigans while you REST. Everybody wins!</blockquote>
     </div>
 </section>
-<section class="col-xs-12 bg-black white padding">
+<section class="quick-installation col-xs-12 bg-black white padding">
     <div class="container text-left">
         <div class="row">
             <div class="col-xs-12">
@@ -39,8 +39,9 @@ title: Project Mulla
                 </div>
             </div>
             <div class="col-xs-12">
+            	{% assign docs = site.docs | sort:"navigation_weight" %}
                 <p>{{ site.project_name }} is easily deployable to Heroku or Google App Engine in less than a minute.</p>
-                <p>Please refer to <a href="">installation and deploying</a> documentation for a complete guide to deploying it.</p>
+                <p>Please refer to <a href="{{ docs.first.url | prepend: site.baseurl }}">installation and deploying</a> documentation for a complete guide to deploying it.</p>
             </div>
             <div class="col-xs-12">
                 <h2>The Middleman</h2>

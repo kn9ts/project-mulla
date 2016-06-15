@@ -26,10 +26,9 @@ basic [custom configurations]({{ config[0].url | prepend: site.baseurl }}) varia
 
 ```yaml
 env_variables:
-  PAYBILL_NUMBER: '00000'
-  PASSKEY: 'ab8d88186735405ab8d59f968ed4dab891588186735405ab8d59asku8'
-  CALLBACK_URL: 'http://awesome-service.com/mpesa/confirm-checkout.php'
-  CALLBACK_METHOD: 'POST'
+  PAYBILL_NUMBER: '898998'
+  PASSKEY: 'a8eac82d7ac1461ba0348b0cb24d3f8140d3afb9be864e56a10d7e8026eaed66'
+  MERCHANT_ENDPOINT: 'http://merchant-endpoint.com/mpesa/payment/complete'
 ```
 
 > __NOTE__: YAML files use `2 spaces` strictly as indentation
@@ -61,10 +60,9 @@ to set the required environment variables in Heroku.
 ```bash
 # set required env config vars
 $ heroku config:set \
-PAYBILL_NUMBER='000000' \
-PASSKEY='ada798a925b5ec20cc331c1b0048c88186735405ab8d59f968ed4dab89da5515' \
-CALLBACK_URL='http://awesome-service.com/mpesa/confirm-checkout.php' \
-CALLBACK_METHOD='POST'
+PAYBILL_NUMBER='898998' \
+PASSKEY='a8eac82d7ac1461ba0348b0cb24d3f8140d3afb9be864e56a10d7e8026eaed66' \
+MERCHANT_ENDPOINT='http://merchant-endpoint.com/mpesa/payment/complete'
 ```
 
 ```bash

@@ -40,14 +40,25 @@ nav {
     color: #fefefe;
     font-weight: bold;
     font-family: "Asap", "Helvetica", san-serif;
+    border-radius: 0;
 }
 
-.navbar-nav li a {
+nav li a {
     color: #fefefe;
 }
 
-.navbar-nav li a:hover {
-    color: #388E3C
+nav li a:hover {
+    color: #fefefe;
+    background-color: #388E3C !important;
+}
+
+nav .navbar-toggle {
+    border: 2px solid #fefefe;
+}
+
+nav .navbar-toggle > span {
+    color: #fefefe;
+    background-color: #fefefe;
 }
 
 .content hr {
@@ -60,7 +71,12 @@ nav {
     padding: 0.5em 2em;
     border-radius: 0;
     border-width: 2px;
-    // border-color: #000000;
+}
+
+.btn-danger {
+    background-color: #c62828;
+    border-color: #b71c1c;
+    font-weight: bold;
 }
 
 .padding {

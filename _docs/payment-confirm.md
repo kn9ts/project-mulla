@@ -38,3 +38,6 @@ If all goes well you get HTTP status code **`200`** accompanied with the a simil
 
 This accertains that the pop up has been triggered/pushed to the client's phone to complete his/her
 owed payment to you/the merchant.
+
+<br />
+<img class="img-responsive" src="http://res.cloudinary.com/dpmk2cnpi/image/upload/c_scale,q_97,w_320/v1465975912/mpesa-api-ussd-pop-up_tcjsmi.jpg">

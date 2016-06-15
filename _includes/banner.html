@@ -6,6 +6,7 @@
 								<h3 class="black">The open-source REST interface layer for C2B MPESA G2 API</h3>
 								{%  if page.url == '/' %}
 								{% assign docs = site.docs | sort:"navigation_weight" %}
+								<br />
 								<p><a class="btn btn-danger btn-lg" href="{{ docs.first.url | prepend: site.baseurl }}" role="button">Get Started</a></p>
 								{% endif %}
 						</div>
