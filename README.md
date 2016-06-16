@@ -20,9 +20,9 @@ Developers should not go through the **trauma** involved with dealing with SOAP/
 
 ## Request Payment
 
-This is initial step is to tell the SAG to initialise a payment you want to transact. After
+This initial step is to tell the SAG to initialise a payment transaction for you. After
 initialisation, you then make another request to the SAG as a confirmation signaling the SAG to
-process the payment request requested.
+process the payment request.
 
 Assuming __Project Mulla__ is now your mediator, you'd now make a __POST__ request to
 __Project Mulla__. _Not the Safaricom Access Gateway_.
@@ -56,7 +56,7 @@ $ curl -i -X POST \
 
 ### Expected Response
 
-If all goes well you get HTTP status code __`200`__ accompanied with the a similar structured JSON response:
+If all goes well you get HTTP status code __`200`__ accompanied with a similar structured JSON response:
 
 ```json
 {
@@ -80,12 +80,11 @@ If all goes well you get HTTP status code __`200`__ accompanied with the a simil
 ## Next step: confirmation
 
 You are to use `trx_id` or `merchant_transaction_id` to make the confirmation payment
-request. The confirmation request is the request the payment requested above to be processed and
-triggers a pop up on the your client's mobile phone.
+request. The confirmation request is to authorize the SAG to process the payment request. On confirmation, it
+triggers a pop up on your client's mobile phone to complete the payment.
 
 [Find the complete documentation here](http://kn9ts.github.io/project-mulla/docs)
 
-# Installation & Testing
 
 # Installation
 
@@ -107,7 +106,7 @@ $ sudo npm update -g npm
 
 ---
 
-## Install with Github
+## Install through Github
 
 Best way to install Project Mulla is to clone it from Github
 
@@ -131,12 +130,12 @@ $ npm install
 
 __Create `app.yaml` configurations file__
 
-The last but not least step is creating a `app.yaml` file with your configurations in the root 
+The last but not the least step is to create a `app.yaml` file with your configurations in the root
 directory of `project-mulla`.
 
-This is the same folder estate where `index.js` can be found.
+This is the same folder directory where `index.js` can be found.
 
-It should look like the example below, only with your specific config values:
+Your `app.yaml` should look like the example below, only with your specific configuration values:
 
 ```yaml
 env_variables:
@@ -157,9 +156,11 @@ skip_files:
 
 *__NOTE:__ The details above only serve as examples*
 
+# Testing
+
 ## It's now ready to launch
 
-1st run the command `npm test` in the console and see if everything is all good. Then run:
+First run the command `npm test` on your terminal and see if everything is all good. Then run:
 
 ```bash
 $ npm start
