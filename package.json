@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/kn9ts/project-mulla.git"
   },
-  "author": "Eugene Mutai",
+  "author": "Eugene Mutai <eugenemutai@gmail.com> (http://twitter.com/kn9ts)",
   "license": "GNU LESSER GENERAL PUBLIC LICENSE",
   "bugs": {
     "email": "eugenemutai@gmail.com",
@@ -38,6 +38,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "babel-eslint": "^6.0.4",
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "eslint": "^2.10.2",

@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 describe('environment.js', () => {
   it('Should load default environment vars if environment stage is not defined', () => {
-    let envMembers = [
+    const envMembers = [
       'API_VERSION',
       'ENDPOINT',
       'SESSION_SECRET_KEY',
@@ -14,7 +14,7 @@ describe('environment.js', () => {
       'PASSKEY',
     ];
     // should have 'MERCHANT_ENDPOINT' if env is not 'development'
-    if (process.env.NODE_ENV !== 'development') envMembers.push('MERCHANT_ENDPOINT')
+    if (process.env.NODE_ENV !== 'development') envMembers.push('MERCHANT_ENDPOINT');
     expect(Object.keys(process.env)).to.include.members(envMembers);
   });
 });
