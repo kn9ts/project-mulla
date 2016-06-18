@@ -31,6 +31,15 @@ _Body Parameters_:
 > __NOTE:__ If `merchantTransactionID` or `referenceID` are not provided a time-based and random
 UUID is generated for each respectively.
 
+### Extra Body Parameters
+
+Any extra **body parameters of the POST request** that is not part of the mandatory request
+parameters will be considered to be **extra payload** and concatenated into one object before being
+serialized and added as the `ENC_PARAMS` SOAP parameter.
+
+It will then eventually be sent back to you as a BASE64 string through the **payment notification
+POST request** made to your provided `MERCHANT_ENDPOINT`.
+
 ### Sample request using CURL in the command line/terminal:
 
 ```bash
@@ -59,10 +68,14 @@ If all goes well you get HTTP status code **`200`** accompanied with the a simil
     "merchant_transaction_id": "95d64500-2514-11e6-bcb8-a7f8e1c786c4",
     "amount_in_double_float": "45.00",
     "client_phone_number": "254723001575",
-    "extra_payload": {},
+    "extra_payload": {
+      "clientName": "Eugene Mutai",
+      "clientLocation": "Kilimani"
+    },
     "time_stamp": "20160528234142"
   }
 }
+
 ```
 
 ## Next step: confirmation

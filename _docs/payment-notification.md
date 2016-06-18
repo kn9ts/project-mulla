@@ -15,8 +15,9 @@ following the pop up instructions, a payment notification in form of a `POST` re
 ---
 
 How this happens is {{ site.project_name }} provide it's own `CALLBACK_URL` when making the
-initialisation __Payment Request__. On a successful payment confirmation from the Merchant's client.
-The MPESA G2 API will make a `HTTP POST` request to the given {{ site.project_name }} `CALLBACK_URL`.
+initialisation __Payment Request__. On a successful payment confirmation from the Merchant's client,
+the MPESA G2 API will make a `HTTP POST` request to {{ site.project_name }} as a success notification
+of the requested payment.
 
 This POST request from the MPESA G2 API will be processed and {{ site.project_name }} will invoke a
 `POST` request to the `MERCHANT_ENDPOINT` you configured when deploying {{ site.project_name }} with
@@ -24,11 +25,20 @@ the JSON payload - serialized - in the POST body.
 
 ---
 
-### An Example of the POST request
+### An Example of the MPESA G2 API POST request
 
 For example, if your `MERCHANT_ENDPOINT` is `https://merchant-endpoint.com/mpesa/payment/complete`
 then {{ site.project_name }} will make a `POST` request with the following JSON payload in the body.
 Since the POST body only accepts strings, the JSON has to serialized - stringified.
+
+#### Our extra payload
+
+All the `extra_payload` provided when initialisation a payment request is usually sent back as a
+BASE64 encrypted string value of the `ENC_PARAMS`. {{ site.project_name }} will decrypt this and
+attach it to the POST request JSON payload as an object before all the payload is serialized to a
+string.
+
+#### The completion request made by {{ site.project_name }} to Merchant's endpoint
 
 `POST` `https://merchant-endpoint.com/mpesa/payment`
 
@@ -51,7 +61,12 @@ How the JSON looks like __before serialization and after unserialization__:
     "return_code": "00",
     "description": "success",
     "merchant_transaction_id": "320903",
-    "trx_id": "ds9d7f98asf809d8f9098sa098f9008f8"
+    "trx_id": "ds9d7f98asf809d8f9098sa098f9008f8",
+    "extra_payload": {
+      "clientName": "Eugene Mutai",
+      "clientLocation": "Kilimani",
+      "delivery": "false"
+    }
   }
 }
 ```
