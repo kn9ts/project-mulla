@@ -1,6 +1,7 @@
 'use strict';
 
 const request = require('request');
+const statusCodes = require('../config/statusCodes');
 
 class PaymentSuccess {
   constructor() {
@@ -28,8 +29,16 @@ class PaymentSuccess {
 
     if ('enc_params' in response) {
       // decrypted encrypted extra parameters provided in ENC_PARAMS
-      response.enc_params = JSON.parse(new Buffer(response.enc_params, 'base64').toString());
+      response.extra_payload = JSON.parse(new Buffer(response.enc_params, 'base64').toString());
+      delete response.enc_params;
     }
+
+    const extractCode = statusCodes
+      .find(stc => stc.return_code === parseInt(response.return_code, 10));
+    Object.assign(response, extractCode);
+
+    console.log('PAYMENT NOTIFICATON from SAG');
+    console.log({ response });
 
     const requestParams = {
       method: 'POST',

@@ -30,10 +30,10 @@ describe('paymentSuccess', () => {
   res.sendStatus = sinon.stub();
   const next = sinon.stub();
 
-  const response = { response: {} };
+  const response = {};
   for (const x of Object.keys(req.body)) {
     const prop = x.toLowerCase().replace(/\-/g, '');
-    response.response[prop] = req.body[x];
+    response[prop] = req.body[x];
   }
 
   let error = false;
@@ -47,16 +47,27 @@ describe('paymentSuccess', () => {
 
     const spyCall = paymentSuccess.request.getCall(0);
     const args = spyCall.args[0];
-
-    // convert the args.body.response.enc_params to base64
     const argsResponseBody = JSON.parse(args.body);
-    const encParamsObject = JSON.stringify(argsResponseBody.response.enc_params)
-    argsResponseBody.response.enc_params = new Buffer(encParamsObject).toString('base64');
 
     assert.isTrue(res.sendStatus.calledWithExactly(200));
     assert.isTrue(paymentSuccess.request.called);
     assert.isFalse(next.called);
-    expect(response.response).to.deep.equal(argsResponseBody.response);
+    assert.sameMembers(Object.keys(argsResponseBody.response), [
+      'amount',
+      'description',
+      'extra_payload',
+      'merchant_transaction_id',
+      'message',
+      'mpesa_trx_date',
+      'mpesa_trx_id',
+      'msisdn',
+      'password',
+      'return_code',
+      'status_code',
+      'trx_id',
+      'trx_status',
+      'username'
+    ]);
   });
 
   it('If MERCHANT_ENDPOINT is not provided, next is passed an error', () => {
