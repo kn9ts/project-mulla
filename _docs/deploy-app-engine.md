@@ -77,7 +77,7 @@ configurations variables and the app is running smoothly locally, deploy to App 
 the following command:
 
 ```bash
-$ gclould preview deploy app
+$ gcloud preview deploy app
 ```
 
 > Yes! It's that easy.
