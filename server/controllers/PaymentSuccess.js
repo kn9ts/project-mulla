@@ -8,7 +8,6 @@ class PaymentSuccess {
   }
 
   handler(req, res, next) {
-    const keys = Object.keys(req.body);
     const response = {};
     const baseURL = `${req.protocol}://${req.hostname}:${process.env.PORT || 8080}`;
     let endpoint = `${baseURL}/api/v1/thumbs/up`;
@@ -22,9 +21,14 @@ class PaymentSuccess {
       }
     }
 
-    for (const x of keys) {
-      const prop = x.toLowerCase().replace(/\-/g, '');
-      response[prop] = req.body[x];
+    for (const key of Object.keys(req.body)) {
+      const prop = key.toLowerCase().replace(/\-/g, '');
+      response[prop] = req.body[key];
+    }
+
+    if ('enc_params' in response) {
+      // decrypted encrypted extra parameters provided in ENC_PARAMS
+      response.enc_params = JSON.parse(new Buffer(response.enc_params, 'base64').toString());
     }
 
     const requestParams = {

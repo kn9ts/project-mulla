@@ -12,6 +12,7 @@ npm-debug.log
 .sass-cache
 _site
 app.yaml
+.coveralls.yml
 
 ### Added by loopback framework
 *.csv

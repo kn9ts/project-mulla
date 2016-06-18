@@ -24,7 +24,7 @@ describe('paymentSuccess', () => {
     'M-PESA_TRX_DATE': '2014-08-01 15:30:00',
     'M-PESA_TRX_ID': 'FG232FT0',
     TRX_ID: '1448',
-    ENC_PARAMS: '{}',
+    ENC_PARAMS: new Buffer('{}').toString('base64'),
   };
   const res = {};
   res.sendStatus = sinon.stub();
@@ -42,16 +42,21 @@ describe('paymentSuccess', () => {
   });
 
   it('Make a request to MERCHANT_ENDPOINT and respond to SAG with OK', () => {
-    process.env.MERCHANT_ENDPOINT = 'https://awesome-service.com/mpesa/callback';
+    process.env.MERCHANT_ENDPOINT = 'https://merchant-endpoint.com/mpesa/payment/complete';
     paymentSuccess.handler(req, res, next);
 
     const spyCall = paymentSuccess.request.getCall(0);
     const args = spyCall.args[0];
 
+    // convert the args.body.response.enc_params to base64
+    const argsResponseBody = JSON.parse(args.body);
+    const encParamsObject = JSON.stringify(argsResponseBody.response.enc_params)
+    argsResponseBody.response.enc_params = new Buffer(encParamsObject).toString('base64');
+
     assert.isTrue(res.sendStatus.calledWithExactly(200));
     assert.isTrue(paymentSuccess.request.called);
     assert.isFalse(next.called);
-    expect(response).to.deep.equal(JSON.parse(args.body));
+    expect(response.response).to.deep.equal(argsResponseBody.response);
   });
 
   it('If MERCHANT_ENDPOINT is not provided, next is passed an error', () => {
@@ -67,7 +72,7 @@ describe('paymentSuccess', () => {
     assert.isTrue(args instanceof Error);
   });
 
-  it('If ENDPOINT is not reachable, an error reponse is sent back', () => {
+  it('If MERCHANT_ENDPOINT is not reachable, an error response is sent back', () => {
     process.env.MERCHANT_ENDPOINT = 'https://undefined-url';
     error = new Error('ENDPOINT not reachable');
     paymentSuccess.handler(req, res, next);
