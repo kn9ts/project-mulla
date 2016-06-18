@@ -12,7 +12,5 @@ module.exports = class GenEncryptedPassword {
     const hash = crypto.createHash('sha256');
     this.hashedPassword = hash.update(concatenatedString).digest('hex'); // or 'binary'
     this.hashedPassword = new Buffer(this.hashedPassword).toString('base64');
-    // this.hashedPassword = this.hashedPassword.toUpperCase();
-    // console.log('hashedPassword ==> ', this.hashedPassword);
   }
 };
