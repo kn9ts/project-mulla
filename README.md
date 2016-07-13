@@ -172,6 +172,21 @@ Your secret session key is: 5f06b1f1-1bff-470d-8198-9ca2f18919c5
 Express server listening on 8080, in development mode
 ```
 
+## Docker Container
+You may as well just run Project Mulla as a docker container. No need for all the installation if you already have docker installed or you are familiar with containers,
+or better yet, you just want to run Project Mulla as a microservice.
+
+Once you have cloned the repo, got into the project-mulla directory and created your **app.yaml** file as described above, make sure your docker daemon is running and build project-mulla into a container
+```
+$ docker build -t project-mulla:1.0 .
+```
+
+The build is based on the included Dockerfile, so port 8080 is exposed. Run the container in detached mode
+```
+$ docker run -d project-mulla:1.0
+```
+It's up n running. You can go ahead and do the test run below now.
+
 ## Do a test run
 
 Now make a test run using **CURL**:
