@@ -172,7 +172,7 @@ Your secret session key is: 5f06b1f1-1bff-470d-8198-9ca2f18919c5
 Express server listening on 8080, in development mode
 ```
 
-## Docker Container
+## Install through Docker
 You may as well just run Project Mulla as a docker container. No need for all the installation if you already have docker installed or you are familiar with containers,
 or better yet, you just want to run Project Mulla as a microservice.
 
