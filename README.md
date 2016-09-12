@@ -1,7 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/kn9ts/project-mulla/badge.svg?branch=master)](https://coveralls.io/github/kn9ts/project-mulla?branch=master)
 [![Build Status](https://semaphoreci.com/api/v1/kn9ts/project-mulla/branches/master/badge.svg)](https://semaphoreci.com/kn9ts/project-mulla)
 
-![](http://cdn.javascript.co.ke/images/banner.png)
+![](http://res.cloudinary.com/dpmk2cnpi/image/upload/v1463934821/banner_vj7z5u.png)
 
 > __What MPESA G2 API should have been in the 21st century.__
 
