@@ -40,9 +40,7 @@ module.exports = class ParseResponse {
 
     // Get the children tagName and its values
     $(this.bodyTagName).children().each((i, el) => {
-      // if (el.children.length > 1) return;
       if (el.children.length === 1) {
-        // console.log(el.name, el.children[0].data);
         let value = el.children[0].data.replace(/\s{2,}/gi, ' ');
         value = value.replace(/\n/gi, '').trim();
         this.json[el.name] = value;

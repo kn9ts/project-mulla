@@ -1,6 +1,7 @@
 'use strict';
 // ucFirst (typeof String):
 // returns String with first character uppercased
+
 module.exports = (string) => {
   const word = string;
   let ucFirstWord = '';
