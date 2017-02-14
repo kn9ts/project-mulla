@@ -1,4 +1,5 @@
 'use strict';
+
 const cheerio = require('cheerio');
 const statusCodes = require('../config/statusCodes');
 
