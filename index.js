@@ -25,10 +25,6 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-// not using express less
-// app.use(require('less-middleware')(path.join(__dirname, 'server/public')));
 app.use(express.static(path.join(__dirname, './server/public')));
 
 // memory based session
@@ -43,7 +39,7 @@ app.use(session({
 app.use(`/api/v${apiVersion}/payment*`, genTransactionPassword);
 
 // get an instance of the router for api routes
-const router = express.Router();
+const router = express.Router(); // eslint-disable-line new-cap
 app.use(`/api/v${apiVersion}`, routes(router));
 
 app.all('/*', (req, res) => {
@@ -60,7 +56,7 @@ app.use((req, res, next) => {
 // error handlers
 app.use((err, req, res, next) => {
   if (typeof err === 'undefined') next();
-  console.log('An error occured: ', err.message);
+  console.error('An error occured: ', err.message); // eslint-disable-line no-console
   const errorResponse = {
     status_code: err.statusCode,
     request_url: req.originalUrl,
@@ -80,9 +76,8 @@ app.use((err, req, res, next) => {
 });
 
 const server = app.listen(process.env.PORT || 8080, () => {
-  console.log('Your secret session key is: ' + process.env.SESSION_SECRET_KEY);
-  console.log('Express server listening on %d, in %s' +
-    ' mode', server.address().port, app.get('env'));
+  console.log('Your secret session key is: ' + process.env.SESSION_SECRET_KEY); // eslint-disable-line no-console
+  console.log('Express server listening on %d, in %s mode', server.address().port, app.get('env')); // eslint-disable-line no-console
 });
 
 // expose app

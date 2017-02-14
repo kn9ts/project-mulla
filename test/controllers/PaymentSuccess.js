@@ -3,7 +3,6 @@
 require('../../environment');
 const chai = require('chai');
 const assert = chai.assert;
-const expect = chai.expect;
 const sinon = require('sinon');
 
 const paymentSuccess = require('../../server/controllers/PaymentSuccess');
@@ -66,7 +65,7 @@ describe('paymentSuccess', () => {
       'status_code',
       'trx_id',
       'trx_status',
-      'username'
+      'username',
     ]);
   });
 
@@ -75,7 +74,6 @@ describe('paymentSuccess', () => {
     process.env.NODE_ENV = 'production';
     paymentSuccess.handler(req, res, next);
 
-    console.log(next.args);
     const spyCall = next.getCall(0);
     const args = spyCall.args[0];
 
