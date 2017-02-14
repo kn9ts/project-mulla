@@ -2,7 +2,6 @@
 
 const ParseResponse = require('../utils/ParseResponse');
 const SOAPRequest = require('../utils/SOAPRequest');
-const responseError = require('../utils/errors/responseError');
 
 const parseResponse = new ParseResponse('transactionconfirmresponse');
 const soapRequest = new SOAPRequest();
@@ -36,19 +35,17 @@ class ConfirmPayment {
     return this;
   }
 
-  handler(req, res) {
+  handler(params) {
     const paymentDetails = {
-      transactionID: req.params.id, // eg. '99d0b1c0237b70f3dc63f36232b9984c'
-      timeStamp: req.timeStamp,
-      encryptedPassword: req.encryptedPassword,
+      transactionID: params.transactionID, // eg. '99d0b1c0237b70f3dc63f36232b9984c'
+      timeStamp: params.timeStamp,
+      encryptedPassword: params.encryptedPassword,
     };
     const payment = this.buildSoapBody(paymentDetails);
     const confirm = this.soapRequest.construct(payment, this.parser);
 
     // process ConfirmPayment response
-    return confirm.post()
-      .then(response => res.status(200).json({ response }))
-      .catch(error => responseError(error, res));
+    return confirm.post();
   }
 }
 

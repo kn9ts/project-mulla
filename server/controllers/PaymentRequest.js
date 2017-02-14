@@ -1,6 +1,9 @@
 'use strict';
 
 const uuid = require('node-uuid');
+
+const ConfirmPayment = require('../controllers/ConfirmPayment');
+
 const ParseResponse = require('../utils/ParseResponse');
 const SOAPRequest = require('../utils/SOAPRequest');
 const responseError = require('../utils/errors/responseError');
@@ -50,7 +53,7 @@ class PaymentRequest {
       merchantTransactionID: (req.body.merchantTransactionID || uuid.v1()),
       amountInDoubleFloat: req.body.totalAmount,
       clientPhoneNumber: req.body.phoneNumber,
-      extraPayload: req.body.extraPayload,
+      extraPayload: (req.body.extraPayload || {}),
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword,
       callbackURL: `${req.protocol}://${req.hostname}/api/v${process.env.API_VERSION}/payment/success`,
@@ -70,11 +73,21 @@ class PaymentRequest {
       delete paymentDetails[key];
     }
 
-    // make the payment requets and process response
+    let finalResponse;
     return request.post()
-      .then(response => res.status(200).json({
-        response: Object.assign({}, response, returnThesePaymentDetails),
-      }))
+      .then(response => {
+        finalResponse = {
+          response: Object.assign({}, response, returnThesePaymentDetails),
+        };
+
+        const params = {
+          transactionID: response.trx_id,
+          timeStamp: req.timeStamp,
+          encryptedPassword: req.encryptedPassword,
+        };
+        return ConfirmPayment.handler(params);
+      })
+      .then(() => res.status(200).json(finalResponse))
       .catch(error => responseError(error, res));
   }
 }

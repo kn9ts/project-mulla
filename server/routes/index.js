@@ -1,19 +1,18 @@
 'use strict';
 
 const PaymentRequest = require('../controllers/PaymentRequest');
-const ConfirmPayment = require('../controllers/ConfirmPayment');
 const PaymentStatus = require('../controllers/PaymentStatus');
 const PaymentSuccess = require('../controllers/PaymentSuccess');
 const checkForRequiredParams = require('../validators/checkForRequiredParams');
 
 
 module.exports = (router) => {
+  const paymentRequestHandler = (req, res) => PaymentRequest.handler(req, res);
+
   // check the status of the API system
   router.get('/status', (req, res) => res.json({ status: 200 }));
 
-  const requestPaymentHandler = (req, res) => PaymentRequest.handler(req, res);
-  router.post('/payment/request', checkForRequiredParams, requestPaymentHandler);
-  router.get('/payment/confirm/:id', (req, res) => ConfirmPayment.handler(req, res));
+  router.post('/payment/request', checkForRequiredParams, paymentRequestHandler);
   router.get('/payment/status/:id', (req, res) => PaymentStatus.handler(req, res));
   router.all('/payment/success', (req, res) => PaymentSuccess.handler(req, res));
 
