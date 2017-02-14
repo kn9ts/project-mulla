@@ -28,7 +28,7 @@ describe('paymentRequest', () => {
 
   const req = {};
   req.protocol = 'https';
-  req.hostname = 'sillyhostname.com';
+  req.hostname = 'projectmullahostname.com';
   req.timeStamp = timeStamp;
   req.encryptedPassword = encryptedPassword;
   req.body = {
@@ -93,7 +93,8 @@ describe('paymentRequest', () => {
 
     const spyCall = res.json.getCall(0);
     assert.isObject(spyCall.args[0]);
-    assert.sameMembers(Object.keys(spyCall.args[0].response), [
+    console.log(spyCall.args[0]);
+    assert.includeMembers(Object.keys(spyCall.args[0].response), [
       'status_code',
       'reference_id',
       'merchant_transaction_id',

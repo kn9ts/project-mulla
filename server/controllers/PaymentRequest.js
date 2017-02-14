@@ -87,7 +87,10 @@ class PaymentRequest {
         };
         return ConfirmPayment.handler(params);
       })
-      .then(() => res.status(200).json(finalResponse))
+      .then((response) => {
+        Object.assign(finalResponse.response, response);
+        return res.status(200).json(finalResponse);
+      })
       .catch(error => responseError(error, res));
   }
 }
