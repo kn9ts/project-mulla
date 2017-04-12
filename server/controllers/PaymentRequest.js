@@ -53,7 +53,7 @@ class PaymentRequest {
       extraPayload: req.body.extraPayload,
       timeStamp: req.timeStamp,
       encryptedPassword: req.encryptedPassword,
-      callbackURL: `${req.protocol}://${req.hostname}/api/v${process.env.API_VERSION}/payment/success`,
+      callbackURL: `${req.protocol}://${req.hostname}:8080/api/v${process.env.API_VERSION}/payment/success`,
     };
 
     const payment = this.buildSoapBody(paymentDetails);
