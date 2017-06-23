@@ -12,11 +12,14 @@
 
 The aim of **Project Mulla** is to create a REST API middleman that interfaces with the **MPESA G2 API** for you.
 
-### Yes We Know! SOAP! Yuck!
+# Important: Update 23-06-2017
 
-Developers should not go through the **trauma** involved with dealing with SOAP/XML in the 21st century.
+When one now pings the endpoint `/payment/request` it initializes the payment and on response confirms the payment by also hitting the endpoint `payment/confirm` automatically
 
-# Example of how it works
+This means you no longer have to make a second call to Project Mulla to confirm the payment thus hitting up the user's phone with the USSD prompt. One call to `payment/request` should handle this automatically.
+
+
+# Instructions
 
 ## Request Payment
 
