@@ -8,7 +8,10 @@ const moment = require('moment');
 const uuid = require('node-uuid');
 
 const paymentRequest = require('../../server/controllers/PaymentRequest');
+const confirmPayment = require('../../server/controllers/ConfirmPayment');
 const GenEncryptedPassword = require('../../server/utils/GenEncryptedPassword');
+
+process.env.API_VERSION = '1';
 
 describe('paymentRequest', () => {
   const timeStamp = moment().format('YYYYMMDDHHmmss');
@@ -24,6 +27,8 @@ describe('paymentRequest', () => {
   };
 
   const req = {};
+  req.protocol = 'https';
+  req.hostname = 'projectmullahostname.com';
   req.timeStamp = timeStamp;
   req.encryptedPassword = encryptedPassword;
   req.body = {
@@ -37,9 +42,7 @@ describe('paymentRequest', () => {
   res.json = sinon.stub();
 
   const response = { status_code: 200 };
-  const promise = new Promise((resolve) => {
-    resolve(response);
-  });
+  const promise = new Promise((resolve) => { resolve(response); });
 
   sinon.stub(promise, 'then', (callback) => {
     callback(response);
@@ -51,9 +54,18 @@ describe('paymentRequest', () => {
     return promise;
   });
 
+  beforeEach(() => {
+    promise.then.reset();
+    promise.catch.reset();
+  });
+
   paymentRequest.parser = sinon.stub().returnsThis();
   paymentRequest.soapRequest.construct = sinon.stub().returnsThis();
   paymentRequest.soapRequest.post = sinon.stub().returns(promise);
+
+  confirmPayment.parser = sinon.stub().returnsThis();
+  confirmPayment.soapRequest.construct = sinon.stub().returnsThis();
+  confirmPayment.soapRequest.post = sinon.stub().returns(promise);
 
   it('BuildSoapBody builds the soap body string', () => {
     paymentRequest.buildSoapBody(params);
@@ -63,6 +75,7 @@ describe('paymentRequest', () => {
   });
 
   it('Makes a SOAP request and returns a promise', () => {
+    sinon.spy(confirmPayment, 'handler');
     paymentRequest.buildSoapBody = sinon.stub();
     paymentRequest.handler(req, res);
 
@@ -70,14 +83,18 @@ describe('paymentRequest', () => {
     assert.isTrue(paymentRequest.soapRequest.construct.called);
     assert.isTrue(paymentRequest.soapRequest.post.called);
 
-    assert.isTrue(promise.then.called);
+    assert.isTrue(confirmPayment.buildSoapBody.called);
+    assert.isTrue(confirmPayment.soapRequest.construct.called);
+    assert.isTrue(confirmPayment.soapRequest.post.called);
+
+    assert.isTrue(promise.then.calledTwice);
+    assert.isTrue(confirmPayment.handler.calledOnce);
     assert.isTrue(promise.catch.called);
-    assert.isTrue(res.status.calledWithExactly(200));
-    assert.isTrue(res.json.called);
 
     const spyCall = res.json.getCall(0);
     assert.isObject(spyCall.args[0]);
-    assert.sameMembers(Object.keys(spyCall.args[0].response), [
+    console.log(spyCall.args[0]);
+    assert.includeMembers(Object.keys(spyCall.args[0].response), [
       'status_code',
       'reference_id',
       'merchant_transaction_id',

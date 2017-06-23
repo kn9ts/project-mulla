@@ -9,9 +9,7 @@
     "develop": "nodemon -w ./server -w index.js -w environment.js --exec npm start",
     "lint": "eslint --fix ./server ./test",
     "monitor": "nodemon index.js",
-    "start": "node index.js",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -63,6 +61,5 @@
   "engines": {
     "node": "^4.3.2",
     "npm": "^3.9.5"
-  },
-  "snyk": true
+  }
 }

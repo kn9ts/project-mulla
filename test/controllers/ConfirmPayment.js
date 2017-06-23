@@ -45,6 +45,11 @@ describe('confirmPayment', () => {
     return promise;
   });
 
+  beforeEach(() => {
+    promise.then.reset();
+    promise.catch.reset();
+  });
+
   confirmPayment.parser = sinon.stub().returnsThis();
   confirmPayment.soapRequest.construct = sinon.stub().returnsThis();
   confirmPayment.soapRequest.post = sinon.stub().returns(promise);
@@ -71,21 +76,14 @@ describe('confirmPayment', () => {
 
   it('Makes a SOAP request and returns a promise', () => {
     confirmPayment.buildSoapBody = sinon.stub();
+    // const confirmPaymentHandler = sinon.spy(confirmPayment, 'handler');
     confirmPayment.handler(req, res);
 
     assert.isTrue(confirmPayment.buildSoapBody.called);
     assert.isTrue(confirmPayment.soapRequest.construct.called);
     assert.isTrue(confirmPayment.soapRequest.post.called);
 
-    assert.isTrue(promise.then.called);
-    assert.isTrue(promise.catch.called);
-    assert.isTrue(res.status.calledWithExactly(200));
-    assert.isTrue(res.json.called);
-
-    const spyCall = res.json.getCall(0);
-    assert.isObject(spyCall.args[0]);
-    assert.sameMembers(Object.keys(spyCall.args[0].response), [
-      'status_code',
-    ]);
+    assert.isFalse(promise.then.called);
+    assert.isFalse(promise.catch.called);
   });
 });
