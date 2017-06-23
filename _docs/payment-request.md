@@ -83,3 +83,9 @@ If all goes well you get HTTP status code **`200`** accompanied with the a simil
 You are to use `trx_id` or `merchant_transaction_id` to make the confirmation payment
 request. The confirmation request is the request the payment requested above to be processed and
 triggers a pop up on the your client's mobile phone.
+
+### Please Note: as of an update made on 23-07-2017, confirmation has been deprecated, here's why?
+
+When one now pings the endpoint /payment/request it initializes the payment and when Safaricom responds with a HTTP status 200 and a payload, Project Mulla now automatically confirms the payment by also hitting the endpoint payment/confirm
+
+This means you no longer have to make a second call to Project Mulla to confirm the payment thus hitting up the user's phone with the USSD prompt. One call to payment/request should handle this automatically.
