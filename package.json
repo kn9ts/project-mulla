@@ -34,7 +34,7 @@
     "jade": "~1.11.0",
     "js-yaml": "^3.6.1",
     "moment": "^2.13.0",
-    "morgan": "~1.6.1",
+    "morgan": "~1.8.2",
     "node-uuid": "^1.4.7",
     "request": "^2.72.0",
     "serve-favicon": "~2.3.0",
